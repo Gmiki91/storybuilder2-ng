@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -10,9 +12,6 @@ import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DailyComponent } from './daily/daily.component';
-import { FormsModule } from '@angular/forms';
-import { AuthenticationService } from './authentication/authentication.service';
-import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 
 @NgModule({
   declarations: [

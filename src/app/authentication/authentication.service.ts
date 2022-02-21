@@ -8,18 +8,24 @@ import { User } from "../models/user";
 @Injectable({
     providedIn: 'root'
 })
+
 export class AuthenticationService {
     userName = new BehaviorSubject<string>('');
     constructor(private http: HttpClient, private router: Router) {
     }
 
     login(userInput: string, password: string): void {
-        this.http.post<{ token: string, user: User }>(`${environment.url}/users/login`, { userInput, password })
+        this.http.post<{ token: string, user:User}>(`${environment.url}/users/login`, { userInput, password })
             .subscribe(result => {
                 localStorage.setItem('access_token', result.token);
-
+                this.userName.next(result.user.name)
                 this.router.navigate(['/']);
             })
+    }
+    logout():void{
+        localStorage.removeItem('access_token');
+        this.userName.next('')
+        this.router.navigate(['/login']);
     }
 
     isLoggedIn(): boolean {

@@ -10,8 +10,8 @@ import { AuthenticationService } from '../authentication/authentication.service'
 export class HeaderComponent implements OnInit {
 
   userName$: Observable<string> | undefined;
-  constructor(private authentication: AuthenticationService) {
-  }
+
+  constructor(private authentication: AuthenticationService) {}
 
   ngOnInit(): void {
     this.userName$ = this.authentication.getUserName();
