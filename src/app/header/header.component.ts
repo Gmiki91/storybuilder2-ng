@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  loggedIn:boolean
-  constructor() {
-    this.loggedIn = true;
-   }
+  userName$: Observable<string> | undefined;
+  constructor(private authentication: AuthenticationService) {
+  }
 
   ngOnInit(): void {
-    
+    this.userName$ = this.authentication.getUserName();
+    if (this.authentication.isLoggedIn())
+      this.authentication.refreshLoggedInUser();
   }
 
 }
