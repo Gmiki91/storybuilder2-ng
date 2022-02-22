@@ -5,7 +5,7 @@ import { Story } from "../models/story";
 import { environment } from '../../environments/environment';
 import * as moment from "moment";
 
-
+export type Sort =  'title' | 'updatedAt' | 'rating';
 type SearchCriteria = {
     storyName: string,
     from: string,
@@ -19,9 +19,6 @@ const defaultSearchCriteria = {
     languages: [],
     levels: [],
     open: 'both',
-    searchTitle: '',
-    sortBy: 'title',
-    sortDirection: 1
 }
 
 @Injectable({
@@ -30,14 +27,14 @@ const defaultSearchCriteria = {
 export class StoryService {
     storyList = new BehaviorSubject<Story[]>([])
     searchCriteria: SearchCriteria = defaultSearchCriteria;
-    sortBy: 'title' | 'updatedAt' | 'rating' = 'title';
+    sortBy: Sort = 'title';
     sortDirection: 1 | -1 = 1;
     searchTitle: string = '';
 
     constructor(private httpClient: HttpClient) { }
 
     updateStoryList(): void {
-        const body = { ...this.searchCriteria, sortyBy: this.sortBy, sortDirection: this.sortDirection, searchTitle: this.searchTitle }
+        const body = { ...this.searchCriteria, sortBy: this.sortBy, sortDirection: this.sortDirection, searchTitle: this.searchTitle }
         this.httpClient.post<{ status: string, stories: Story[] }>(`${environment.url}/stories/all`, body)
             .pipe(
                 map(result => result.stories
@@ -59,14 +56,12 @@ export class StoryService {
 
     }
 
-    changeSortBy(): void {
-
-    }
-
-    changeSortDirection(): void {
-        this.sortDirection *= -1;
+    changeSort(value:Sort): void {
+        if(this.sortBy===value) this.sortDirection *= -1;
+        else this.sortBy=value;
         this.updateStoryList();
     }
+
 
     changeSearchTitle(): void {
 

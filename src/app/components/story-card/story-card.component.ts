@@ -8,6 +8,7 @@ import { Story } from 'src/app/models/story';
 })
 export class StoryCardComponent implements OnInit {
   @Input() story!: Story;
+
   constructor() { }
 
   ngOnInit(): void {

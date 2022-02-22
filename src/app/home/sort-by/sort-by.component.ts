@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StoryService } from 'src/app/services/story.service';
+import { Sort, StoryService } from 'src/app/services/story.service';
 
 @Component({
   selector: 'app-sort-by',
@@ -7,12 +7,13 @@ import { StoryService } from 'src/app/services/story.service';
   styleUrls: ['./sort-by.component.css']
 })
 export class SortByComponent implements OnInit {
+  currentSort!:Sort;
+  
+  constructor(private storyService: StoryService) {}
 
-  constructor(private storyService: StoryService) { }
-
-  ngOnInit(): void {
-  }
-  changeDirection(): void {
-    this.storyService.changeSortDirection();
+  ngOnInit(): void {}
+  onClick(value:Sort): void {
+    this.currentSort=value;
+    this.storyService.changeSort(value);
   }
 }

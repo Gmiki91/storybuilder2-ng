@@ -1,4 +1,8 @@
 <div class="filter-container">
-<button (click)="onFilterClicked()">Filter</button>   
-<p *ngIf="showFilter">Szia!</p>
+    <button *ngIf="!showFilter" (click)="onFilterClicked()">Filter</button>
+    <div *ngIf="showFilter" class="filter-options" >
+        <label>Language:</label>
+        <label>Level:</label>
+    </div>
+    <button *ngIf="showFilter" (click)="onFilterClicked()">Close</button>
 </div>

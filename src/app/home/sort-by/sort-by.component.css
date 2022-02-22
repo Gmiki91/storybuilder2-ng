@@ -1,4 +1,11 @@
 .sortby-container{
-    flex-direction: column;
-    align-items: center;
+    display: flex;
+ align-items: center;
+}
+.active{
+    padding:5%;
+    text-decoration: underline;
+}
+.inactive{
+    padding:5%;
 }

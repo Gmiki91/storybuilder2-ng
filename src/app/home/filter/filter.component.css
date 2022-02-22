@@ -2,3 +2,6 @@
     flex-direction: column;
     align-items: center;
 }
+.filter-options{
+    flex-direction: row;
+}
