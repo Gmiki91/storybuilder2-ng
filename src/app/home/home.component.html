@@ -1,2 +1,7 @@
-<div *ngIf="loggedIn">Hello!</div>
-<div *ngIf="!loggedIn">Hello Guest!</div>
+<div class="home-container">
+    <div class="criteria">
+        <app-sort-by></app-sort-by>
+        <app-filter></app-filter>
+    </div>
+    <app-story-card *ngFor="let story of storyList$|async" [story]="story"></app-story-card>
+</div>

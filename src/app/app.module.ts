@@ -12,6 +12,9 @@ import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DailyComponent } from './daily/daily.component';
+import { StoryCardComponent } from './components/story-card/story-card.component';
+import { SortByComponent } from './home/sort-by/sort-by.component';
+import { FilterComponent } from './home/filter/filter.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { DailyComponent } from './daily/daily.component';
     LoginComponent,
     SignupComponent,
     ProfileComponent,
-    DailyComponent
+    DailyComponent,
+    StoryCardComponent,
+    SortByComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,

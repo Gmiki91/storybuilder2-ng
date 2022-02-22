@@ -11,11 +11,11 @@ import { User } from "../models/user";
 
 export class AuthenticationService {
     userName = new BehaviorSubject<string>('');
-    constructor(private http: HttpClient, private router: Router) {
+    constructor(private httpClient: HttpClient, private router: Router) {
     }
 
     login(userInput: string, password: string): void {
-        this.http.post<{ token: string, user:User}>(`${environment.url}/users/login`, { userInput, password })
+        this.httpClient.post<{ token: string, user:User}>(`${environment.url}/users/login`, { userInput, password })
             .subscribe(result => {
                 localStorage.setItem('access_token', result.token);
                 this.userName.next(result.user.name)
@@ -38,7 +38,7 @@ export class AuthenticationService {
     }
 
     refreshLoggedInUser() {
-        this.http.get<{ user: User }>(`${environment.url}/users/`) //getMe
+        this.httpClient.get<{ user: User }>(`${environment.url}/users/`) //getMe
             .subscribe(result =>
                 this.userName.next(result.user.name)
             );

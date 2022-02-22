@@ -1,0 +1,13 @@
+<div class="container">
+    <h4>{{story.title}}</h4>
+    <i>{{story.description}}</i>
+   
+    <div>
+        <a>Author: {{story.authorName}}</a>
+        <div>{{story.language}}: {{story.level.code}} - {{story.level.text}}</div>
+        <div>Pages: {{story.pageIds.length}}</div>
+        <div>Pending: {{story.pendingPageIds.length}}</div>
+        <div>Last updated:{{story.updatedAt}}</div>
+        <div *ngIf="story.rating.total>10">{{story.rating.average}} ({{story.rating.total}} votes)</div>
+    </div>
+</div>

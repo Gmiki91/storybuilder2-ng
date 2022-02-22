@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { Observable } from 'rxjs';
+import { Story } from '../models/story';
+import { StoryService } from '../services/story.service';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +9,14 @@ import { AuthenticationService } from '../authentication/authentication.service'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  loggedIn:boolean = false;
-  constructor(private authentication:AuthenticationService) { }
+  storyList$:Observable<Story[]>;
+  constructor(private storyService: StoryService) {
+    this.storyList$ = this.storyService.getStoryList();
+    this.storyService.updateStoryList();
+   }
 
   ngOnInit(): void {
-    this.loggedIn = this.authentication.isLoggedIn();
+   
   }
 
 }
