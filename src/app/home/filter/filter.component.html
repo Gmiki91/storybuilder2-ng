@@ -1,8 +1,44 @@
+<button type="button" class="filter-btn btn btn-outline-primary confirm-button" (click)="onFilter()">{{showFilter
+  ? filterOpen : filterClosed}}</button>
 <div class="filter-container">
-    <button *ngIf="!showFilter" (click)="onFilterClicked()">Filter</button>
-    <div *ngIf="showFilter" class="filter-options" >
-        <label>Language:</label>
-        <label>Level:</label>
-    </div>
-    <button *ngIf="showFilter" (click)="onFilterClicked()">Close</button>
-</div>
+  <form *ngIf="showFilter"  (submit)="onSubmit()" #form="ngForm" class="filter-options-container">
+    <section class="filter-field">
+      <label>Language:</label>
+      <i class="selected-levels" (click)="remove(selectedLanguage)"
+        *ngFor="let selectedLanguage of selectedLanguages">{{selectedLanguage}}&nbsp;&nbsp;</i>
+      <input type="text" placeholder="Pick one" matInput [formControl]="languageControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectOption($event.option.value)'>
+        <mat-option *ngFor="let language of filteredLanguages| async" [value]="language.name">{{language.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </section>
+
+    <form>
+      <label>Level:</label>
+      <div class="filter-field" [formGroup]="levels">
+        <input type="checkbox" formControlname="beginner">Beginner
+        <input type="checkbox" formControlname="intermediate">Intermediate
+        <input type="checkbox" formControlname="advanced">Advanced
+      </div>
+
+      <section class="filter-field">
+        <label>Story:</label>
+        <input type="radio" value="own" name="from" />Own
+        <input type="radio" value="favorite" name="from" />favorite
+        <input type="radio" value="all" name="from" />All
+      </section>
+      <section class="filter-field">
+        <label>Archived:</label>
+        <input type="radio" value="yes" name="open" />yes
+        <input type="radio" value="no" name="open" />No
+        <input type="radio" value="both" name="open" />Both
+      </section>
+    </form>
+    </form>
+    <button type="button" class="btn cancel-button btn-outline-primary " (click)="onClear()">Clear</button>
+    <button type="button" class="btn cancel-button btn-outline-primary " (click)="onApply()">Apply</button>
+
+
+
+
+  </div>

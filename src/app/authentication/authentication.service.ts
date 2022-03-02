@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 import { environment } from 'src/environments/environment';
-import { User } from "../models/user";
+import { User } from "../shared/models/user";
 
 @Injectable({
     providedIn: 'root'

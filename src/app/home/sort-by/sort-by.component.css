@@ -2,10 +2,12 @@
     display: flex;
  align-items: center;
 }
-.active{
+
+.active, .inactive{
     padding:5%;
-    text-decoration: underline;
+    cursor:pointer;
+   
 }
-.inactive{
-    padding:5%;
+.active{
+    text-decoration: underline;
 }

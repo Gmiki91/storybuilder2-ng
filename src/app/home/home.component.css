@@ -6,6 +6,12 @@ app-sort-by{
     margin-right:5%
 }
 
+app-filter{
+    width:100%;
+    display:flex;
+    justify-content: center
+}
+
 .criteria{
     display:flex;
     flex-direction:column;

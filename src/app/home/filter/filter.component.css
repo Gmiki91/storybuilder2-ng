@@ -1,7 +1,45 @@
 .filter-container{
-    flex-direction: column;
-    align-items: center;
+    display:flex;
+    flex:1;
+    justify-content: center;
+    align-items: flex-end;
 }
-.filter-options{
-    flex-direction: row;
+.filter-options-container{
+   display:flex;
+    flex-direction: column;
+}
+.filter-field{
+    display:flex;
+    flex-direction: row ;  
+}
+.confirm-button{
+    color: var(--main-btn-color);
+    border-color: var(--main-btn-color);
+}
+.confirm-button:hover{
+    color: var(--text-color);
+    background-color: var(--main-btn-color);
+}
+
+.confirm-button:focus{
+    box-shadow:0 0 0 0 
+}
+.cancel-button{
+    color: var(--cancel-btn-color);
+    border-color: var(--cancel-btn-color);
+}
+.cancel-button:hover{
+    color: var(--text-color);
+    background-color: var(--cancel-btn-color);
+}
+.cancel-button:focus{
+    box-shadow:0 0 0 0.25rem var(--cancel-btn-color);
+}
+
+.filter-button{
+    height: 40px;
+}
+
+.selected-levels{
+    cursor:pointer;
 }

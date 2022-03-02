@@ -2,19 +2,18 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map, BehaviorSubject } from "rxjs";
 import { Story } from "../models/story";
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import * as moment from "moment";
 
 export type Sort =  'title' | 'updatedAt' | 'rating';
-type SearchCriteria = {
-    storyName: string,
+export type SearchCriteria = {
     from: string,
     languages: string[],
     levels: string[],
     open: string;
 }
+
 const defaultSearchCriteria = {
-    storyName: '',
     from: 'all',
     languages: [],
     levels: [],
@@ -29,12 +28,12 @@ export class StoryService {
     searchCriteria: SearchCriteria = defaultSearchCriteria;
     sortBy: Sort = 'title';
     sortDirection: 1 | -1 = 1;
-    searchTitle: string = '';
+    storyName: string = '';
 
     constructor(private httpClient: HttpClient) { }
 
     updateStoryList(): void {
-        const body = { ...this.searchCriteria, sortBy: this.sortBy, sortDirection: this.sortDirection, searchTitle: this.searchTitle }
+        const body = { ...this.searchCriteria, sortBy: this.sortBy, sortDirection: this.sortDirection, storyName: this.storyName }
         this.httpClient.post<{ status: string, stories: Story[] }>(`${environment.url}/stories/all`, body)
             .pipe(
                 map(result => result.stories
@@ -52,7 +51,7 @@ export class StoryService {
     getStoryList():Observable<Story[]>{
         return this.storyList.asObservable();
     }
-    changeSearchCriteria(): void {
+    changeSearchCriteria(sc:SearchCriteria): void {
 
     }
 

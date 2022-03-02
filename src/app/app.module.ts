@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,10 +11,16 @@ import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DailyComponent } from './daily/daily.component';
-import { StoryCardComponent } from './components/story-card/story-card.component';
+import { StoryCardComponent } from './shared/components/story-card/story-card.component'; 
 import { SortByComponent } from './home/sort-by/sort-by.component';
-import { FilterComponent } from './home/filter/filter.component'
-
+import { FilterComponent } from './home/filter/filter.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatRadioModule} from '@angular/material/radio';
+import { StoryComponent } from './story/story.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,13 +32,21 @@ import { FilterComponent } from './home/filter/filter.component'
     DailyComponent,
     StoryCardComponent,
     SortByComponent,
-    FilterComponent
+    FilterComponent,
+    StoryComponent
   ],
   imports: [
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers:[   { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi:true }],
   bootstrap: [AppComponent]
