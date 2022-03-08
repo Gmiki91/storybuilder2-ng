@@ -3,6 +3,8 @@
         <app-sort-by></app-sort-by>
         <app-filter></app-filter>
     </div>
+    <button (click)="onNewStoryClicked()">Create new story</button>
+    
     <div class="list-container">
         <app-story-card *ngFor="let story of storyList$|async"  [story]="story" (click)="onStoryClicked(story)"></app-story-card>
     </div>

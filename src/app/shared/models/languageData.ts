@@ -3,6 +3,10 @@ export type Code = 'A' | 'B' | 'C' ;
 export type Level ={
     text:Text, code:Code
 }
+export type Language = {
+    code: string,
+    name: string;
+  }
 export const levels:{text:Text,code:Code}[]=[
     {text:'Beginner', code:'A'},
     { text:'Intermediate', code:'B'},

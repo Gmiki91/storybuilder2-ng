@@ -1,2 +1,6 @@
-<p *ngIf="story">{{story.title}}</p>
+<div  *ngIf="story">
+    <h3>{{ story.title }}</h3>
+<app-page-card *ngFor="let page of pageList$|async" [author]="page.authorName" [text]="page.text"></app-page-card>
+<button [hidden]="hideToggle" (click)="getPages(toggleTypeLabel)">{{toggleTypeLabel}}</button>
+</div>
 <p *ngIf="!story">Loading</p>

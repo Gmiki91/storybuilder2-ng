@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
+import { Language } from 'src/app/shared/models/languageData';
 import { StoryService, SearchCriteria } from 'src/app/shared/services/story.service';
 import languages from '../../../assets/languages.json';
-
-type Language = {
-  code: string,
-  name: string;
-}
 
 @Component({
   selector: 'app-filter',
@@ -35,7 +31,7 @@ export class FilterComponent implements OnInit {
       name:  this.fb.array(['beginner', 'intermediate', 'advanced'])
     });
     this.from = this.fb.group({
-     
+    
     });
     this.archived = this.fb.group({
       yes:false,
