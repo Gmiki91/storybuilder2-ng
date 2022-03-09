@@ -1,7 +1,7 @@
 <button type="button" class="filter-btn btn btn-outline-primary confirm-button" (click)="onFilter()">{{showFilter
   ? filterOpen : filterClosed}}</button>
 <div class="filter-container">
-  <form *ngIf="showFilter"  (submit)="onSubmit()" #form="ngForm" class="filter-options-container">
+  <form *ngIf="showFilter"   [formGroup]="filterForm" class="filter-options-container">
     <section class="filter-field">
       <label>Language:</label>
       <i class="selected-levels" (click)="remove(selectedLanguage)"
@@ -15,23 +15,23 @@
 
     <form>
       <label>Level:</label>
-      <div class="filter-field" [formGroup]="levels">
-        <input type="checkbox" formControlname="beginner">Beginner
-        <input type="checkbox" formControlname="intermediate">Intermediate
-        <input type="checkbox" formControlname="advanced">Advanced
+      <div class="filter-field" formControlname="levels">
+        <input type="checkbox" value="A" (change)="onCheckboxChange($event)" [checked]="isCheckboxChecked('A')">Beginner
+        <input type="checkbox" value="B" (change)="onCheckboxChange($event)" [checked]="isCheckboxChecked('B')">Intermediate
+        <input type="checkbox" value="C" (change)="onCheckboxChange($event)" [checked]="isCheckboxChecked('C')">Advanced
       </div>
 
-      <section class="filter-field">
+      <section class="filter-field" formControlname="from" (change)="onFromChange($event)">
         <label>Story:</label>
         <input type="radio" value="own" name="from" />Own
         <input type="radio" value="favorite" name="from" />favorite
-        <input type="radio" value="all" name="from" />All
+        <input type="radio" value="all" name="from" checked/>All
       </section>
-      <section class="filter-field">
+      <section class="filter-field" (change)="onOpenChange($event)">
         <label>Archived:</label>
         <input type="radio" value="yes" name="open" />yes
         <input type="radio" value="no" name="open" />No
-        <input type="radio" value="both" name="open" />Both
+        <input type="radio" value="both" name="open" checked/>Both
       </section>
     </form>
     </form>

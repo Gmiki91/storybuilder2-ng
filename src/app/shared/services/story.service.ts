@@ -69,7 +69,8 @@ export class StoryService {
     }
 
     changeSearchCriteria(sc: SearchCriteria): void {
-
+        this.searchCriteria=sc;
+        this.updateStoryList();
     }
 
     changeSort(value: Sort): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
 import { Language } from 'src/app/shared/models/languageData';
 import { StoryService, SearchCriteria } from 'src/app/shared/services/story.service';
@@ -21,23 +21,15 @@ export class FilterComponent implements OnInit {
   filteredLanguages!: Observable<Language[]>;
   selectedLanguages: string[] = [];
 
-  levels: FormGroup;
-  from:FormGroup;
-  archived:FormGroup;
-
+  filterForm: FormGroup;
+  
   constructor(private storyService: StoryService, private fb: FormBuilder) {
-
-    this.levels = this.fb.group({
-      name:  this.fb.array(['beginner', 'intermediate', 'advanced'])
+    this.filterForm = this.fb.group({
+      levels: this.fb.array([]),
+      from:new FormControl('all'),
+      open:new FormControl('both')
     });
-    this.from = this.fb.group({
     
-    });
-    this.archived = this.fb.group({
-      yes:false,
-      no:false,
-      both:true,
-    })
   }
 
   ngOnInit(): void {
@@ -47,27 +39,46 @@ export class FilterComponent implements OnInit {
     );
   }
 
+  onCheckboxChange(e:any) {
+    const checkArray: FormArray = this.filterForm.get('levels') as FormArray;
+    if (e.target.checked) {
+      checkArray.push(new FormControl(e.target.value));
+    } else {
+      const index = checkArray.controls.findIndex(x => x.value === e.target.value);
+      checkArray.removeAt(index);
+    }
+  }
+  isCheckboxChecked(value:string):boolean{
+    const checkArray: FormArray = this.filterForm.get('levels') as FormArray;
+    return checkArray.value.indexOf(value)>-1;
+  }
+
+  onFromChange(e:any) {
+      this.filterForm.controls['from'].setValue(e.target.value);
+  }
+
+  onOpenChange(e:any) {
+    this.filterForm.controls['open'].setValue(e.target.value);
+}
+  
   onFilter(): void {
     this.showFilter = !this.showFilter;
   }
 
   onApply(): void {
-    console.log(this.levels)
     const change: SearchCriteria = {
-      from: 'all',
-      open: 'both',
-      languages: [],
-      levels: [],
+      languages:this.selectedLanguages,
+      from: this.filterForm.controls['from'].value,
+      open: this.filterForm.controls['open'].value,
+      levels: this.filterForm.controls['levels'].value,
 
     }
     this.storyService.changeSearchCriteria(change)
     this.showFilter = !this.showFilter;
   }
 
-  onSubmit(): void {}
   onClear(): void {
     this.selectedLanguages = [];
-    this.levels.reset();
   }
 
   remove(language: string) {
