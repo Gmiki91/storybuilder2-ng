@@ -37,13 +37,11 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.addStory(result)
-
       }
     });
   }
 
    addStory(story: StoryData):void {
-     console.log(story)
     this.pageService.addPage(story.text, story.language).subscribe((pageId:string)=>{
       story.pageId = pageId;
       this.storyService.addStory(story)

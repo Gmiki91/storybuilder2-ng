@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Language } from 'src/app/shared/models/languageData';
 import { LevelCode } from 'src/app/shared/models/LanguageLevels';
@@ -23,10 +23,8 @@ export interface StoryData {
 })
 export class NewStoryComponent {
   languages: Language[] = languages;
-  closeModal: EventEmitter<StoryData> = new EventEmitter();
   constructor(
     public dialogRef: MatDialogRef<NewStoryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: StoryData,
-  ) { }
+    @Inject(MAT_DIALOG_DATA) public data: StoryData) {}
 
 }

@@ -15,3 +15,8 @@ margin-bottom:15px;
 .text{
     min-height:200px;
 }
+.error{
+    color: #D8000C;
+    background-color: #FFBABA;
+    padding-left:5px;
+}

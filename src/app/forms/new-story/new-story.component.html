@@ -1,18 +1,32 @@
-<div class="container" mat-dialog-content>
-  <input required [(ngModel)]="data.title" placeholder="Story title" />
-  <mat-select required placeholder="Select a language" [(ngModel)]="data.language" >
+<div>
+  <form class="container" mat-dialog-content #f="ngForm">
+  <input required minlength="3" [(ngModel)]="data.title" placeholder="Story title*" name="title"  #title="ngModel" />
+  <div  class="error"  *ngIf="title.invalid && title.touched">
+    Title must be at least 3 characters long.
+  </div>
+  <mat-select required placeholder="Select a language*" [(ngModel)]="data.language" name="language"  #language="ngModel"  >
     <mat-option *ngFor="let language of languages" [value]="language.name">{{language.name}}
     </mat-option>
   </mat-select>
-  <mat-radio-group required [(ngModel)]="data.level" aria-label="Select an option">
+  <div class="error" *ngIf="language.invalid && language.touched">
+   Required!
+  </div>
+  <mat-radio-group required [(ngModel)]="data.level" name="level"  #level="ngModel" placeholder="Select an option" >
     <mat-radio-button value="A">Beginner (A)</mat-radio-button>
     <mat-radio-button value="B">Intermediate (B)</mat-radio-button>
     <mat-radio-button value="C">Advanced (C)</mat-radio-button>
   </mat-radio-group>
-  <textarea class="description" placeholder="A short summary/introduction to your story" matInput [(ngModel)]="data.description"></textarea>
-  <textarea required class="text" placeholder="The first page of your story" matInput [(ngModel)]="data.text"></textarea>
-  <input  [(ngModel)]="data.word1" placeholder="Word #1" />
-  <input  [(ngModel)]="data.word2" placeholder="Word #2" />
-  <input  [(ngModel)]="data.word3" placeholder="Word #3" />
-  <button mat-button [mat-dialog-close]="data">Submit</button>
+  <div class="error" *ngIf="level.invalid && level.touched">
+    Required!
+   </div>
+  <textarea class="description" placeholder="A short summary/introduction to your story (optional)" matInput [(ngModel)]="data.description" name="description"  #description="ngModel"></textarea>
+  <textarea required minlength="10" maxlength="5000" class="text" placeholder="The first page of your story" matInput [(ngModel)]="data.text" name="text"  #text="ngModel" ></textarea>
+  <div class="error" *ngIf="text.invalid &&  text.touched">
+    Text must be at least 10 characters long.
+   </div>
+  <input  [(ngModel)]="data.word1" placeholder="Word #1" name="word1"  #word1="ngModel"/>
+  <input  [(ngModel)]="data.word2" placeholder="Word #2" name="word2"  #word2="ngModel"/>
+  <input  [(ngModel)]="data.word3" placeholder="Word #3" name="word3"  #word3="ngModel"/>
+</form>
+  <button  [disabled]="!f.form.valid" mat-button [mat-dialog-close]="data">Submit</button>
 </div>
