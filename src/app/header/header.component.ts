@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { User } from '../shared/models/user';
+import { AuthenticationService } from '../shared/services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,12 @@ import { AuthenticationService } from '../authentication/authentication.service'
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  userName$: Observable<string> | undefined;
+  user$!: Observable<User|undefined>;
 
   constructor(private authentication: AuthenticationService) {}
 
   ngOnInit(): void {
-    this.userName$ = this.authentication.getUserName();
+    this.user$ = this.authentication.getUser();
     if (this.authentication.isLoggedIn())
       this.authentication.refreshLoggedInUser();
   }

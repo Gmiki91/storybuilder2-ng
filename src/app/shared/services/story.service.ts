@@ -5,6 +5,7 @@ import { Story } from "../models/story";
 import { environment } from '../../../environments/environment';
 import * as moment from "moment";
 import { StoryData } from "src/app/forms/new-story/new-story.component";
+import { Rate } from "../models/page";
 
 export type Sort = 'title' | 'updatedAt' | 'rating';
 export type SearchCriteria = {
@@ -53,6 +54,11 @@ export class StoryService {
         return this.storyList.asObservable();
     }
 
+    getStory(storyId:string){
+        return this.http.get<{status:string, story:Story}>(`${environment.url}/stories/one/${storyId}`)
+        .pipe(map(result=>result.story))
+    }
+
     addStory(storyData: StoryData): void {
         const story = {
             title: storyData.title.trim(),
@@ -66,6 +72,14 @@ export class StoryService {
         };
         this.http.post<{ story: Story }>(`${environment.url}/stories/`, story)
             .subscribe(() => this.updateStoryList());
+    }
+
+    addPage(pageId:string, storyId:string, pageRatings:Rate[]){
+       return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
+    }
+
+    removePendingPage(pageId:string, storyId:string){
+       return this.http.put(`${environment.url}/stories/pendingPage`, { pageId, storyId})
     }
 
     changeSearchCriteria(sc: SearchCriteria): void {

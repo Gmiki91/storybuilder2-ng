@@ -1,6 +1,9 @@
-<div  *ngIf="story">
+<div *ngIf="story">
     <h3>{{ story.title }}</h3>
-<app-page-card *ngFor="let page of pageList$|async" [author]="page.authorName" [text]="page.text"></app-page-card>
-<button [hidden]="hideToggle" (click)="getPages(toggleTypeLabel)">{{toggleTypeLabel}}</button>
+    <app-page-card *ngFor="let page of pageList$|async" [author]="page.authorName" [page]="page" [storyId]="story._id"
+        [userId]="user._id" [ownContent]="user._id === (page.authorId || story.authorId)"
+        [toConfirm]="toggleTypeLabel === 'Confirmed' && story.authorId === user._id"
+        (pageAccepted)="pageAccepted($event)" (pageDeclined)="pageDeclined()"></app-page-card>
+    <button [hidden]="hideToggle" (click)="getPages(toggleTypeLabel)">{{toggleTypeLabel}}</button>
 </div>
 <p *ngIf="!story">Loading</p>

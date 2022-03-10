@@ -1,4 +1,13 @@
 <div class="card">
-<p>{{text}}</p>
-<p>{{author}}</p>
+    <p>{{page.text}}</p>
+    <p>{{author}}</p>
+    <p>{{rating}}</p>
+    <div *ngIf="!toConfirm">
+        <button (click)="rate(1)" [disabled]="ownContent || liked">like</button>
+        <button (click)="rate(-1)" [disabled]="ownContent || disliked">dislike</button>
+    </div>
+    <div *ngIf="toConfirm">
+        <button (click)="accept()">Accept</button>
+        <button (click)="decline()">Decline</button>
+    </div>
 </div>

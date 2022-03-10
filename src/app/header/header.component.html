@@ -1,9 +1,9 @@
-<div *ngIf="!(userName$ | async)">
+<div *ngIf="!(user$ | async)">
         <a routerLink="/login">Log in</a>
         <a  routerLink="/signup">Sign up</a>
 </div>
-<div *ngIf="(userName$ | async) as userName">
+<div *ngIf="(user$ | async) as user">
     <a routerLink="/">Stories</a>
     <a routerLink="/daily">Daily</a>
-    <a routerLink="/profile">{{userName}}</a>
+    <a routerLink="/profile">{{user.name}}</a>
 </div>
