@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { RateLevelComponent } from '../forms/rate-level/rate-level.component';
 import { Page } from '../shared/models/page';
 import { Story } from '../shared/models/story';
 import { User } from '../shared/models/user';
@@ -25,22 +27,35 @@ export class StoryComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private authService: AuthenticationService,
     private storyService: StoryService,
     private pageService: PageService) {
 
-    this.authService.getUser().subscribe(user => {
-      if (user !== undefined) this.user = user
-    });
     let nav = this.router.getCurrentNavigation();
     if (nav?.extras.state)
       this.story = nav.extras.state['story'] as Story;
   }
 
   ngOnInit(): void {
+    this.authService.getUser()
+      .subscribe(user => {
+        if (user !== undefined) this.user = user
+      });
+    this.storyService.getStory()
+      .subscribe(story => {
+        if (story._id){
+          this.story = story;
+          if(story.pendingPageIds.length===0){
+            this.hideToggle = true;
+          }
+          const type = story.pendingPageIds.length>0 && this.toggleTypeLabel === 'Confirmed' ? 'Pending' : 'Confirmed';
+          this.getPages(type);
+        }
+      });
     this.pageList$ = this.pageService.getPageList();
     this.getPages('Confirmed');
-    this.hideToggle = this.story.pendingPageIds.length === 0;
+    this.hideToggle = this.story.pendingPageIds?.length === 0;
   }
 
   getPages(type: PageType): void {
@@ -57,22 +72,21 @@ export class StoryComponent implements OnInit {
       idsToDelete.splice(index, 1);
       this.pageService.deletePages(idsToDelete, this.story._id);
     }
-    this.storyService.getStory(this.story._id).subscribe((story) => {
-      this.story = story;
-      this.getPages('Confirmed');
-    })
-  
+    this.storyService.updateStory(this.story._id);
   }
 
   pageDeclined() {
-    this.storyService.getStory(this.story._id).subscribe((story) => {
-      this.story = story;
-      if (this.story.pendingPageIds.length > 0)
-        this.getPages('Pending');
-      else {
-        this.getPages('Confirmed');
-        this.hideToggle = true;
+    this.storyService.updateStory(this.story._id);
+  }
+
+  onLevelClicked() {
+    const dialogRef = this.dialog.open(RateLevelComponent, {
+      data: this.story.level
+    });
+    dialogRef.afterClosed().subscribe(rate => {
+      if (rate !== undefined) {
+        this.storyService.rateLevel(this.story._id, rate)
       }
-    })
+    });
   }
 }

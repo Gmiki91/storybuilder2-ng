@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import {MAT_MODULES} from './mat.modules'
 import {COMPONENTS} from './components';
-import { NewStoryComponent } from './forms/new-story/new-story.component'
+import { NewStoryComponent } from './forms/new-story/new-story.component';
+import { RateLevelComponent } from './forms/rate-level/rate-level.component'
 @NgModule({
   declarations: [
     AppComponent,
     COMPONENTS,
-    NewStoryComponent
+    NewStoryComponent,
+    RateLevelComponent
   ],
   imports: [
     MAT_MODULES,

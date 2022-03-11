@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Language } from 'src/app/shared/models/languageData';
-import { LevelCode } from 'src/app/shared/models/LanguageLevels';
+import { Language,Level } from 'src/app/shared/models/languageData';
 import languages from '../../../assets/languages.json';
 
 export interface StoryData {
@@ -10,7 +9,7 @@ export interface StoryData {
   text: string,
   language: string,
   pageId: string,
-  level: LevelCode,
+  level: Level,
   word1: string,
   word2: string,
   word3: string,

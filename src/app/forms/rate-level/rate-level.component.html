@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+<p>This is level {{level.code}} - {{level.text}}. Agree?</p>
+<button [mat-dialog-close]="level.code">Agree</button>
+<button (click)="onClose()">Dunno</button>
+<p>No way, it's level...</p>
+    <button *ngFor="let option of options, let i = index"  mat-button [mat-dialog-close]="options[i].code">{{option.code}} - {{option.text}}</button>
+</div>

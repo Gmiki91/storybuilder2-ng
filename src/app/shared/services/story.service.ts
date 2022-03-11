@@ -27,6 +27,7 @@ const defaultSearchCriteria = {
 })
 export class StoryService {
     storyList = new BehaviorSubject<Story[]>([])
+    story = new BehaviorSubject<Story>({}as Story)
     searchCriteria: SearchCriteria = defaultSearchCriteria;
     sortBy: Sort = 'title';
     sortDirection: 1 | -1 = 1;
@@ -54,9 +55,15 @@ export class StoryService {
         return this.storyList.asObservable();
     }
 
-    getStory(storyId:string){
-        return this.http.get<{status:string, story:Story}>(`${environment.url}/stories/one/${storyId}`)
-        .pipe(map(result=>result.story))
+    updateStory(storyId:string):void{
+        this.http.get<{status:string, story:Story}>(`${environment.url}/stories/one/${storyId}`)
+        .subscribe(result=>{
+            this.story.next(result.story);
+        })
+    }
+
+    getStory(){
+        return this.story.asObservable();
     }
 
     addStory(storyData: StoryData): void {
@@ -76,6 +83,13 @@ export class StoryService {
 
     addPage(pageId:string, storyId:string, pageRatings:Rate[]){
        return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
+    }
+
+    rateLevel(storyId:string,rate:string):void{
+        this.http.put<{status:string, story:Story}>(`${environment.url}/stories/level`, { rate, storyId })
+        .subscribe(result=>{
+            this.story.next(result.story);
+        })
     }
 
     removePendingPage(pageId:string, storyId:string){
