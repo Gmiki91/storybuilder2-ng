@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { EditStoryComponent } from '../forms/edit-story/edit-story.component';
 import { RateLevelComponent } from '../forms/rate-level/rate-level.component';
 import { Page } from '../shared/models/page';
 import { Story } from '../shared/models/story';
@@ -86,6 +87,17 @@ export class StoryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(rate => {
       if (rate !== undefined) {
         this.storyService.rateLevel(this.story._id, rate)
+      }
+    });
+  }
+
+  onTitleClicked(){
+    const dialogRef = this.dialog.open(EditStoryComponent, {
+      data: {story:{...this.story}, userId: this.user._id}
+    });
+    dialogRef.afterClosed().subscribe(description => {
+      if (description && description !== this.story.description) {
+        this.storyService.editStory(this.story._id, description);
       }
     });
   }

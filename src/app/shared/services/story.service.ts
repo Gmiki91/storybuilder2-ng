@@ -85,11 +85,14 @@ export class StoryService {
        return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
     }
 
+    editStory(id:string, description:string){
+        this.http.put<{status:string, story:Story}>(`${environment.url}/stories/one/${id}`,{description})
+        .subscribe(result=>this.story.next(result.story));
+    }
+
     rateLevel(storyId:string,rate:string):void{
         this.http.put<{status:string, story:Story}>(`${environment.url}/stories/level`, { rate, storyId })
-        .subscribe(result=>{
-            this.story.next(result.story);
-        })
+        .subscribe(result=>this.story.next(result.story));
     }
 
     removePendingPage(pageId:string, storyId:string){
