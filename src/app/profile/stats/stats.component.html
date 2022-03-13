@@ -1,0 +1,22 @@
+<div>
+    <div *ngIf="user">
+        <h2>{{user.name}}</h2>
+        <p>{{user.email}}</p>
+        <p>Last activity: {{this.lastActivity}}</p>
+        <p *ngIf="!user.active">Inactive user</p>
+        <p>{{user.numberOfTablets}} x tablets</p>
+    </div>
+    <div *ngIf="storyData$|async as story">
+        <p>Stories: {{story.size}}</p>
+        <p>Rating: {{story.rating}} ({{story.upVotes}} / {{story.totalVotes}})</p>
+    </div>
+    <div *ngIf="pageData$|async as page">
+        <p>Pages: {{page.size}}</p>
+        <p>Rating: {{page.rating}} ({{page.upVotes}} / {{page.totalVotes}})</p>
+
+        <div *ngIf="page.langInfo?.length !== 0">
+            <p>Used languages:</p>
+            <p *ngFor="let obj of page.langInfo">{{obj.language}}: {{obj.ratio}}% - {{obj.level}}</p>
+        </div>
+    </div>
+</div>

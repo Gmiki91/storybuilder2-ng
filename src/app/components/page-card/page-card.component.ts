@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Page, Rate } from 'src/app/shared/models/page';
 import { PageService } from 'src/app/shared/services/page.service';
 import { StoryService } from 'src/app/shared/services/story.service';
@@ -11,7 +12,6 @@ import { StoryService } from 'src/app/shared/services/story.service';
 export class PageCardComponent implements OnInit {
 
   @Input() page!: Page;
-  @Input() author!: string;
   @Input() userId!: string;
   @Input() storyId!: string;
   @Input() toConfirm!: boolean;
@@ -22,7 +22,7 @@ export class PageCardComponent implements OnInit {
   ratedByUser: Rate | undefined;
   liked: boolean = false;
   disliked: boolean = false;
-  constructor(private pageService: PageService, private storyService: StoryService) {
+  constructor(private pageService: PageService, private storyService: StoryService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -63,5 +63,9 @@ export class PageCardComponent implements OnInit {
       this.liked = false;
       this.disliked = true;
     }
+  }
+  onAuthor(event:MouseEvent):void{
+    event.stopPropagation();
+    this.router.navigate(['/stats'], { state: { authorId:this.page.authorId } })
   }
 }

@@ -3,6 +3,11 @@ export type Code = 'A' | 'B' | 'C' ;
 export type Level ={
     text:Text, code:Code
 }
+export type LangInfo = {
+    language: string,
+    level: string,
+    ratio: string
+  }
 export type Language = {
     code: string,
     name: string;

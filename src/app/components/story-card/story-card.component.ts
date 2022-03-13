@@ -19,6 +19,6 @@ export class StoryCardComponent implements OnInit {
   }
   onAuthor(event:MouseEvent):void{
     event.stopPropagation();
-    console.log(this.story.authorName)
+    this.router.navigate(['/stats'], { state: { authorId:this.story.authorId } })
   }
 }

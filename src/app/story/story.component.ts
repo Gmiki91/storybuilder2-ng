@@ -39,7 +39,7 @@ export class StoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getUser()
+    this.authService.getCurrentUser()
       .subscribe(user => {
         if (user !== undefined) this.user = user
       });

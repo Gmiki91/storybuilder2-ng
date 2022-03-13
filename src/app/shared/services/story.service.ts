@@ -4,7 +4,7 @@ import { Observable, map, BehaviorSubject,Subject } from "rxjs";
 import { Story } from "../models/story";
 import { environment } from '../../../environments/environment';
 import * as moment from "moment";
-import { StoryData } from "src/app/forms/new-story/new-story.component";
+import { NewStoryData } from "src/app/forms/new-story/new-story.component";
 import { Rate } from "../models/page";
 
 export type Sort = 'title' | 'updatedAt' | 'rating';
@@ -65,13 +65,16 @@ export class StoryService {
     getStory(){
         return this.story.asObservable();
     }
+ 
+    getStoryData(authorId:string){
+        return this.http.get<{status:string, size:number,  upVotes:number, totalVotes:number}>(`${environment.url}/stories/many/${authorId}`)
+    }
 
     getDaily(){
        return this.http.get<{status:string, story:Story, hoursLeft:number, minutesLeft:number}>(`${environment.url}/stories/tribute/data`)
-       .pipe(map(result=>{console.log(result); return result}));
     }
 
-    addStory(storyData: StoryData): void {
+    addStory(storyData: NewStoryData): void {
         const story = {
             title: storyData.title.trim(),
             description: storyData.description?.trim(),

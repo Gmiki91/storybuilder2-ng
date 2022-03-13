@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import moment from 'moment';
+import { Observable, map, lastValueFrom, firstValueFrom } from 'rxjs';
+import { User } from '../shared/models/user';
 import { AuthenticationService } from '../shared/services/authentication.service';
 
 @Component({
@@ -7,13 +11,20 @@ import { AuthenticationService } from '../shared/services/authentication.service
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor(private authentication:AuthenticationService) { }
+  authorId!: string;
+  user!: User;
+  
+  constructor(
+    private authentication: AuthenticationService,
+    private router: Router) {}
 
   ngOnInit(): void {
+   
   }
 
-  onLogout():void{
-   this.authentication.logout();
+
+  onLogout(): void {
+    this.authentication.logout();
   }
+
 }

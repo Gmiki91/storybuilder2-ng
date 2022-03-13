@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
+import { map,Subject } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { User } from "../models/user";
 
@@ -10,7 +10,7 @@ import { User } from "../models/user";
 })
 
 export class AuthenticationService {
-    user = new BehaviorSubject<User|undefined>(undefined);
+    user = new Subject<User>();
     constructor(private httpClient: HttpClient, private router: Router) {}
 
     login(userInput: string, password: string): void {
@@ -23,7 +23,7 @@ export class AuthenticationService {
     }
     logout():void{
         localStorage.removeItem('access_token');
-        this.user.next(undefined)
+        this.user.next({}as User)
         this.router.navigate(['/login']);
     }
 
@@ -32,8 +32,13 @@ export class AuthenticationService {
         return (token !== null) ? true : false;
     }
 
-    getUser() {
+    getCurrentUser() {
         return this.user.asObservable();
+    }
+    
+    getUser(userId:string){
+        return this.httpClient.get<{result:string, user:User}>(`${environment.url}/users/user/${userId}`)
+        .pipe(map(result => result.user))
     }
 
     refreshLoggedInUser() {

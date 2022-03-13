@@ -1,7 +1,13 @@
 import { Level } from "./languageData";
-type Rate ='Terrible'|'Bad'|'Mixed'|'Good'|'Excellent';
+type Rate = 'Terrible' | 'Bad' | 'Mixed' | 'Good' | 'Excellent';
+export interface StoryData {
+    size: number,
+    totalVotes: number,
+    upVotes: number,
+    rating: string,
+}
 export type Story = {
-    _id:string;
+    _id: string;
     title: string;
     description: string;
     language: string;
@@ -9,9 +15,9 @@ export type Story = {
     authorId: string;
     authorName: string;
     rating: {
-        positive:number,
-        total:number,
-        average:Rate
+        positive: number,
+        total: number,
+        average: Rate
     }
     updatedAt: string;
     open: boolean;

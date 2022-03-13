@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Story } from '../shared/models/story';
 import { StoryService } from '../shared/services/story.service';
-import { NewStoryComponent, StoryData } from '../forms/new-story/new-story.component';
+import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.component';
 import { PageService } from '../shared/services/page.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { PageService } from '../shared/services/page.service';
 })
 export class HomeComponent implements OnInit {
   storyList$!: Observable<Story[]>;
-  newStory: StoryData = {} as StoryData;
+  newStory: NewStoryData = {} as NewStoryData;
   constructor(
     private storyService: StoryService,
     private pageService: PageService,
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-   addStory(story: StoryData):void {
+   addStory(story: NewStoryData):void {
     this.pageService.addPage(story.text, story.language).subscribe((pageId:string)=>{
       story.pageId = pageId;
       this.storyService.addStory(story)

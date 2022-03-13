@@ -1,0 +1,13 @@
+.container{
+
+        align-items: 'center';
+        justify-content: 'center';
+    
+
+
+        background-color: 'yellow';
+        width: '90%';
+        padding: 15;
+        border-width: 5;
+        border-radius: 10,
+    }

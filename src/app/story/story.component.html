@@ -1,7 +1,7 @@
 <div *ngIf="story">
     <button (click)="onTitleClicked()">{{ story.title }}</button>
     <button (click)="onLevelClicked()">{{story.level.code}}</button>
-    <app-page-card *ngFor="let page of pageList$|async" [author]="page.authorName" [page]="page" [storyId]="story._id"
+    <app-page-card *ngFor="let page of pageList$|async" [page]="page" [storyId]="story._id"
         [userId]="user._id" [ownContent]="user._id === (page.authorId || story.authorId)"
         [toConfirm]="toggleTypeLabel === 'Confirmed' && story.authorId === user._id"
         (pageAccepted)="pageAccepted($event)" (pageDeclined)="pageDeclined()"></app-page-card>

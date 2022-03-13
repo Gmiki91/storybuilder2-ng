@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Language,Level } from 'src/app/shared/models/languageData';
 import languages from '../../../assets/languages.json';
 
-export interface StoryData {
+export interface NewStoryData {
   title: string,
   description: string
   text: string,
@@ -24,6 +24,6 @@ export class NewStoryComponent {
   languages: Language[] = languages;
   constructor(
     public dialogRef: MatDialogRef<NewStoryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: StoryData) {}
+    @Inject(MAT_DIALOG_DATA) public data: NewStoryData) {}
 
 }
