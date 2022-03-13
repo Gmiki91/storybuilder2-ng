@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, map, BehaviorSubject } from "rxjs";
+import { Observable, map, BehaviorSubject,Subject } from "rxjs";
 import { Story } from "../models/story";
 import { environment } from '../../../environments/environment';
 import * as moment from "moment";
@@ -27,7 +27,7 @@ const defaultSearchCriteria = {
 })
 export class StoryService {
     storyList = new BehaviorSubject<Story[]>([])
-    story = new BehaviorSubject<Story>({}as Story)
+    story = new Subject<Story>()
     searchCriteria: SearchCriteria = defaultSearchCriteria;
     sortBy: Sort = 'title';
     sortDirection: 1 | -1 = 1;
@@ -64,6 +64,11 @@ export class StoryService {
 
     getStory(){
         return this.story.asObservable();
+    }
+
+    getDaily(){
+       return this.http.get<{status:string, story:Story, hoursLeft:number, minutesLeft:number}>(`${environment.url}/stories/tribute/data`)
+       .pipe(map(result=>{console.log(result); return result}));
     }
 
     addStory(storyData: StoryData): void {

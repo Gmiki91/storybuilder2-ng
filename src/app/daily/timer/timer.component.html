@@ -1,0 +1,3 @@
+<div *ngIf="hoursLeft>1">{{hoursLeft}} hours left {{text}} </div> 
+<div *ngIf="hoursLeft<= 1"> {{minutesLeft}} minutes left {{text}}</div>
+<div *ngIf="hoursLeft < 1 && minutesLeft<2">less than a minute left {{text}}</div>

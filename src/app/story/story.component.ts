@@ -45,24 +45,23 @@ export class StoryComponent implements OnInit {
       });
     this.storyService.getStory()
       .subscribe(story => {
-        if (story._id){
-          this.story = story;
-          if(story.pendingPageIds.length===0){
-            this.hideToggle = true;
-          }
-          const type = story.pendingPageIds.length>0 && this.toggleTypeLabel === 'Confirmed' ? 'Pending' : 'Confirmed';
-          this.getPages(type);
+        this.story = story;
+        if (story.pendingPageIds.length === 0) {
+          this.hideToggle = true;
         }
+        const type = story.pendingPageIds.length > 0 && this.toggleTypeLabel === 'Confirmed' ? 'Pending' : 'Confirmed';
+        this.getPages(type);
       });
     this.pageList$ = this.pageService.getPageList();
     this.getPages('Confirmed');
-    this.hideToggle = this.story.pendingPageIds?.length === 0;
+    this.hideToggle = this.story?.pendingPageIds.length === 0;
   }
 
   getPages(type: PageType): void {
     const ids = type === 'Confirmed' ? 'pageIds' : 'pendingPageIds';
     this.toggleTypeLabel = type === 'Confirmed' ? 'Pending' : 'Confirmed';
-    this.pageService.updatePageList(this.story[ids]);
+    if (this.story)
+      this.pageService.updatePageList(this.story[ids]);
   }
 
   pageAccepted(id: string): void {
@@ -91,9 +90,9 @@ export class StoryComponent implements OnInit {
     });
   }
 
-  onTitleClicked(){
+  onTitleClicked() {
     const dialogRef = this.dialog.open(EditStoryComponent, {
-      data: {story:{...this.story}, userId: this.user._id}
+      data: { story: { ...this.story }, userId: this.user._id }
     });
     dialogRef.afterClosed().subscribe(description => {
       if (description && description !== this.story.description) {

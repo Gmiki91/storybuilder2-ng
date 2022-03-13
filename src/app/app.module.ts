@@ -10,14 +10,16 @@ import {MAT_MODULES} from './mat.modules'
 import {COMPONENTS} from './components';
 import { NewStoryComponent } from './forms/new-story/new-story.component';
 import { RateLevelComponent } from './forms/rate-level/rate-level.component';
-import { EditStoryComponent } from './forms/edit-story/edit-story.component'
+import { EditStoryComponent } from './forms/edit-story/edit-story.component';
+import { TimerComponent } from './daily/timer/timer.component'
 @NgModule({
   declarations: [
     AppComponent,
     COMPONENTS,
     NewStoryComponent,
     RateLevelComponent,
-    EditStoryComponent
+    EditStoryComponent,
+    TimerComponent
   ],
   imports: [
     MAT_MODULES,

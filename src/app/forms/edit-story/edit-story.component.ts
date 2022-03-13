@@ -5,7 +5,7 @@ import { Story } from 'src/app/shared/models/story';
 @Component({
   selector: 'app-edit-story',
   templateUrl: './edit-story.component.html',
-  styleUrls: ['./edit-story.component.css']
+  styleUrls: ['../style.css']
 })
 export class EditStoryComponent {
   @ViewChild('description') description!: ElementRef;

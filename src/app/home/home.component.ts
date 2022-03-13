@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private storyService: StoryService,
     private pageService: PageService,
-    private router: Router,
     private dialog: MatDialog
   ) { }
 
@@ -26,9 +25,7 @@ export class HomeComponent implements OnInit {
     this.storyList$ = this.storyService.getStoryList();
     this.storyService.updateStoryList();
   }
-  onStoryClicked(story: Story): void {
-    this.router.navigate(['/story'], { state: { story } })
-  }
+
 
   onNewStoryClicked(): void {
     const dialogRef = this.dialog.open(NewStoryComponent, {

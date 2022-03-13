@@ -6,6 +6,6 @@
     <button (click)="onNewStoryClicked()">Create new story</button>
     
     <div class="list-container">
-        <app-story-card *ngFor="let story of storyList$|async"  [story]="story" (click)="onStoryClicked(story)"></app-story-card>
+        <app-story-card *ngFor="let story of storyList$|async"  [story]="story"></app-story-card>
     </div>
 </div>
