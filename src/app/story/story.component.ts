@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { EditStoryComponent } from '../forms/edit-story/edit-story.component';
+import { NewPageComponent } from '../forms/new-page/new-page.component';
 import { RateLevelComponent } from '../forms/rate-level/rate-level.component';
 import { Page } from '../shared/models/page';
 import { Story } from '../shared/models/story';
@@ -24,9 +25,9 @@ export class StoryComponent implements OnInit {
   story!: Story;
   pageList$!: Observable<Page[]>;
   currentPaginationCount = 0;
-  start=0;
-  end=0;
-  maxPageCount=0;
+  start = 0;
+  end = 0;
+  maxPageCount = 0;
   toggleTypeLabel: PageType = 'Pending';
   hideToggle: boolean = true;
 
@@ -38,7 +39,7 @@ export class StoryComponent implements OnInit {
     private pageService: PageService) {
 
     let nav = this.router.getCurrentNavigation();
-    if (nav?.extras.state){
+    if (nav?.extras.state) {
       const storyId = nav.extras.state['storyId'];
       this.storyService.updateStory(storyId);
     }
@@ -60,11 +61,11 @@ export class StoryComponent implements OnInit {
         this.toggleTypeLabel = type === 'Confirmed' ? 'Pending' : 'Confirmed';
         this.getPages(type);
       });
-    this.pageList$ = this.pageService.getPageList().pipe(map(pages=>{
+    this.pageList$ = this.pageService.getPageList().pipe(map(pages => {
       this.maxPageCount = pages.length;
-      this.start = this.currentPaginationCount*PAG_SIZE;
-      this.end = this.start+PAG_SIZE;
-      return pages.slice(this.start,this.end);
+      this.start = this.currentPaginationCount * PAG_SIZE;
+      this.end = this.start + PAG_SIZE;
+      return pages.slice(this.start, this.end);
     }))
     this.getPages('Confirmed');
     this.hideToggle = this.story?.pendingPageIds.length === 0;
@@ -72,11 +73,11 @@ export class StoryComponent implements OnInit {
 
   getPages(type: PageType): void {
     const ids = type === 'Confirmed' ? 'pageIds' : 'pendingPageIds';
-    if(this.story)
+    if (this.story)
       this.pageService.updatePageList(this.story[ids]);
   }
 
-  changeToggle(type: PageType):void{
+  changeToggle(type: PageType): void {
     this.toggleTypeLabel = type === 'Confirmed' ? 'Pending' : 'Confirmed';
     this.getPages(type);
   }
@@ -120,12 +121,29 @@ export class StoryComponent implements OnInit {
 
   forward() {
     this.currentPaginationCount += 1;
-    this.getPages(this.toggleTypeLabel=='Confirmed' ? 'Pending' : 'Confirmed');
+    this.getPages(this.toggleTypeLabel == 'Confirmed' ? 'Pending' : 'Confirmed');
   }
 
   backward() {
     this.currentPaginationCount -= 1;
-    this.getPages(this.toggleTypeLabel=='Confirmed' ? 'Pending' : 'Confirmed');
+    this.getPages(this.toggleTypeLabel == 'Confirmed' ? 'Pending' : 'Confirmed');
+  }
 
+  addPage() {
+    if (this.user.markedStoryId !== this.story._id && this.user.numberOfTablets === 0) alert(`You need a tablet to write on. You can get tablets by completing the daily tribute.`)
+    else {
+      const dialogRef = this.dialog.open(NewPageComponent, {
+        data: [this.story.word1, this.story.word2, this.story.word3]
+      });
+      dialogRef.afterClosed()
+        .pipe(
+          switchMap((text: string) =>
+            this.pageService.addPage(text, this.story.language)),
+          switchMap((pageId: string) =>
+            this.storyService.addPendingPage(pageId, this.story._id)))
+        .subscribe(tributeCompleted => {
+          if (tributeCompleted) alert('You completed your daily tribute and have recieved 1 tablet. Well done!')
+        })
+    }
   }
 }

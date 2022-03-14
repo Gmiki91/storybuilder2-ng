@@ -93,6 +93,15 @@ export class StoryService {
        return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
     }
 
+    addPendingPage(pageId:string, storyId:string):Observable<boolean>{
+       return this.http.post<{status:string, story:Story, tributeCompleted:boolean}>(`${environment.url}/stories/pendingPage`, { pageId, storyId})
+        .pipe(map(result=>{
+            this.story.next(result.story);
+            return result.tributeCompleted;
+        }))
+
+     }
+
     editStory(id:string, description:string){
         this.http.put<{status:string, story:Story}>(`${environment.url}/stories/one/${id}`,{description})
         .subscribe(result=>this.story.next(result.story));

@@ -5,7 +5,7 @@ import { Level, levels } from 'src/app/shared/models/languageData';
 @Component({
   selector: 'app-rate-level',
   templateUrl: './rate-level.component.html',
-  styleUrls: ['./rate-level.component.css']
+  styleUrls: ['../style.css']
 })
 export class RateLevelComponent {
 

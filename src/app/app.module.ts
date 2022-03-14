@@ -12,7 +12,8 @@ import { NewStoryComponent } from './forms/new-story/new-story.component';
 import { RateLevelComponent } from './forms/rate-level/rate-level.component';
 import { EditStoryComponent } from './forms/edit-story/edit-story.component';
 import { TimerComponent } from './daily/timer/timer.component';
-import { StatsComponent } from './profile/stats/stats.component'
+import { StatsComponent } from './profile/stats/stats.component';
+import { NewPageComponent } from './forms/new-page/new-page.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { StatsComponent } from './profile/stats/stats.component'
     RateLevelComponent,
     EditStoryComponent,
     TimerComponent,
-    StatsComponent
+    StatsComponent,
+    NewPageComponent
   ],
   imports: [
     MAT_MODULES,

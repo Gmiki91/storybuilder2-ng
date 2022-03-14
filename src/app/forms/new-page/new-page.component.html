@@ -1,0 +1,5 @@
+<div mat-dialog-content class="container">
+    <p *ngFor="let word of words" [class]="word.color">{{word.value}}</p>
+    <textarea #input class="text" (input)="changeText($event)"></textarea>
+    <button [disabled]="!validForm" (click)="onSubmit(input.value)">Submit</button>
+</div>

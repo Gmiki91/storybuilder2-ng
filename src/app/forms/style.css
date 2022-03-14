@@ -15,6 +15,12 @@ margin-bottom:15px;
 .text{
     min-height:200px;
 }
+.text-green{
+    color:green;
+}
+.text-red{
+    color:red;
+}
 .error{
     color: #D8000C;
     background-color: #FFBABA;
