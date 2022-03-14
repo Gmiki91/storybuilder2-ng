@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, map, BehaviorSubject,Subject } from "rxjs";
 import { Story } from "../models/story";
 import { environment } from '../../../environments/environment';
-import * as moment from "moment";
+import moment from "moment";
 import { NewStoryData } from "src/app/forms/new-story/new-story.component";
 import { Rate } from "../models/page";
 
@@ -119,7 +119,8 @@ export class StoryService {
     }
 
 
-    changeSearchTitle(): void {
-
+    changeSearchTitle(title:string): void {
+        this.storyName=title;
+        this.updateStoryList();
     }
 }

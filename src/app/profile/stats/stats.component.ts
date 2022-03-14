@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import moment from 'moment';
-import { Observable, map, lastValueFrom,firstValueFrom } from 'rxjs';
+import { Observable, map,firstValueFrom } from 'rxjs';
 import { PageData } from 'src/app/shared/models/page';
 import { StoryData } from 'src/app/shared/models/story';
 import { User } from '../../shared/models/user';

@@ -12,7 +12,7 @@ import { PageService } from '../shared/services/page.service';
 import { StoryService } from '../shared/services/story.service';
 
 type PageType = 'Confirmed' | 'Pending';
-const PAG_SIZE = 2;
+const PAG_SIZE = 50;
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',

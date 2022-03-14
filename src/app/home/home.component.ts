@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Story } from '../shared/models/story';
@@ -15,6 +14,7 @@ import { PageService } from '../shared/services/page.service';
 export class HomeComponent implements OnInit {
   storyList$!: Observable<Story[]>;
   newStory: NewStoryData = {} as NewStoryData;
+  error=false;
   constructor(
     private storyService: StoryService,
     private pageService: PageService,
@@ -42,8 +42,13 @@ export class HomeComponent implements OnInit {
     this.pageService.addPage(story.text, story.language).subscribe((pageId:string)=>{
       story.pageId = pageId;
       this.storyService.addStory(story)
-    })
-    
+    }) 
+  }
+  
+  search(title:string):void{
+    this.error = title.trim().length<3 && title.trim().length!==0;
+    if(!this.error)
+    this.storyService.changeSearchTitle(title);
   }
 
 }

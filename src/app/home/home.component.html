@@ -1,5 +1,8 @@
 <div class="home-container">
     <div class="criteria">
+        <input #input placeholder="Search title">
+        <button (click)="search(input.value)">search</button>
+        <p *ngIf="error">Title must be at least 3 characters long</p>
         <app-sort-by></app-sort-by>
         <app-filter></app-filter>
     </div>
