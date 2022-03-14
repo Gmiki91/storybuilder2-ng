@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import moment from 'moment';
-import { Observable, map, lastValueFrom, firstValueFrom } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AuthenticationService } from '../shared/services/authentication.service';
 
