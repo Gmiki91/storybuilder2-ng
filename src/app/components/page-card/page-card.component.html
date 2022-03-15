@@ -3,8 +3,8 @@
     <a (click)="onAuthor($event)">Author: {{page.authorName}}</a>
     <p>{{rating}}</p>
     <div *ngIf="!toConfirm">
-        <button (click)="rate(1)" [disabled]="ownContent || liked">like</button>
-        <button (click)="rate(-1)" [disabled]="ownContent || disliked">dislike</button>
+        <button (click)="rate(1)" [disabled]="ownContent" [class]="liked ? 'pushed' : 'unpushed'">like</button>
+        <button (click)="rate(-1)" [disabled]="ownContent" [class]="disliked ? 'pushed' : 'unpushed'">dislike</button>
     </div>
     <div *ngIf="toConfirm">
         <button (click)="accept()">Accept</button>

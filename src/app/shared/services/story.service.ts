@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, map, BehaviorSubject,Subject } from "rxjs";
+import { Observable, map, BehaviorSubject, Subject } from "rxjs";
 import { Story } from "../models/story";
 import { environment } from '../../../environments/environment';
 import moment from "moment";
@@ -55,23 +55,23 @@ export class StoryService {
         return this.storyList.asObservable();
     }
 
-    updateStory(storyId:string):void{
-        this.http.get<{status:string, story:Story}>(`${environment.url}/stories/one/${storyId}`)
-        .subscribe(result=>{
-            this.story.next(result.story);
-        })
+    updateStory(storyId: string): void {
+        this.http.get<{ status: string, story: Story }>(`${environment.url}/stories/one/${storyId}`)
+            .subscribe(result => {
+                this.story.next(result.story);
+            })
     }
 
-    getStory(){
+    getStory() {
         return this.story.asObservable();
     }
- 
-    getStoryData(authorId:string){
-        return this.http.get<{status:string, size:number,  upVotes:number, totalVotes:number}>(`${environment.url}/stories/many/${authorId}`)
+
+    getStoryData(authorId: string) {
+        return this.http.get<{ status: string, size: number, upVotes: number, totalVotes: number }>(`${environment.url}/stories/many/${authorId}`)
     }
 
-    getDaily(){
-       return this.http.get<{status:string, story:Story, hoursLeft:number, minutesLeft:number}>(`${environment.url}/stories/tribute/data`)
+    getDaily() {
+        return this.http.get<{ status: string, story: Story, hoursLeft: number, minutesLeft: number }>(`${environment.url}/stories/tribute/data`)
     }
 
     addStory(storyData: NewStoryData): void {
@@ -89,35 +89,41 @@ export class StoryService {
             .subscribe(() => this.updateStoryList());
     }
 
-    addPage(pageId:string, storyId:string, pageRatings:Rate[]){
-       return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
+    addPage(pageId: string, storyId: string, pageRatings: Rate[]) {
+        return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
     }
 
-    addPendingPage(pageId:string, storyId:string):Observable<boolean>{
-       return this.http.post<{status:string, story:Story, tributeCompleted:boolean}>(`${environment.url}/stories/pendingPage`, { pageId, storyId})
-        .pipe(map(result=>{
-            this.story.next(result.story);
-            return result.tributeCompleted;
-        }))
+    addPendingPage(pageId: string, storyId: string): Observable<boolean> {
+        return this.http.post<{ status: string, story: Story, tributeCompleted: boolean }>(`${environment.url}/stories/pendingPage`, { pageId, storyId })
+            .pipe(map(result => {
+                this.story.next(result.story);
+                return result.tributeCompleted;
+            }))
 
-     }
-
-    editStory(id:string, description:string){
-        this.http.put<{status:string, story:Story}>(`${environment.url}/stories/one/${id}`,{description})
-        .subscribe(result=>this.story.next(result.story));
     }
 
-    rateLevel(storyId:string,rate:string):void{
-        this.http.put<{status:string, story:Story}>(`${environment.url}/stories/level`, { rate, storyId })
-        .subscribe(result=>this.story.next(result.story));
+    editStory(id: string, description: string) {
+        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { description })
+            .subscribe(result => this.story.next(result.story));
     }
 
-    removePendingPage(pageId:string, storyId:string){
-       return this.http.put(`${environment.url}/stories/pendingPage`, { pageId, storyId})
+    rateLevel(storyId: string, rate: string): void {
+        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/level`, { rate, storyId })
+            .subscribe(result => this.story.next(result.story));
+    }
+
+    rateText(storyId: string, vote: number): void {
+        this.http.put(`${environment.url}/stories/rate`, { vote, storyId })
+            .subscribe(() => { })
+
+    }
+
+    removePendingPage(pageId: string, storyId: string) {
+        return this.http.put(`${environment.url}/stories/pendingPage`, { pageId, storyId })
     }
 
     changeSearchCriteria(sc: SearchCriteria): void {
-        this.searchCriteria=sc;
+        this.searchCriteria = sc;
         this.updateStoryList();
     }
 
@@ -128,8 +134,8 @@ export class StoryService {
     }
 
 
-    changeSearchTitle(title:string): void {
-        this.storyName=title;
+    changeSearchTitle(title: string): void {
+        this.storyName = title;
         this.updateStoryList();
     }
 }

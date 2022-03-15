@@ -40,8 +40,7 @@ export class StoryComponent implements OnInit {
 
     let nav = this.router.getCurrentNavigation();
     if (nav?.extras.state) {
-      const storyId = nav.extras.state['storyId'];
-      this.storyService.updateStory(storyId);
+      this.story= nav.extras.state['story'];
     }
   }
 
@@ -95,6 +94,11 @@ export class StoryComponent implements OnInit {
 
   pageDeclined() {
     this.storyService.updateStory(this.story._id);
+  }
+
+  pageRated(rate:number){
+    if(this.toggleTypeLabel==='Pending')//means user rating confirmed pages, which must be shown on storycard as well
+    this.storyService.rateText(this.story._id,rate)
   }
 
   onLevelClicked() {

@@ -2,15 +2,15 @@
     <button (click)="onTitleClicked()">{{ story.title }}</button>
     <button (click)="onLevelClicked()">{{story.level.code}}</button>
     <button (click)="addPage()">Add page</button>
-    <app-page-card *ngFor="let page of pageList$|async" [page]="page" [storyId]="story._id"
-        [userId]="user._id" [ownContent]="user._id === (page.authorId || story.authorId)"
-        [toConfirm]="toggleTypeLabel === 'Confirmed' && story.authorId === user._id"
+    <app-page-card *ngFor="let page of pageList$|async" [page]="page" [storyId]="story._id" [userId]="user._id"
+        [ownContent]="user._id === (page.authorId || story.authorId)"
+        [toConfirm]="toggleTypeLabel === 'Confirmed' && story.authorId === user._id" (pageRated)="pageRated($event)"
         (pageAccepted)="pageAccepted($event)" (pageDeclined)="pageDeclined()"></app-page-card>
-        <button *ngIf="start!==0" (click)="backward()"><</button>
-        <p *ngIf="maxPageCount>end">{{start}} - {{end}} / {{maxPageCount}}</p>
-        <p *ngIf="maxPageCount<=end">{{start}} - {{maxPageCount}} </p>
-        <button *ngIf="end<maxPageCount" (click)="forward()">></button>
-        
-    <button [hidden]="hideToggle" (click)="changeToggle(toggleTypeLabel)">{{toggleTypeLabel}}</button>
+    <button *ngIf="start!==0" (click)="backward()">< </button>
+            <p *ngIf="maxPageCount>end">{{start}} - {{end}} / {{maxPageCount}}</p>
+            <p *ngIf="maxPageCount<=end">{{start}} - {{maxPageCount}} </p>
+            <button *ngIf="end<maxPageCount" (click)="forward()">></button>
+
+            <button [hidden]="hideToggle" (click)="changeToggle(toggleTypeLabel)">{{toggleTypeLabel}}</button>
 </div>
 <p *ngIf="!story">Loading</p>

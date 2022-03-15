@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { firstValueFrom, Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { Story } from '../shared/models/story';
 import { StoryService } from '../shared/services/story.service';
 import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.component';
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
   }
 
    addStory(story: NewStoryData):void {
-    firstValueFrom(this.pageService.addPage(story.text, story.language)).then((pageId:string)=>{
+    lastValueFrom(this.pageService.addPage(story.text, story.language)).then((pageId:string)=>{
       story.pageId = pageId;
       this.storyService.addStory(story)
     }) 
