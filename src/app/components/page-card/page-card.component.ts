@@ -58,17 +58,22 @@ export class PageCardComponent implements OnInit {
   checkVote(): void {
     this.rating = this.page.ratings.reduce((sum, rating) => sum + rating.rate, 0);
     this.ratedByUser = this.page.ratings.find(rating => rating.userId === this.userId);
-    if (this.ratedByUser?.rate === 1) { 
-      this.liked = true;
-      this.disliked = false;
-    }
-    if (this.ratedByUser?.rate === -1) {
-      this.liked = false;
-      this.disliked = true;
+    if (this.ratedByUser) {
+      if (this.ratedByUser.rate === 1) {
+        this.liked = true;
+        this.disliked = false;
+      }
+      if (this.ratedByUser.rate === -1) {
+        this.liked = false;
+        this.disliked = true;
+      }
+    }else{
+      this.liked=false;
+      this.disliked=false;
     }
   }
-  onAuthor(event:MouseEvent):void{
+  onAuthor(event: MouseEvent): void {
     event.stopPropagation();
-    this.router.navigate(['/stats'], { state: { authorId:this.page.authorId } })
+    this.router.navigate(['/stats'], { state: { authorId: this.page.authorId } })
   }
 }
