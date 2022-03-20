@@ -3,12 +3,18 @@
         <input #input placeholder="Search title">
         <button (click)="search(input.value)">search</button>
         <p *ngIf="error">Title must be at least 3 characters long</p>
+        <div *ngIf="storyListWithPending$|async as storyList">
+            <button 
+            *ngIf="storyList.length>0" 
+            [class]="storyListWithPending$===storyList$ ? 'active' : null"
+            (click)="togglePending()">Pending!</button>
+        </div>
         <app-sort-by></app-sort-by>
         <app-filter></app-filter>
+        <button (click)="onNewStoryClicked()">Create new story</button>
     </div>
-    <button (click)="onNewStoryClicked()">Create new story</button>
-    
+
     <div class="list-container">
-        <app-story-card *ngFor="let story of storyList$|async"  [story]="story"></app-story-card>
+        <app-story-card *ngFor="let story of storyList$|async" [story]="story"></app-story-card>
     </div>
 </div>

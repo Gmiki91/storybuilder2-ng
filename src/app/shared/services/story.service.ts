@@ -55,6 +55,9 @@ export class StoryService {
         return this.storyList.asObservable();
     }
 
+    getStoryListWithPendingPages():Observable<Story[]> {
+        return this.http.get<{ status: string, stories: Story[] }>(`${environment.url}/stories/`).pipe(map(result=>result.stories))
+    }
     updateStory(storyId: string): void {
         this.http.get<{ status: string, story: Story }>(`${environment.url}/stories/one/${storyId}`)
             .subscribe(result => {

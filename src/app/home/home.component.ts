@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { lastValueFrom, Observable } from 'rxjs';
+import { lastValueFrom, Observable,of } from 'rxjs';
 import { Story } from '../shared/models/story';
 import { StoryService } from '../shared/services/story.service';
 import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.component';
@@ -13,6 +13,8 @@ import { PageService } from '../shared/services/page.service';
 })
 export class HomeComponent implements OnInit {
   storyList$!: Observable<Story[]>;
+  tempStoryList$!: Observable<Story[]>;
+  storyListWithPending$!: Observable<Story[]>
   newStory: NewStoryData = {} as NewStoryData;
   error=false;
   constructor(
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.storyList$ = this.storyService.getStoryList();
+    this.storyListWithPending$ = this.storyService.getStoryListWithPendingPages();
     this.storyService.updateStoryList();
   }
 
@@ -49,6 +52,15 @@ export class HomeComponent implements OnInit {
     this.error = title.trim().length<3 && title.trim().length!==0;
     if(!this.error)
     this.storyService.changeSearchTitle(title);
+  }
+
+  togglePending():void{
+    if(this.storyListWithPending$===this.storyList$){
+      this.storyList$ = this.tempStoryList$;
+    }else{
+      this.tempStoryList$ = this.storyList$;
+      this.storyList$=this.storyListWithPending$
+    }
   }
 
 }
