@@ -14,9 +14,9 @@ import { AuthenticationService } from '../shared/services/authentication.service
 })
 export class HomeComponent implements OnInit {
   storyList$!: Observable<Story[]>;
-  loggedIn!: boolean;
   tempStoryList$!: Observable<Story[]>;
   storyListWithPending$!: Observable<Story[]>
+  loggedIn!: boolean;
   newStory: NewStoryData = {} as NewStoryData;
   error = false;
   constructor(
@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
     this.storyService.updateStoryList();
   }
 
-
   onNewStoryClicked(): void {
     const dialogRef = this.dialog.open(NewStoryComponent, {
       data: { story: this.newStory }
@@ -42,14 +41,14 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.addStory(result)
-      }
-    });
+    }});
   }
 
   addStory(story: NewStoryData): void {
     lastValueFrom(this.pageService.addPage(story.text, story.language)).then((pageId: string) => {
       story.pageId = pageId;
-      this.storyService.addStory(story)
+      this.storyService.addStory(story);
+      this.authService.refreshLoggedInUser();
     })
   }
 

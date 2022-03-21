@@ -13,18 +13,31 @@ export class AuthenticationService {
     user = new Subject<User>();
     constructor(private httpClient: HttpClient, private router: Router) { }
 
+    presignup(name:string, email:string){
+        return this.httpClient.post<{ status: string, duplicate: boolean }>(`${environment.url}/users/presignup`, { name, email })
+    }
+    signup(name: string, email: string, password: string) {
+        return this.httpClient.post<{ status: string, token: string,user: User,  }>(`${environment.url}/users/signup`, { name, email, password })
+        .pipe(map(result => {
+            localStorage.setItem('access_token', result.token);
+            this.user.next(result.user);
+            this.router.navigate(['/']);
+    }))
+}
+
     login(userInput: string, password: string): void {
         this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/login`, { userInput, password })
             .subscribe(result => {
                 localStorage.setItem('access_token', result.token);
-                this.user.next(result.user)
+                this.user.next(result.user);
                 this.router.navigate(['/']);
+
             })
     }
     logout(): void {
         localStorage.removeItem('access_token');
         this.user.next({} as User)
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
     }
 
     changePassword(currentPassword: string, newPassword: string): void {
@@ -34,7 +47,7 @@ export class AuthenticationService {
                     localStorage.setItem('access_token', result.token);
                     alert(result.message)
                 },
-                error: response =>{alert(response.error.message)}
+                error: response => { alert(response.error.message) }
             })
     }
 
@@ -58,9 +71,8 @@ export class AuthenticationService {
 
     refreshLoggedInUser() {
         this.httpClient.get<{ user: User }>(`${environment.url}/users/`) //getMe
-            .subscribe(result =>
+            .subscribe(result => {
                 this.user.next(result.user)
-            );
-
+            });
     }
 }
