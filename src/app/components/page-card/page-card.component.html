@@ -1,13 +1,15 @@
 <div class="card">
     <p>{{page.text}}</p>
-    <a (click)="onAuthor($event)">Author: {{page.authorName}}</a>
+    <app-author [authorName]="page.authorName" [authorId]="page.authorId"></app-author>
     <p>{{rating}}</p>
-    <div *ngIf="!toConfirm">
-        <button (click)="rate(1)" [disabled]="ownContent" [class]="liked ? 'pushed' : null">like</button>
-        <button (click)="rate(-1)" [disabled]="ownContent" [class]="disliked ? 'pushed' : null">dislike</button>
-    </div>
-    <div *ngIf="toConfirm">
-        <button (click)="accept()">Accept</button>
-        <button (click)="decline()">Decline</button>
+    <div *ngIf="userId">
+        <div *ngIf="!toConfirm">
+            <button (click)="rate(1)" [disabled]="ownContent" [class]="liked ? 'pushed' : null">like</button>
+            <button (click)="rate(-1)" [disabled]="ownContent" [class]="disliked ? 'pushed' : null">dislike</button>
+        </div>
+        <div *ngIf="toConfirm">
+            <button (click)="accept()">Accept</button>
+            <button (click)="decline()">Decline</button>
+        </div>
     </div>
 </div>

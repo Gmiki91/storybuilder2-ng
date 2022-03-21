@@ -11,7 +11,7 @@
         </div>
         <app-sort-by></app-sort-by>
         <app-filter></app-filter>
-        <button (click)="onNewStoryClicked()">Create new story</button>
+        <button *ngIf="loggedIn" (click)="onNewStoryClicked()">Create new story</button>
     </div>
 
     <div class="list-container">

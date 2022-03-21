@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AuthenticationService } from '../shared/services/authentication.service';
 
@@ -11,12 +11,14 @@ import { AuthenticationService } from '../shared/services/authentication.service
 export class HeaderComponent implements OnInit {
   user$!: Observable<User>;
 
-  constructor(private authentication: AuthenticationService) {}
+  constructor(private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
     this.user$ = this.authentication.getCurrentUser();
     if (this.authentication.isLoggedIn())
       this.authentication.refreshLoggedInUser();
+    else
+      this.user$ = of({} as User)
   }
 
 }

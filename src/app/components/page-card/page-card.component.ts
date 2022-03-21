@@ -13,7 +13,7 @@ import { StoryService } from 'src/app/shared/services/story.service';
 export class PageCardComponent implements OnInit {
 
   @Input() page!: Page;
-  @Input() userId!: string;
+  @Input() userId: string | undefined;
   @Input() storyId!: string;
   @Input() toConfirm!: boolean;
   @Input() ownContent!: boolean;
@@ -24,8 +24,7 @@ export class PageCardComponent implements OnInit {
   ratedByUser: Rate | undefined;
   liked: boolean = false;
   disliked: boolean = false;
-  constructor(private pageService: PageService, private storyService: StoryService, private router: Router) {
-  }
+  constructor(private pageService: PageService, private storyService: StoryService, private router: Router) {}
 
   ngOnInit(): void {
     this.checkVote();
@@ -72,8 +71,5 @@ export class PageCardComponent implements OnInit {
       this.disliked=false;
     }
   }
-  onAuthor(event: MouseEvent): void {
-    event.stopPropagation();
-    this.router.navigate(['/stats'], { state: { authorId: this.page.authorId } })
-  }
+  
 }

@@ -3,7 +3,8 @@
     <i>{{story.description}}</i>
    
     <div>
-        <a (click)="onAuthor($event)">Author: {{story.authorName}}</a>
+        <app-author [authorName]="story.authorName" [authorId]="story.authorId"></app-author>
+       
         <div>{{story.language}}: {{story.level.code}} - {{story.level.text}}</div>
         <div>Pages: {{story.pageIds.length}}</div>
         <div>Pending: {{story.pendingPageIds.length}}</div>

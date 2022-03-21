@@ -21,7 +21,7 @@ const PAG_SIZE = 50;
 })
 export class StoryComponent implements OnInit {
 
-  user!: User;
+  user: User|undefined;
   story!: Story;
   pageList$!: Observable<Page[]>;
   currentPaginationCount = 0;
@@ -40,16 +40,29 @@ export class StoryComponent implements OnInit {
 
     let nav = this.router.getCurrentNavigation();
     if (nav?.extras.state) {
-      this.story= nav.extras.state['story'];
+      this.story = nav.extras.state['story'];
     }
   }
 
   ngOnInit(): void {
-    this.authService.refreshLoggedInUser();
+
+    this.getUser();
+    this.getStory();
+    this.getPageList();
+
+    this.getPages('Confirmed');
+    this.hideToggle = this.story?.pendingPageIds.length === 0;
+  }
+
+  getUser(){
     this.authService.getCurrentUser()
       .subscribe(user => {
         if (user !== undefined) this.user = user
       });
+    if (this.authService.isLoggedIn())
+      this.authService.refreshLoggedInUser();
+  }
+  getStory() {
     this.storyService.getStory()
       .subscribe(story => {
         this.story = story;
@@ -60,14 +73,15 @@ export class StoryComponent implements OnInit {
         this.toggleTypeLabel = type === 'Confirmed' ? 'Pending' : 'Confirmed';
         this.getPages(type);
       });
+  }
+
+  getPageList() {
     this.pageList$ = this.pageService.getPageList().pipe(map(pages => {
       this.maxPageCount = pages.length;
       this.start = this.currentPaginationCount * PAG_SIZE;
       this.end = this.start + PAG_SIZE;
       return pages.slice(this.start, this.end);
     }))
-    this.getPages('Confirmed');
-    this.hideToggle = this.story?.pendingPageIds.length === 0;
   }
 
   getPages(type: PageType): void {
@@ -96,9 +110,9 @@ export class StoryComponent implements OnInit {
     this.storyService.updateStory(this.story._id);
   }
 
-  pageRated(rate:number){
-    if(this.toggleTypeLabel==='Pending')//means user rating confirmed pages, which must be shown on storycard as well
-    this.storyService.rateText(this.story._id,rate)
+  pageRated(rate: number) {
+    if (this.toggleTypeLabel === 'Pending')//means user rating confirmed pages, which must be shown on storycard as well
+      this.storyService.rateText(this.story._id, rate)
   }
 
   onLevelClicked() {
@@ -114,7 +128,7 @@ export class StoryComponent implements OnInit {
 
   onTitleClicked() {
     const dialogRef = this.dialog.open(EditStoryComponent, {
-      data: { story: { ...this.story }, userId: this.user._id }
+      data: { story: { ...this.story }, userId: this.user?._id }
     });
     dialogRef.afterClosed().subscribe(description => {
       if (description && description !== this.story.description) {
@@ -134,7 +148,7 @@ export class StoryComponent implements OnInit {
   }
 
   addPage() {
-    if (this.user.markedStoryId !== this.story._id && this.user.numberOfTablets === 0) alert(`You need a tablet to write on. You can get tablets by completing the daily tribute.`)
+    if (this.user?.markedStoryId !== this.story._id && this.user?.numberOfTablets === 0) alert(`You need a tablet to write on. You can get tablets by completing the daily tribute.`)
     else {
       const dialogRef = this.dialog.open(NewPageComponent, {
         data: [this.story.word1, this.story.word2, this.story.word3]
