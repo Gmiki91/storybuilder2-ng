@@ -134,13 +134,11 @@ export class StoryComponent implements OnInit, OnDestroy {
       storyId: this.story._id,
       message: `You've submitted page #${this.story.pageIds.length} for story "${this.story.title}". It is pending confirmation.`
     }
-    if (this.story.authorId === this.user?._id) {
-      note.message += '.. Your own confirmation...'
-    }
+  
     this.noteService.addSelfNote(note);
-    if (!isNaN(+this.story.authorId)) {
+    if (this.story.authorName!=='Source') {
       note.message = `Page #${this.story.pageIds.length} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
-      this.noteService.addNotes([this.story.authorId], note);
+      this.noteService.addNotes(this.story.authorId, note);
     }
   }
 
@@ -151,7 +149,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       storyId: this.story._id,
       message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been rejected.`
     }
-    this.noteService.addNotes(ids, note);
+    this.noteService.addNotes(ids.join(','), note);
   }
 
   sendAcceptNote(authorId: string) {
@@ -161,10 +159,8 @@ export class StoryComponent implements OnInit, OnDestroy {
       storyId: this.story._id,
       message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been accepted.`
     }
-    if (this.story.authorId === this.user?._id) {
-      note.message += '.. By yourself...'
-    }
-    this.noteService.addNotes([authorId], note);
+   
+    this.noteService.addNotes(authorId, note);
   }
 
   pageRated(rate: number) {

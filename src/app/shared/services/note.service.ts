@@ -19,7 +19,7 @@ export class NoteService {
             ))
     }
 
-    addNotes(userIds: string[], note: Note) {
+    addNotes(userIds: string, note: Note) {
         this.http.post(`${environment.url}/notifications/${userIds}`, { note })
             .subscribe(() => { })
     }
