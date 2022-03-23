@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import moment from "moment";
 import { BehaviorSubject, Observable, map } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Note } from "../models/note";
@@ -13,7 +14,9 @@ export class NoteService {
 
     getNotes() {
         return this.http.get<{ status: string, notifications: Note[] }>(`${environment.url}/notifications`)
-            .pipe(map(result => result.notifications))
+            .pipe(map(result => result.notifications
+                .map(note => ({ ...note, date: moment.utc(note.date).local().startOf('seconds').fromNow() }))
+            ))
     }
 
     addNotes(userIds: string[], note: Note) {
@@ -21,8 +24,8 @@ export class NoteService {
             .subscribe(() => { })
     }
 
-    addSelfNote(note:Note) {
+    addSelfNote(note: Note) {
         this.http.post(`${environment.url}/notifications/`, { note })
-            .subscribe(() => {this.getNotes()})
+            .subscribe(() => { this.getNotes() })
     }
 }
