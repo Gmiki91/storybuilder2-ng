@@ -29,8 +29,6 @@ export class HomeComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-
-
   ngOnInit(): void {
     this.loggedIn = this.authService.isLoggedIn();
     this.storyList$ = this.storyService.getStoryList();

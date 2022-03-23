@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { NewStoryComponent, NewStoryData } from 'src/app/forms/new-story/new-story.component';
 import { Note } from 'src/app/shared/models/note';
@@ -22,7 +23,8 @@ export class SignupComponent  {
     private dialog: MatDialog,
     private pageService: PageService,
     private storyService: StoryService,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private router: Router
   ) { }
 
   async onSignUp(form: NgForm) {
@@ -66,6 +68,7 @@ export class SignupComponent  {
       date: Date.now()
     }
     this.noteService.addSelfNote(note);
+    this.router.navigate(['/']);
   }
 
 }

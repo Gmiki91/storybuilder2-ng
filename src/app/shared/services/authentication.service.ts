@@ -21,7 +21,6 @@ export class AuthenticationService {
         .pipe(map(result => {
             localStorage.setItem('access_token', result.token);
             this.user.next(result.user);
-            this.router.navigate(['/']);
     }))
 }
 
@@ -31,9 +30,9 @@ export class AuthenticationService {
                 localStorage.setItem('access_token', result.token);
                 this.user.next(result.user);
                 this.router.navigate(['/']);
-
             })
     }
+
     logout(): void {
         localStorage.removeItem('access_token');
         this.user.next({} as User)
