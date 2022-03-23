@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { lastValueFrom, Observable, Subscription } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { Story } from '../shared/models/story';
 import { StoryService } from '../shared/services/story.service';
 import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.component';
@@ -15,7 +15,6 @@ import { Note } from '../shared/models/note';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  subscription:Subscription = new Subscription();
   storyList$!: Observable<Story[]>;
   tempStoryList$!: Observable<Story[]>;
   storyListWithPending$!: Observable<Story[]>
@@ -29,6 +28,8 @@ export class HomeComponent implements OnInit {
     private noteService: NoteService,
     private dialog: MatDialog
   ) { }
+
+
 
   ngOnInit(): void {
     this.loggedIn = this.authService.isLoggedIn();
@@ -49,21 +50,18 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  addStory(story: NewStoryData): void {
-    lastValueFrom(this.pageService.addPage(story.text, story.language)).then((pageId: string) => {
-      story.pageId = pageId;
-      const observable$ = this.storyService.addStory(story).subscribe(storyId => {
-        const note: Note = {
-          storyId,
-          message: `Story "${story.title.trim()}" has been added.`,
-          code: 'B',
-          date: Date.now()
-        }
-        this.noteService.addSelfNote(note);
-      });
-      this.subscription.add(observable$)
-      this.authService.refreshLoggedInUser();
-    })
+  async addStory(story: NewStoryData) {
+    const pageId = await lastValueFrom(this.pageService.addPage(story.text, story.language))
+    story.pageId = pageId;
+    const storyId = await lastValueFrom(this.storyService.addStory(story))
+    const note: Note = {
+      storyId,
+      message: `Story "${story.title.trim()}" has been added.`,
+      code: 'B',
+      date: Date.now()
+    }
+    this.noteService.addSelfNote(note);
+    this.authService.refreshLoggedInUser();
   }
 
   search(title: string): void {

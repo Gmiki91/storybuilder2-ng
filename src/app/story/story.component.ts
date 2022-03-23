@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, map, switchMap, Subscription, of, firstValueFrom } from 'rxjs';
+import { Observable, map,  Subscription,  firstValueFrom } from 'rxjs';
 import { EditStoryComponent } from '../forms/edit-story/edit-story.component';
 import { NewPageComponent } from '../forms/new-page/new-page.component';
 import { RateLevelComponent } from '../forms/rate-level/rate-level.component';
@@ -109,15 +109,14 @@ export class StoryComponent implements OnInit, OnDestroy {
     this.getPages(type);
   }
 
-  pageAccepted(result: emitObject): void {
+  async pageAccepted(result: emitObject) {
     this.hideToggle = true;
     if (this.story.pendingPageIds.length > 1) {
       const index = this.story.pendingPageIds.indexOf(result.pageId)
       const idsToDelete = [...this.story.pendingPageIds];
       idsToDelete.splice(index, 1);
-      const observable$ = this.pageService.deletePages(idsToDelete, this.story._id)
-        .subscribe(result => this.sendRejectNotes(result.authorIds))
-      this.subscription.add(observable$);
+      const response = await firstValueFrom(this.pageService.deletePages(idsToDelete, this.story._id));
+      this.sendRejectNotes(response.authorIds);
       this.storyService.updateStory(this.story._id);
     }
   }
