@@ -5,6 +5,7 @@ import { SignupComponent } from './authentication/signup/signup.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DailyComponent } from './daily/daily.component';
 import { HomeComponent } from './home/home.component';
+import { NotesComponent } from './notes/notes.component';
 import { ProfileComponent } from './profile/profile.component';
 import { StatsComponent } from './profile/stats/stats.component';
 import { PrivateGuard } from './shared/private.guard';
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path:'daily',component:DailyComponent, canActivate:[PrivateGuard]},
   {path:'story',component:StoryComponent},
   {path:'stats',component:StatsComponent},
+  {path:'notes',component:NotesComponent},
   {path:'**',component:NotFoundComponent}
 
 ];

@@ -15,7 +15,9 @@ import { TimerComponent } from './daily/timer/timer.component';
 import { StatsComponent } from './profile/stats/stats.component';
 import { NewPageComponent } from './forms/new-page/new-page.component';
 import { AuthorComponent } from './components/author/author.component';
-import { NotFoundComponent } from './components/not-found/not-found.component'
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SettingsComponent } from './profile/settings/settings.component';
+import { NotesComponent } from './notes/notes.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,9 @@ import { NotFoundComponent } from './components/not-found/not-found.component'
     StatsComponent,
     NewPageComponent,
     AuthorComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SettingsComponent,
+    NotesComponent
   ],
   imports: [
     MAT_MODULES,

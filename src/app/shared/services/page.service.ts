@@ -35,7 +35,7 @@ export class PageService {
     }
 
     deletePages(ids: string[], storyId: string) {
-        this.http.patch(`${environment.url}/pages/many/${ids.join(',')}`, { storyId }).subscribe(() => { })
+        return this.http.patch<{ status: string, authorIds: string[] }>(`${environment.url}/pages/many/${ids.join(',')}`, { storyId })
     }
 
     deletePage(pageId: string, storyId: string): void {

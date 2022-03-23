@@ -15,7 +15,7 @@ export class StoryCardComponent implements OnInit {
   ngOnInit(): void {
   }
   onStoryClicked(): void {
-    this.router.navigate(['/story'], { state: { story:this.story } })
+    this.router.navigate(['/story'], { state: { storyId:this.story._id } })
   }
  
 }

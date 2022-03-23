@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, map, BehaviorSubject, Subject } from "rxjs";
+import { Observable, map, BehaviorSubject, Subject, tap } from "rxjs";
 import { Story } from "../models/story";
 import { environment } from '../../../environments/environment';
 import moment from "moment";
@@ -77,7 +77,7 @@ export class StoryService {
         return this.http.get<{ status: string, story: Story, hoursLeft: number, minutesLeft: number }>(`${environment.url}/stories/tribute/data`)
     }
 
-    addStory(storyData: NewStoryData): void {
+    addStory(storyData: NewStoryData) {
         const story = {
             title: storyData.title.trim(),
             description: storyData.description?.trim(),
@@ -88,8 +88,11 @@ export class StoryService {
             word2: storyData.word2?.toLowerCase().trim(),
             word3: storyData.word3?.toLowerCase().trim()
         };
-        this.http.post<{ story: Story }>(`${environment.url}/stories/`, story)
-            .subscribe(() => this.updateStoryList());
+       return this.http.post<{ status: string,storyId:string}>(`${environment.url}/stories/`, story)
+            .pipe(map(result => {
+                this.updateStoryList();
+                return result.storyId;
+            }));
     }
 
     addPage(pageId: string, storyId: string, pageRatings: Rate[]) {

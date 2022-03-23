@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { lastValueFrom, Observable, of } from 'rxjs';
+import { lastValueFrom, Observable, Subscription } from 'rxjs';
 import { Story } from '../shared/models/story';
 import { StoryService } from '../shared/services/story.service';
 import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.component';
 import { PageService } from '../shared/services/page.service';
 import { AuthenticationService } from '../shared/services/authentication.service';
+import { NoteService } from '../shared/services/note.service';
+import { Note } from '../shared/models/note';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,7 @@ import { AuthenticationService } from '../shared/services/authentication.service
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  subscription:Subscription = new Subscription();
   storyList$!: Observable<Story[]>;
   tempStoryList$!: Observable<Story[]>;
   storyListWithPending$!: Observable<Story[]>
@@ -23,6 +26,7 @@ export class HomeComponent implements OnInit {
     private authService: AuthenticationService,
     private storyService: StoryService,
     private pageService: PageService,
+    private noteService: NoteService,
     private dialog: MatDialog
   ) { }
 
@@ -41,13 +45,23 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.addStory(result)
-    }});
+      }
+    });
   }
 
   addStory(story: NewStoryData): void {
     lastValueFrom(this.pageService.addPage(story.text, story.language)).then((pageId: string) => {
       story.pageId = pageId;
-      this.storyService.addStory(story);
+      const observable$ = this.storyService.addStory(story).subscribe(storyId => {
+        const note: Note = {
+          storyId,
+          message: `Story "${story.title.trim()}" has been added.`,
+          code: 'B',
+          date: Date.now()
+        }
+        this.noteService.addSelfNote(note);
+      });
+      this.subscription.add(observable$)
       this.authService.refreshLoggedInUser();
     })
   }

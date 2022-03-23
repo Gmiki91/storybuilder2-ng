@@ -1,0 +1,6 @@
+<div *ngFor="let note of notes$|async" (click)="onStoryClicked(note.storyId)">
+    <p>{{note.message}}</p>
+    <p>{{note.date}}</p>
+
+    </div>
+
