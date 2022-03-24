@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, map,  Subscription,  firstValueFrom } from 'rxjs';
+import { Observable, map, Subscription, firstValueFrom } from 'rxjs';
 import { EditStoryComponent } from '../forms/edit-story/edit-story.component';
 import { NewPageComponent } from '../forms/new-page/new-page.component';
 import { RateLevelComponent } from '../forms/rate-level/rate-level.component';
@@ -110,21 +110,23 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   async pageAccepted(result: emitObject) {
-    this.hideToggle = true;
-    if (this.story.pendingPageIds.length > 1) {
-      const index = this.story.pendingPageIds.indexOf(result.pageId)
-      const idsToDelete = [...this.story.pendingPageIds];
-      idsToDelete.splice(index, 1);
-      const response = await firstValueFrom(this.pageService.deletePages(idsToDelete, this.story._id));
-      this.sendRejectNotes(response.authorIds);
-      this.storyService.updateStory(this.story._id);
+    if (confirm('All other pending pages will be rejected. Are you sure?')) {
+      this.hideToggle = true;
+      this.sendAcceptNote(result.authorId);
+      if (this.story.pendingPageIds.length > 1) {
+        const index = this.story.pendingPageIds.indexOf(result.pageId)
+        const idsToDelete = [...this.story.pendingPageIds];
+        idsToDelete.splice(index, 1);
+        const response = await firstValueFrom(this.pageService.deletePages(idsToDelete, this.story._id));
+        this.sendRejectNotes(response.authorIds);
+        this.storyService.updateStory(this.story._id);
+      }
     }
   }
 
   pageDeclined(authorId: string) {
     this.storyService.updateStory(this.story._id);
     this.sendRejectNotes([authorId]);
-
   }
 
   sendSubmitionNote() {
@@ -134,9 +136,9 @@ export class StoryComponent implements OnInit, OnDestroy {
       storyId: this.story._id,
       message: `You've submitted page #${this.story.pageIds.length} for story "${this.story.title}". It is pending confirmation.`
     }
-  
+
     this.noteService.addSelfNote(note);
-    if (this.story.authorName!=='Source') {
+    if (this.story.authorName !== 'Source') {
       note.message = `Page #${this.story.pageIds.length} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
       this.noteService.addNotes(this.story.authorId, note);
     }
@@ -159,7 +161,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       storyId: this.story._id,
       message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been accepted.`
     }
-   
+
     this.noteService.addNotes(authorId, note);
   }
 
@@ -201,7 +203,7 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   addPage() {
-    if (this.user?.markedStoryId !== this.story._id && this.user?.numberOfTablets === 0) alert(`You need a tablet to write on. You can get tablets by completing the daily tribute.`)
+    if (this.user?.markedStoryId !== this.story._id && this.user?.numberOfTablets === 0) alert(`You need a tablet to write on. You can get tablets by completing the daily task.`)
     else {
       const dialogRef = this.dialog.open(NewPageComponent, {
         data: [this.story.word1, this.story.word2, this.story.word3]
@@ -212,7 +214,7 @@ export class StoryComponent implements OnInit, OnDestroy {
             const pageId = await firstValueFrom(this.pageService.addPage(text, this.story.language))
             const tributeCompleted = await firstValueFrom(this.storyService.addPendingPage(pageId, this.story._id))
             this.sendSubmitionNote();
-            if (tributeCompleted) alert('You completed your daily tribute and have recieved 1 tablet. Well done!')
+            if (tributeCompleted) alert('You completed your daily task. Well done!')
           }
         })
     }

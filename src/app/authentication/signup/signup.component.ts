@@ -68,7 +68,7 @@ export class SignupComponent  {
       date: Date.now()
     }
     this.noteService.addSelfNote(note);
-    this.router.navigate(['/']);
+    this.router.navigate(['/daily']);
   }
 
 }

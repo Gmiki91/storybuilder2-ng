@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-author',
   templateUrl: './author.component.html',
-  styleUrls: ['./author.component.css']
+  styleUrls: ['../style.css']
 })
 export class AuthorComponent implements OnInit {
 

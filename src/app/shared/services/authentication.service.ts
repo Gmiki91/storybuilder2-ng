@@ -29,7 +29,7 @@ export class AuthenticationService {
             .subscribe(result => {
                 localStorage.setItem('access_token', result.token);
                 this.user.next(result.user);
-                this.router.navigate(['/']);
+                this.router.navigate(['/daily']);
             })
     }
 
