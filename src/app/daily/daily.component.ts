@@ -16,14 +16,10 @@ type Data = {
 export class DailyComponent implements OnInit {
 
   dailyData$!: Observable<Data>;
-  constructor(private storyService: StoryService, private authService: AuthenticationService) { }
+  constructor(private storyService: StoryService) { }
 
   ngOnInit(): void {
-    this.dailyData$ = this.storyService.getDaily()
-      .pipe(map(data => {
-        this.authService.refreshLoggedInUser();
-        return ({ ...data, hoursLeft: Math.ceil(data.hoursLeft), minutesLeft: Math.ceil(data.minutesLeft) })
-      }));
+    this.dailyData$ = this.storyService.getDaily();
   }
 
 }

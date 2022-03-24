@@ -74,7 +74,10 @@ export class StoryService {
     }
 
     getDaily() {
-        return this.http.get<{ status: string, story: Story, hoursLeft: number, minutesLeft: number }>(`${environment.url}/stories/tribute/data`)
+        return this.http.get<{ status: string, story: Story, hoursLeft: number, minutesLeft: number }>(`${environment.url}/stories/tribute/data`)   
+        .pipe(map(data => 
+            ({ hoursLeft: Math.ceil(data.hoursLeft), minutesLeft: Math.ceil(data.minutesLeft), story:{...data.story, updatedAt: moment.utc(data.story.updatedAt).local().startOf('seconds').fromNow()} })
+          ));
     }
 
     addStory(storyData: NewStoryData) {

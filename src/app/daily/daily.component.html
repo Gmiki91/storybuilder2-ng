@@ -1,7 +1,7 @@
 <div *ngIf="(dailyData$ | async) as data" class="container">
     <div *ngIf="data.story">
         <app-timer [hoursLeft]="data.hoursLeft" [minutesLeft]="data.minutesLeft" text="to contribute to this story"></app-timer>
-        <app-story-card [story]="data.story" ></app-story-card>
+        <app-story-card [tribute]="true" [story]="data.story" ></app-story-card>
     </div>
     <div *ngIf="!data.story">
         <app-timer [hoursLeft]="data.hoursLeft" [minutesLeft]="data.minutesLeft" text="until next story"></app-timer>

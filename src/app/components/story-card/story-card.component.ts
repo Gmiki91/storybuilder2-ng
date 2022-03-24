@@ -10,6 +10,7 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
 export class StoryCardComponent{
   @Input() story!: Story;
   @Input() favorite!:boolean;
+  @Input() tribute?:boolean;
   icon!: string;
 
   constructor(private router: Router, private authService: AuthenticationService) { }
