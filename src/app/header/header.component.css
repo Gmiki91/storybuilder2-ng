@@ -1,0 +1,21 @@
+a{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    color:#cc6018
+}
+.active{
+    color:#4d1f00;
+    font-weight: bold
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.header{
+    background-color:#fce3b3;
+    padding:10px
+}
