@@ -13,16 +13,17 @@ export class AuthenticationService {
     user = new Subject<User>();
     constructor(private httpClient: HttpClient, private router: Router) { }
 
-    presignup(name:string, email:string){
+    presignup(name: string, email: string) {
         return this.httpClient.post<{ status: string, duplicate: boolean }>(`${environment.url}/users/presignup`, { name, email })
     }
+
     signup(name: string, email: string, password: string) {
-        return this.httpClient.post<{ status: string, token: string,user: User,  }>(`${environment.url}/users/signup`, { name, email, password })
-        .pipe(map(result => {
-            localStorage.setItem('access_token', result.token);
-            this.user.next(result.user);
-    }))
-}
+        return this.httpClient.post<{ status: string, token: string, user: User, }>(`${environment.url}/users/signup`, { name, email, password })
+            .pipe(map(result => {
+                localStorage.setItem('access_token', result.token);
+                this.user.next(result.user);
+            }))
+    }
 
     login(userInput: string, password: string): void {
         this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/login`, { userInput, password })
@@ -66,6 +67,18 @@ export class AuthenticationService {
     getUser(userId: string) {
         return this.httpClient.get<{ result: string, user: User }>(`${environment.url}/users/user/${userId}`)
             .pipe(map(result => result.user))
+    }
+    getFavoriteIds() {
+        return this.httpClient.get<{ result: string, data: string[] }>(`${environment.url}/users/favorites`)
+            .pipe(map(result => result.data))
+    }
+
+    addToFavoriteIds(storyId:string){
+        this.httpClient.post(`${environment.url}/users/favorites`, { storyId }).subscribe(()=>{})
+    }
+
+    removeFromFavoriteIds(storyId:string){
+        this.httpClient.put(`${environment.url}/users/favorites`, { storyId }).subscribe(()=>{})
     }
 
     refreshLoggedInUser() {

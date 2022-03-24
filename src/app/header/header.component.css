@@ -3,10 +3,11 @@ a{
     justify-content:center;
     align-items:center;
     text-decoration:none;
-    color:#cc6018
+    color: var(--main-btn-color);
+    font-size: 1rem;
 }
 .active{
-    color:#4d1f00;
+    color:var(--cancel-btn-color);
     font-weight: bold
 }
 .container{
@@ -16,6 +17,7 @@ a{
     justify-content: space-around;
 }
 .header{
-    background-color:#fce3b3;
-    padding:10px
+    background-color:var(--main);
+    padding:10px;
+    width: 100%;
 }

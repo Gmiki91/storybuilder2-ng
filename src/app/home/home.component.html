@@ -1,20 +1,20 @@
 <div class="home-container">
     <div class="criteria">
-        <input #input placeholder="Search title">
-        <button (click)="search(input.value)">search</button>
-        <p *ngIf="error">Title must be at least 3 characters long</p>
-        <div *ngIf="storyListWithPending$|async as storyList">
-            <button 
-            *ngIf="storyList.length>0" 
-            [class]="storyListWithPending$===storyList$ ? 'active' : null"
-            (click)="togglePending()">Pending!</button>
+        <div>
+            <input  class="searchbar" (keyup.enter)="search(input.value)" #input placeholder="Search title">
+            <p *ngIf="error">Title must be at least 3 characters long</p>
+        </div>
+        <div class="pending" *ngIf="storyListWithPending$|async as storyList">
+            <button *ngIf="storyList.length>0" [class]="storyListWithPending$===storyList$ ? 'active' : null"
+                (click)="togglePending()">Pending!</button>
         </div>
         <app-sort-by></app-sort-by>
-        <app-filter></app-filter>
-        <button *ngIf="loggedIn" (click)="onNewStoryClicked()">Create new story</button>
+        <app-filter *ngIf="showFilter" (closeFilter)="onFilter()"></app-filter>
+        <button *ngIf="!showFilter" type="button" (click)="onFilter()">Filter🡇</button> 
+        <button style="margin:1%" *ngIf="loggedIn" (click)="onNewStoryClicked()">Create new story</button>
     </div>
 
     <div class="list-container">
-        <app-story-card *ngFor="let story of storyList$|async" [story]="story"></app-story-card>
+        <app-story-card *ngFor="let story of storyList$|async" [story]="story" [favorite]="favoriteIds.includes(story._id)"></app-story-card>
     </div>
 </div>

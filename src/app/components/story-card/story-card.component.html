@@ -1,14 +1,13 @@
 <div (click)="onStoryClicked()" class="card">
-    <h4>{{story.title}}</h4>
+    <mat-icon (click)="clicked($event)" [class]="favorite ? 'liked' : 'disliked'">{{favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
+    <h2>{{story.title}}</h2>
     <i>{{story.description}}</i>
-   
     <div>
         <app-author [authorName]="story.authorName" [authorId]="story.authorId"></app-author>
-       
         <div>{{story.language}}: {{story.level.code}} - {{story.level.text}}</div>
         <div>Pages: {{story.pageIds.length}}</div>
         <div>Pending: {{story.pendingPageIds.length}}</div>
-        <div>Last updated:{{story.updatedAt}}</div>
+        <div>Last updated: {{story.updatedAt}}</div>
         <div *ngIf="story.rating.total>10">{{story.rating.average}} ({{story.rating.total}} votes)</div>
     </div>
 </div>

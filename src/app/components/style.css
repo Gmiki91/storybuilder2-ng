@@ -1,3 +1,8 @@
+mat-icon{
+    flex:1;
+   align-self:end; 
+    font-size:2rem;
+}
 .card{
     margin: 1%;
     padding: 1%;
@@ -9,6 +14,12 @@
     background-color:#f0c380;
     border-radius:15px;
     box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
+}
+.liked{
+    color:var(--main-btn-color);
+}
+.disliked{
+    color:var(--cancel-btn-color);
 }
 .pushed{
     font-weight: bold;
