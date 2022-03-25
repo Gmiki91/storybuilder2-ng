@@ -5,10 +5,10 @@
             <p *ngIf="error">Title must be at least 3 characters long</p>
         </div>
         <div class="pending" *ngIf="storyListWithPending$|async as storyList">
-            <button *ngIf="storyList.length>0" [class]="storyListWithPending$===storyList$ ? 'active' : null"
-                (click)="togglePending()">Pending!</button>
+            <span *ngIf="storyList.length>0" [class]="storyListWithPending$===storyList$ ? 'active' : null"
+                (click)="togglePending()">Pending!</span>
+                <app-sort-by></app-sort-by>
         </div>
-        <app-sort-by></app-sort-by>
         <app-filter *ngIf="showFilter" (closeFilter)="onFilter()"></app-filter>
         <button *ngIf="!showFilter" type="button" (click)="onFilter()">Filter🡇</button> 
         <button style="margin:1%" *ngIf="loggedIn" (click)="onNewStoryClicked()">Create new story</button>

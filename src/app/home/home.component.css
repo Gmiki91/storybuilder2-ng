@@ -20,6 +20,17 @@ app-filter{
     box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
     width: 100%;
 }
+.pending{
+    display:flex;
+    align-items: center;
+    justify-content:space-around
+}
+.pending span{
+    margin-right:1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color:red
+}
 .searchbar{
     border:  transparent;
     padding:5px;
