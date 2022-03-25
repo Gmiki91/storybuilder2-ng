@@ -28,7 +28,7 @@ export class EditStoryComponent {
     if (this.edit) {
       this.edit = false;
       this.story.description = this.description.nativeElement.value;
-      this.editLabel = "Edit";
+      this.dialogRef.close(this.story.description)
     } else {
       this.edit = true;
       this.editLabel = "Done";

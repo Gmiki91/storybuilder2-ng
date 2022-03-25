@@ -16,9 +16,6 @@ button:hover{
     background-color: var(--main-btn-color);
 }
 
-button:focus{
-    box-shadow:0 0 0 0.25rem var(--main-btn-color);
-}
 button{
     display: inline-block;
     font-weight: 400;
@@ -46,4 +43,35 @@ button{
 }
 .cancel-btn:focus{
     box-shadow:0 0 0 0.25rem var(--cancel-btn-color);
+}
+
+.A{
+    color: var(--a-color);
+    border-color: var(--a-color);
+}
+
+.A:hover{
+    color: var(--text-color);
+    background-color: var(--a-color);
+}
+
+.B{
+    color: var(--b-color);
+    border-color: var(--b-color);
+}
+
+.B:hover{
+    color: var(--text-color);
+    background-color: var(--b-color);
+}
+
+
+.C{
+    color: var(--c-color);
+    border-color: var(--c-color);
+}
+
+.C:hover{
+    color: var(--text-color);
+    background-color: var(--c-color);
 }

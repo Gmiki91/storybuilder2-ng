@@ -1,7 +1,10 @@
-<div mat-dialog-content>
-<p>This is level {{level.code}} - {{level.text}}. Agree?</p>
-<button [mat-dialog-close]="level.code">Agree</button>
-<button (click)="onClose()">Dunno</button>
-<p>No way, it's level...</p>
-    <button *ngFor="let option of options, let i = index"  mat-button [mat-dialog-close]="options[i].code">{{option.code}} - {{option.text}}</button>
+<div style="display: flex; flex-direction: column" mat-dialog-content>
+    <span style="font-size: 1rem">This story is level {{level.code}} - {{level.text}}. Do you agree?</span>
+    <div style="display:flex; justify-content:space-around; margin:1%">
+        <button [mat-dialog-close]="level.code">Agree</button>
+        <button (click)="onClose()">¯\_(ツ)_/¯</button>
+    </div>
+    <span style="font-size: 1rem">No way, it's level...</span>
+    <button *ngFor="let option of options, let i = index" mat-button style="margin:1%" [class]="option.code"
+        [mat-dialog-close]="options[i].code">{{option.code}} - {{option.text}}</button>
 </div>

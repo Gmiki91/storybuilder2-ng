@@ -12,14 +12,14 @@ export class NewPageComponent {
     color: string;
   }[];
   validForm = false;
-  errorMessage: string = '';
+  errorMessage: string = 'Text is empty';
 
   constructor(
     public dialogRef: MatDialogRef<NewPageComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string[]) {
     this.words = data
       .filter(word => word !== null && word !==undefined)
-      .map(word => ({ value: word, color: 'text-red' }))
+      .map(word => ({ value: word, color: 'C' }))
   }
 
 
@@ -30,13 +30,14 @@ export class NewPageComponent {
       this.errorMessage = "Minimum length is 10 characters"
     } else if (value.length > 280) {
       this.errorMessage = "Maximum length is 280 characters"
-    } else {
-      this.errorMessage = "";
+    } else if(!allWordsChecked) {
+      this.errorMessage = "You need to include all words from the top.";
     }
     this.validForm = allWordsChecked;
   }
 
   onSubmit(value:any){
+    console.log('hi')
     if(this.errorMessage!==''){
       alert(this.errorMessage);
     }else{
@@ -48,9 +49,9 @@ export class NewPageComponent {
     let result = true;
     this.words.forEach(word => {
       if (value.indexOf(word.value.toLowerCase()) > -1) {
-        word.color = 'text-green';
+        word.color = 'A';
       }else {
-        word.color = 'text-red';
+        word.color = 'C';
         result = false;
       }
     })

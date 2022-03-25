@@ -3,8 +3,7 @@
     <p *ngIf="!edit">{{story.description}}</p>
     <textarea #description *ngIf="edit">{{story.description}}</textarea>
     <div *ngIf="ownStory">
-        <button mat-button (click)="onClose()">Cancel</button>
+        <button style="margin-right:1%" class="C" mat-button (click)="onClose()">Cancel</button>
         <button mat-button (click)="onEdit()">{{editLabel}}</button>
-        <button *ngIf="!edit" [mat-dialog-close]="story.description">Save</button>
     </div>
 </div>

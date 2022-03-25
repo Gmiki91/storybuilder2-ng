@@ -1,11 +1,12 @@
 mat-icon{
-    flex:1;
-   align-self:end; 
     font-size:2rem;
     margin:2% 2% 0% 0%;
 }
 app-author{
     cursor:pointer;
+    align-self: center;
+    font-style: italic;
+    margin-bottom:1%
 }
 app-author:hover{
     text-decoration: underline;
@@ -60,5 +61,10 @@ span mat-icon{
 .pushed{
     color:var(--b-color);
     
+}
+.top{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
 

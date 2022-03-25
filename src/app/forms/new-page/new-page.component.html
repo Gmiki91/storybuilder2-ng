@@ -1,5 +1,15 @@
 <div mat-dialog-content class="container">
-    <p *ngFor="let word of words" [class]="word.color">{{word.value}}</p>
-    <textarea #input class="text" (input)="changeText($event)"></textarea>
-    <button [disabled]="!validForm" (click)="onSubmit(input.value)">Submit</button>
+    <div class="top">
+        <span [class]="input.value.length>280 ? 'c-color' :null ">{{input.value.length}}/280</span>
+        <div class="words">
+            <span *ngFor="let word of words" [class]="[word.color, 'word']">
+                <mat-icon *ngIf="word.color==='C'">clear</mat-icon>
+                <mat-icon *ngIf="word.color==='A'">check</mat-icon>
+                <div>{{word.value}}</div>
+              
+            </span>
+        </div>
+    </div>
+    <textarea #input name="input" class="text" (input)="changeText($event)"></textarea>
+    <button (click)="onSubmit(input.value)">Submit</button>
 </div>

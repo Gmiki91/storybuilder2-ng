@@ -10,8 +10,8 @@
                 <app-sort-by></app-sort-by>
         </div>
         <app-filter *ngIf="showFilter" (closeFilter)="onFilter()"></app-filter>
-        <button *ngIf="!showFilter" type="button" (click)="onFilter()">Filter🡇</button> 
-        <button style="margin:1%" *ngIf="loggedIn" (click)="onNewStoryClicked()">Create new story</button>
+        <button style="margin-bottom:1%" *ngIf="!showFilter" type="button" (click)="onFilter()">Filter🡇</button> 
+        <button style="margin-bottom:1%" *ngIf="loggedIn" (click)="onNewStoryClicked()">Create new story</button>
     </div>
 
     <div class="list-container">
