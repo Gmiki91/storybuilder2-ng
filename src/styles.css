@@ -11,7 +11,7 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-button:hover{
+button:hover:enabled{
     color: var(--text-color);
     background-color: var(--main-btn-color);
 }
@@ -35,10 +35,13 @@ button{
     border-radius: 0.25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+button:disabled{
+  opacity: 0.3;
+}
 .cancel-btn{
     color:var(--cancel-btn-color)
 }
-.cancel-btn:hover{
+.cancel-btn:hover:enabled{
     background-color: var(--cancel-btn-color);
 }
 .cancel-btn:focus{
@@ -50,7 +53,7 @@ button{
     border-color: var(--a-color);
 }
 
-.A:hover{
+.A:hover:enabled{
     color: var(--text-color);
     background-color: var(--a-color);
 }
@@ -60,7 +63,7 @@ button{
     border-color: var(--b-color);
 }
 
-.B:hover{
+.B:hover:enabled{
     color: var(--text-color);
     background-color: var(--b-color);
 }
@@ -71,7 +74,7 @@ button{
     border-color: var(--c-color);
 }
 
-.C:hover{
+.C:hover:enabled{
     color: var(--text-color);
     background-color: var(--c-color);
 }

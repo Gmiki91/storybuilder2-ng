@@ -1,16 +1,14 @@
-<div>
+<div style="display:flex; flex-direction:column;">
   <form class="container" mat-dialog-content #f="ngForm">
-    <input required minlength="3" maxlength="100" [(ngModel)]="data.title" placeholder="Story title*" name="title"
+    <input style="text-align:center" class="field" required minlength="3" maxlength="100" [(ngModel)]="data.title" placeholder="Story title*" name="title"
       #title="ngModel" />
     <div class="error" *ngIf="title.invalid && title.touched">
       <div *ngIf="title.errors?.['minlength']">
         Title must be at least 3 characters long.
       </div>
-      <div *ngIf="title.errors?.['maxlength']">
-        Maximum length is 100 characters
-      </div>
+    
     </div>
-    <mat-select required placeholder="Select a language*" [(ngModel)]="data.language" name="language"
+    <mat-select class="field" required placeholder="Select a language*" [(ngModel)]="data.language" name="language"
       #language="ngModel">
       <mat-option *ngFor="let language of languages" [value]="language.name">{{language.name}}
       </mat-option>
@@ -18,7 +16,7 @@
     <div class="error" *ngIf="language.invalid && language.touched">
       Required!
     </div>
-    <mat-radio-group required [(ngModel)]="data.level" name="level" #level="ngModel" placeholder="Select an option">
+    <mat-radio-group style="border-bottom:transparent" class="field" required [(ngModel)]="data.level" name="level" #level="ngModel" >
       <mat-radio-button value="A">Beginner (A)</mat-radio-button>
       <mat-radio-button value="B">Intermediate (B)</mat-radio-button>
       <mat-radio-button value="C">Advanced (C)</mat-radio-button>
@@ -26,19 +24,15 @@
     <div class="error" *ngIf="level.invalid && level.touched">
       Required!
     </div>
-    <textarea class="description" placeholder="A short summary/description (optional)" matInput
+    <textarea class="description field" placeholder="A short summary/description (optional)" matInput
       [(ngModel)]="data.description" name="description" #description="ngModel"></textarea>
-    <textarea required minlength="10" class="text" placeholder="The first page" matInput
-      [(ngModel)]="data.text" name="text" #text="ngModel"></textarea>
-    <div class="error" *ngIf="text.invalid &&  text.touched">
-      Text must be at least 10 characters long.
-    </div>
-    <input [(ngModel)]="data.word1" placeholder="Word #1" name="word1" #word1="ngModel" maxlength="50"/>
-    <input [(ngModel)]="data.word2" placeholder="Word #2" name="word2" #word2="ngModel" maxlength="50"/>
-    <input [(ngModel)]="data.word3" placeholder="Word #3" name="word3" #word3="ngModel" maxlength="50"/>
-    <div *ngIf="word1.invalid && word1.touched || word2.invalid && word2.touched || word3.invalid && word3.touched">
-      Maximum word length is 50 characters 
-    </div>
+      <span [class]="(pageText.value.length>2800 || pageText.value.length<10) ? 'C' :'A' ">{{pageText.value.length}}/2800</span>
+    <textarea required minlength="10" class="text field" placeholder="The first page" matInput
+      [(ngModel)]="data.text" name="text" #pageText #text="ngModel"></textarea>
+    <label>Words/phrases to include for the next page (optional)</label>
+    <input class="field" [(ngModel)]="data.word1" placeholder="#1" name="word1" #word1="ngModel" maxlength="50"/>
+    <input class="field" [(ngModel)]="data.word2" placeholder="#2" name="word2" #word2="ngModel" maxlength="50"/>
+    <input class="field" [(ngModel)]="data.word3" placeholder="#3" name="word3" #word3="ngModel" maxlength="50"/>
   </form>
-  <button [disabled]="!f.form.valid" mat-button [mat-dialog-close]="data">Submit</button>
+  <button style="text-align:center" [disabled]="!f.form.valid" mat-button [mat-dialog-close]="data">Submit</button>
 </div>

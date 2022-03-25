@@ -1,5 +1,5 @@
 <div mat-dialog-content class="container" >
-    <p>{{story.title}}</p>
+    <p style="font-size:2rem">{{story.title}}</p>
     <p *ngIf="!edit">{{story.description}}</p>
     <textarea #description *ngIf="edit">{{story.description}}</textarea>
     <div *ngIf="ownStory">
