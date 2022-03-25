@@ -55,8 +55,8 @@ export class StoryService {
         return this.storyList.asObservable();
     }
 
-    getStoryListWithPendingPages():Observable<Story[]> {
-        return this.http.get<{ status: string, stories: Story[] }>(`${environment.url}/stories/`).pipe(map(result=>result.stories))
+    getStoryListWithPendingPages(): Observable<Story[]> {
+        return this.http.get<{ status: string, stories: Story[] }>(`${environment.url}/stories/`).pipe(map(result => result.stories))
     }
     updateStory(storyId: string): void {
         this.http.get<{ status: string, story: Story }>(`${environment.url}/stories/one/${storyId}`)
@@ -74,80 +74,84 @@ export class StoryService {
     }
 
     getDaily() {
-        return this.http.get<{ status: string, story: Story, hoursLeft: number, minutesLeft: number }>(`${environment.url}/stories/tribute/data`)   
-        .pipe(map(data => 
-            ({ hoursLeft: Math.ceil(data.hoursLeft), minutesLeft: Math.ceil(data.minutesLeft), story:{...data.story, updatedAt: moment.utc(data.story.updatedAt).local().startOf('seconds').fromNow()} })
-          ));
-    }
-
-    addStory(storyData: NewStoryData) {
-        const story = {
-            title: storyData.title.trim(),
-            description: storyData.description?.trim(),
-            language: storyData.language,
-            pageId: storyData.pageId,
-            level: storyData.level,
-            word1: storyData.word1?.toLowerCase().trim(),
-            word2: storyData.word2?.toLowerCase().trim(),
-            word3: storyData.word3?.toLowerCase().trim()
-        };
-       return this.http.post<{ status: string,storyId:string}>(`${environment.url}/stories/`, story)
-            .pipe(map(result => {
-                this.updateStoryList();
-                return result.storyId;
+        return this.http.get<{ status: string, story: Story, hoursLeft: number, minutesLeft: number }>(`${environment.url}/stories/tribute/data`)
+            .pipe(map(data => {
+                const result = {
+                    hoursLeft: Math.ceil(data.hoursLeft), minutesLeft: Math.ceil(data.minutesLeft),
+                    story: data.story ? { ...data.story, updatedAt: moment.utc(data.story.updatedAt).local().startOf('seconds').fromNow() } : null
+                };
+                return result;
             }));
-    }
+}
 
-    addPage(pageId: string, storyId: string, pageRatings: Rate[]) {
-        return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
-    }
+addStory(storyData: NewStoryData) {
+    const story = {
+        title: storyData.title.trim(),
+        description: storyData.description?.trim(),
+        language: storyData.language,
+        pageId: storyData.pageId,
+        level: storyData.level,
+        word1: storyData.word1?.toLowerCase().trim(),
+        word2: storyData.word2?.toLowerCase().trim(),
+        word3: storyData.word3?.toLowerCase().trim()
+    };
+    return this.http.post<{ status: string, storyId: string }>(`${environment.url}/stories/`, story)
+        .pipe(map(result => {
+            this.updateStoryList();
+            return result.storyId;
+        }));
+}
 
-    addPendingPage(pageId: string, storyId: string): Observable<boolean> {
-        return this.http.post<{ status: string, story: Story, tributeCompleted: boolean }>(`${environment.url}/stories/pendingPage`, { pageId, storyId })
-            .pipe(map(result => {
-                this.story.next(result.story);
-                return result.tributeCompleted;
-            }))
+addPage(pageId: string, storyId: string, pageRatings: Rate[]) {
+    return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
+}
 
-    }
+addPendingPage(pageId: string, storyId: string): Observable < boolean > {
+    return this.http.post<{ status: string, story: Story, tributeCompleted: boolean }>(`${environment.url}/stories/pendingPage`, { pageId, storyId })
+        .pipe(map(result => {
+            this.story.next(result.story);
+            return result.tributeCompleted;
+        }))
 
-    editStory(id: string, description: string) {
-        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { description })
-            .subscribe(result => this.story.next(result.story));
-    }
-    deleteStories():void{
-        this.http.delete(`${environment.url}/stories/all/`).subscribe(() => { })
-    }
+}
 
-    rateLevel(storyId: string, rate: string): void {
-        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/level`, { rate, storyId })
-            .subscribe(result => this.story.next(result.story));
-    }
+editStory(id: string, description: string) {
+    this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { description })
+        .subscribe(result => this.story.next(result.story));
+}
+deleteStories(): void {
+    this.http.delete(`${environment.url}/stories/all/`).subscribe(() => { })
+}
 
-    rateText(storyId: string, vote: number): void {
-        this.http.put(`${environment.url}/stories/rate`, { vote, storyId })
-            .subscribe(() => { })
+rateLevel(storyId: string, rate: string): void {
+    this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/level`, { rate, storyId })
+        .subscribe(result => this.story.next(result.story));
+}
 
-    }
+rateText(storyId: string, vote: number): void {
+    this.http.put(`${environment.url}/stories/rate`, { vote, storyId })
+        .subscribe(() => { })
 
-    removePendingPage(pageId: string, storyId: string) {
-        return this.http.put(`${environment.url}/stories/pendingPage`, { pageId, storyId })
-    }
+}
 
-    changeSearchCriteria(sc: SearchCriteria): void {
-        this.searchCriteria = sc;
-        this.updateStoryList();
-    }
+removePendingPage(pageId: string, storyId: string) {
+    return this.http.put(`${environment.url}/stories/pendingPage`, { pageId, storyId })
+}
 
-    changeSort(value: Sort): void {
-        if (this.sortBy === value) this.sortDirection *= -1;
-        else this.sortBy = value;
-        this.updateStoryList();
-    }
+changeSearchCriteria(sc: SearchCriteria): void {
+    this.searchCriteria = sc;
+    this.updateStoryList();
+}
+
+changeSort(value: Sort): void {
+    if(this.sortBy === value) this.sortDirection *= -1;
+    else this.sortBy = value;
+    this.updateStoryList();
+}
 
 
-    changeSearchTitle(title: string): void {
-        this.storyName = title;
-        this.updateStoryList();
-    }
+changeSearchTitle(title: string): void {
+    this.storyName = title;
+    this.updateStoryList();
+}
 }

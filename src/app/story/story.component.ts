@@ -214,7 +214,10 @@ export class StoryComponent implements OnInit, OnDestroy {
             const pageId = await firstValueFrom(this.pageService.addPage(text, this.story.language))
             const tributeCompleted = await firstValueFrom(this.storyService.addPendingPage(pageId, this.story._id))
             this.sendSubmitionNote();
-            if (tributeCompleted) alert('You completed your daily task. Well done!')
+            if (tributeCompleted){
+              alert('You completed your daily task. Well done!');
+              this.router.navigate(['/daily']);
+            }
           }
         })
     }

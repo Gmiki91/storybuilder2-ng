@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { Page, Rate } from 'src/app/shared/models/page';
 import { PageService } from 'src/app/shared/services/page.service';
 import { StoryService } from 'src/app/shared/services/story.service';
@@ -37,20 +37,20 @@ export class PageCardComponent implements OnInit {
       case -1: updatedVote = vote === 1 ? 2 : 0; break;
     }
     this.pageRated.emit(updatedVote);
-    lastValueFrom(this.pageService.rateText(this.page._id, updatedVote)).then(result => {
+    firstValueFrom(this.pageService.rateText(this.page._id, updatedVote)).then(result => {
       if (result.status === 'success') this.page = result.newPage;
       this.checkVote();
     });
   }
 
   accept(): void {
-    lastValueFrom(this.storyService.addPage(this.page._id, this.storyId, this.page.ratings))
+    firstValueFrom(this.storyService.addPage(this.page._id, this.storyId, this.page.ratings))
       .then(() => this.pageAccepted.emit({pageId:this.page._id,authorId:this.page.authorId}))
   }
 
   decline(): void {
     this.pageService.deletePage(this.page._id, this.storyId)
-    lastValueFrom(this.storyService.removePendingPage(this.page._id, this.storyId))
+    firstValueFrom(this.storyService.removePendingPage(this.page._id, this.storyId))
       .then(() => this.pageDeclined.emit(this.page.authorId))
   }
 

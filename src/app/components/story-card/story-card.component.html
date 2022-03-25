@@ -1,5 +1,5 @@
-<div (click)="onStoryClicked()" class="card">
-    <mat-icon *ngIf="!tribute" (click)="clicked($event)" [class]="favorite ? 'liked' : 'disliked'">{{favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
+<div (click)="onStoryClicked()" class="story-card">
+    <mat-icon style="cursor:pointer" *ngIf="!tribute" (click)="clicked($event)" [class]="favorite ? 'liked' : 'disliked'">{{favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
     <h2>{{story.title}}</h2>
     <i>{{story.description}}</i>
     <div>

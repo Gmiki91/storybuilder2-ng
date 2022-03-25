@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { NewStoryComponent, NewStoryData } from 'src/app/forms/new-story/new-story.component';
 import { Note } from 'src/app/shared/models/note';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
@@ -35,7 +35,7 @@ export class SignupComponent  {
       const email = form.value.email.trim();
       const password = form.value.password.trim();
       this.formData = { name, email, password }
-      const result = await lastValueFrom(this.authenticationService.presignup(name, email));
+      const result = await firstValueFrom(this.authenticationService.presignup(name, email));
       if (!result.duplicate) {
         this._openDialog();
       } else if (result.duplicate) alert("Name or email is already taken")
@@ -57,10 +57,10 @@ export class SignupComponent  {
   }
 
   async _confirmSignUp(story: NewStoryData) {
-    await lastValueFrom(this.authenticationService.signup(this.formData.name, this.formData.email, this.formData.password))
-    const pageId = await lastValueFrom(this.pageService.addPage(story.text, story.language));
+    await firstValueFrom(this.authenticationService.signup(this.formData.name, this.formData.email, this.formData.password))
+    const pageId = await firstValueFrom(this.pageService.addPage(story.text, story.language));
     story.pageId = pageId;
-    const storyId = await lastValueFrom(this.storyService.addStory(story))
+    const storyId = await firstValueFrom(this.storyService.addStory(story))
     const note: Note = {
       storyId,
       message: `Story "${story.title.trim()}" has been added.`,

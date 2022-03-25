@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { lastValueFrom, Observable, Subscription } from 'rxjs';
+import { firstValueFrom, Observable, Subscription } from 'rxjs';
 import { Story } from '../shared/models/story';
 import { StoryService } from '../shared/services/story.service';
 import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.component';
@@ -58,9 +58,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   async addStory(story: NewStoryData) {
-    const pageId = await lastValueFrom(this.pageService.addPage(story.text, story.language))
+    const pageId = await firstValueFrom(this.pageService.addPage(story.text, story.language))
     story.pageId = pageId;
-    const storyId = await lastValueFrom(this.storyService.addStory(story))
+    const storyId = await firstValueFrom(this.storyService.addStory(story))
     const note: Note = {
       storyId,
       message: `Story "${story.title.trim()}" has been added.`,

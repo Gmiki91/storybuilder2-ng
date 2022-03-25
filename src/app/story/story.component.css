@@ -1,0 +1,63 @@
+.container{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+    margin-top:1%;
+}
+.top{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    width: 450px;
+    margin-bottom: 1%;
+    font-size: 1rem;
+}
+.title{
+    font-weight: bold;
+    cursor:pointer;
+}
+.title:hover{
+    text-decoration: underline
+}
+.A{
+    color: var(--a-color);
+    border-color: var(--a-color);
+}
+
+.A:hover{
+    color: var(--text-color);
+    background-color: var(--a-color);
+}
+
+.A:focus{
+    box-shadow:0 0 0 0.25rem var(--a-color);
+}
+
+.B{
+    color: var(--b-color);
+    border-color: var(--b-color);
+}
+
+.B:hover{
+    color: var(--text-color);
+    background-color: var(--b-color);
+}
+
+.B:focus{
+    box-shadow:0 0 0 0.25rem var(--b-color);
+}
+.C{
+    color: var(--c-color);
+    border-color: var(--c-color);
+}
+
+.C:hover{
+    color: var(--text-color);
+    background-color: var(--c-color);
+}
+
+.C:focus{
+    box-shadow:0 0 0 0.25rem var(--c-color);
+}
+

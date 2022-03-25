@@ -5,6 +5,45 @@
     --secondary: #f6c05c;
     --main-btn-color: #cc6018;
     --cancel-btn-color:#4d1f00;
+    --a-color: #32a83c;
+    --b-color: #dea749;
+    --c-color: #de4949;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+button:hover{
+    color: var(--text-color);
+    background-color: var(--main-btn-color);
+}
+
+button:focus{
+    box-shadow:0 0 0 0.25rem var(--main-btn-color);
+}
+button{
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--main-btn-color);
+    border-color: var(--main-btn-color);
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.cancel-btn{
+    color:var(--cancel-btn-color)
+}
+.cancel-btn:hover{
+    background-color: var(--cancel-btn-color);
+}
+.cancel-btn:focus{
+    box-shadow:0 0 0 0.25rem var(--cancel-btn-color);
+}

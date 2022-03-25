@@ -1,15 +1,17 @@
-<div class="card">
+<div class="page-card">
     <p>{{page.text}}</p>
-    <app-author [authorName]="page.authorName" [authorId]="page.authorId"></app-author>
-    <p>{{rating}}</p>
-    <div *ngIf="userId">
-        <div *ngIf="!toConfirm">
-            <button (click)="rate(1)" [disabled]="ownContent" [class]="liked ? 'pushed' : null">like</button>
-            <button (click)="rate(-1)" [disabled]="ownContent" [class]="disliked ? 'pushed' : null">dislike</button>
+    <app-author style="text-align:end" [authorName]="page.authorName" [authorId]="page.authorId"></app-author>
+    
+    
+        <div  class="button-container" *ngIf="userId && !toConfirm && !ownContent">
+            <span class="liked" (click)="rate(1)"  [class]="liked ? 'pushed' : null"><mat-icon>thumb_up</mat-icon></span>
+            <span class="rating">{{rating}}</span>
+            <span class="disliked" (click)="rate(-1)"  [class]="disliked ? 'pushed' : null"><mat-icon>thumb_down</mat-icon></span>
         </div>
-        <div *ngIf="toConfirm">
+        <div  class="button-container" *ngIf="userId && toConfirm">
             <button (click)="accept()">Accept</button>
+            <span class="rating">{{rating}}</span>
             <button (click)="decline()">Decline</button>
-        </div>
+      
     </div>
 </div>

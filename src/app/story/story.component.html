@@ -1,8 +1,7 @@
-<div *ngIf="storyLoaded">
-    <div>
-        <button (click)="onTitleClicked()">{{ story.title }}</button>
-        <button (click)="onLevelClicked()">{{story.level.code}}</button>
-        <button (click)="addPage()">Add page</button>
+<div class="container" *ngIf="storyLoaded">
+    <div class="top">
+        <span class="title" (click)="onTitleClicked()">{{ story.title }}</span>
+        <button [class]="story.level.code" (click)="onLevelClicked()">{{story.level.code}}</button>
     </div>
     <app-page-card *ngFor="let page of pageList$|async" [page]="page" [storyId]="story._id" [userId]="user?._id"
         [ownContent]="user?._id === (page.authorId || story.authorId)"
@@ -13,7 +12,7 @@
             <p *ngIf="maxPageCount>end">{{start}} - {{end}} / {{maxPageCount}}</p>
             <p *ngIf="maxPageCount<=end">{{start}} - {{maxPageCount}} </p>
             <button *ngIf="end<maxPageCount" (click)="forward()">></button>
-
             <button [hidden]="hideToggle" (click)="changeToggle(toggleTypeLabel)">{{toggleTypeLabel}}</button>
+            <button *ngIf="toggleTypeLabel === 'Pending'" (click)="addPage()">Add page</button>
 </div>
 <p *ngIf="!storyLoaded">Loading</p>
