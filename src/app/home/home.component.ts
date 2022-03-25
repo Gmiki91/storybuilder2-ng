@@ -33,12 +33,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    const observable$=this.authService.getFavoriteIds().subscribe(favoriteIds=>this.favoriteIds=favoriteIds);
-    this.subscription.add(observable$);
     this.loggedIn = this.authService.isLoggedIn();
     this.storyList$ = this.storyService.getStoryList();
-    if (this.loggedIn)
+    if (this.loggedIn){
+      const observable$=this.authService.getFavoriteIds().subscribe(favoriteIds=>this.favoriteIds=favoriteIds);
+      this.subscription.add(observable$);
       this.storyListWithPending$ = this.storyService.getStoryListWithPendingPages();
+    }
     this.storyService.updateStoryList();
   }
 

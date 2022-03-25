@@ -36,6 +36,7 @@ app-filter{
     padding:5px;
     text-align:center;
     border-bottom: 1px solid;
+    margin-bottom:1rem;
     font-size: 1rem;
 }
 .searchbar:focus{

@@ -17,6 +17,10 @@ a{
     justify-content: space-around;
     width: 50%;
 }
+.auth{
+    display: flex;
+   
+}
 .header{
     background-color:var(--main);
     padding:10px;

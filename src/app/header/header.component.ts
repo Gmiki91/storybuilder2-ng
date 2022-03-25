@@ -10,12 +10,13 @@ import { AuthenticationService } from '../shared/services/authentication.service
 })
 export class HeaderComponent implements OnInit {
   user$!: Observable<User>;
-
+  loggedIn=false;
   constructor(private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
     this.user$ = this.authentication.getCurrentUser();
-    if (this.authentication.isLoggedIn())
+    this.loggedIn = this.authentication.isLoggedIn()
+    if (this.loggedIn)
       this.authentication.refreshLoggedInUser();
     else
       this.user$ = of({} as User)
