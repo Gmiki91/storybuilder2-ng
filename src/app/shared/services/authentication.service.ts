@@ -27,11 +27,15 @@ export class AuthenticationService {
 
     login(userInput: string, password: string): void {
         this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/login`, { userInput, password })
-            .subscribe(result => {
-                localStorage.setItem('access_token', result.token);
-                this.user.next(result.user);
-                this.router.navigate(['/daily']);
+            .subscribe({
+                next: result => {
+                    localStorage.setItem('access_token', result.token);
+                    this.user.next(result.user);
+                    this.router.navigate(['/daily']);
+                },
+                error: response => { alert(response.error.message) }
             })
+
     }
 
     logout(): void {
@@ -73,12 +77,12 @@ export class AuthenticationService {
             .pipe(map(result => result.data))
     }
 
-    addToFavoriteIds(storyId:string){
-        this.httpClient.post(`${environment.url}/users/favorites`, { storyId }).subscribe(()=>{})
+    addToFavoriteIds(storyId: string) {
+        this.httpClient.post(`${environment.url}/users/favorites`, { storyId }).subscribe(() => { })
     }
 
-    removeFromFavoriteIds(storyId:string){
-        this.httpClient.put(`${environment.url}/users/favorites`, { storyId }).subscribe(()=>{})
+    removeFromFavoriteIds(storyId: string) {
+        this.httpClient.put(`${environment.url}/users/favorites`, { storyId }).subscribe(() => { })
     }
 
     refreshLoggedInUser() {

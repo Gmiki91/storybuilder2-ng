@@ -18,10 +18,9 @@
     <div *ngIf="(storyList$|async)" class="list-container">
         <app-story-card *ngFor="let story of storyList$|async" [story]="story"
             [favorite]="favoriteIds.includes(story._id)"></app-story-card>
-        <div *ngIf="(storyList$|async)!.length===0"><label>Empty</label></div>
     </div>
     <div *ngIf="!(storyList$|async)" class="list-container">
-        <mat-spinner> </mat-spinner>
+        <mat-spinner [diameter]="50"> </mat-spinner>
     </div>
 
 </div>

@@ -39,7 +39,7 @@ button:disabled{
   opacity: 0.3;
 }
 
-mat-spinner{
+.mat-spinner circle{
     stroke: #f6c05c;
 }
 .cancel-btn{

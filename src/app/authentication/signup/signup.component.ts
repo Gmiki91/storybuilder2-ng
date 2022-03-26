@@ -13,7 +13,7 @@ import { StoryService } from 'src/app/shared/services/story.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['../auth.style.css']
 })
 export class SignupComponent  {
   newStory: NewStoryData = {} as NewStoryData;

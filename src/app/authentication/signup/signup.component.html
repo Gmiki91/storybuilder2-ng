@@ -1,18 +1,18 @@
-<form (submit)="onSignUp(loginForm)" #loginForm="ngForm">
-    <input ngModel required maxlength="100" minlength="3" name="name" #name="ngModel" type="text" placeholder="name*">
+<form class="container" (submit)="onSignUp(loginForm)" #loginForm="ngForm">
+    <input ngModel required maxlength="100" minlength="3" name="name" #name="ngModel" type="text" placeholder="name">
     <div *ngIf="name.invalid && name.touched">
         Minimum name length is 3 characters
     </div>
-    <input ngModel required maxlength="100" minlength="3" name="email"  #email="ngModel" type="email" placeholder="email*">
+    <input ngModel required maxlength="100" minlength="3" name="email"  #email="ngModel" type="email" placeholder="email">
     <div *ngIf="email.invalid && email.touched">
         Email is invalid
     </div>
-    <input ngModel required maxlength="100" minlength="6" name="password"  #password="ngModel" type="password" placeholder="password*">
+    <input ngModel required maxlength="100" minlength="6" name="password"  #password="ngModel" type="password" placeholder="password">
     <div *ngIf="password.invalid && password.touched">
         Password must be at least 6 characters long
     </div>
     <input ngModel required maxlength="100" minlength="6" name="confirmPassword"  #confirmPassword="ngModel" type="password"
-        placeholder="confirm password*">
+        placeholder="confirm password">
     <div *ngIf="confirmPassword.invalid && confirmPassword.touched">
         Password must be at least 6 characters long
     </div> 

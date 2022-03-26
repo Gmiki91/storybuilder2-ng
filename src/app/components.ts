@@ -9,6 +9,16 @@ import { FilterComponent } from './home/filter/filter.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { StoryComponent } from './story/story.component';
+import { NewStoryComponent } from './forms/new-story/new-story.component';
+import { RateLevelComponent } from './forms/rate-level/rate-level.component';
+import { EditStoryComponent } from './forms/edit-story/edit-story.component';
+import { TimerComponent } from './daily/timer/timer.component';
+import { StatsComponent } from './profile/stats/stats.component';
+import { NewPageComponent } from './forms/new-page/new-page.component';
+import { AuthorComponent } from './components/author/author.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SettingsComponent } from './profile/settings/settings.component';
+import { NotesComponent } from './notes/notes.component';
 
 export const COMPONENTS = [
     LoginComponent,
@@ -24,5 +34,15 @@ export const COMPONENTS = [
     FilterComponent,
     HomeComponent,
     ProfileComponent,
-    StoryComponent
+    StoryComponent,
+    NewStoryComponent,
+    RateLevelComponent,
+    EditStoryComponent,
+    TimerComponent,
+    StatsComponent,
+    NewPageComponent,
+    AuthorComponent,
+    NotFoundComponent,
+    SettingsComponent,
+    NotesComponent
 ]

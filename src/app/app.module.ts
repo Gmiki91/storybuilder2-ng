@@ -8,30 +8,11 @@ import { AppComponent } from './app.component';
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import {MAT_MODULES} from './mat.modules'
 import {COMPONENTS} from './components';
-import { NewStoryComponent } from './forms/new-story/new-story.component';
-import { RateLevelComponent } from './forms/rate-level/rate-level.component';
-import { EditStoryComponent } from './forms/edit-story/edit-story.component';
-import { TimerComponent } from './daily/timer/timer.component';
-import { StatsComponent } from './profile/stats/stats.component';
-import { NewPageComponent } from './forms/new-page/new-page.component';
-import { AuthorComponent } from './components/author/author.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { SettingsComponent } from './profile/settings/settings.component';
-import { NotesComponent } from './notes/notes.component'
+
 @NgModule({
   declarations: [
     AppComponent,
-    COMPONENTS,
-    NewStoryComponent,
-    RateLevelComponent,
-    EditStoryComponent,
-    TimerComponent,
-    StatsComponent,
-    NewPageComponent,
-    AuthorComponent,
-    NotFoundComponent,
-    SettingsComponent,
-    NotesComponent
+    COMPONENTS
   ],
   imports: [
     MAT_MODULES,

@@ -1,5 +1,5 @@
-<form (submit)="onLogin(loginForm)" #loginForm="ngForm">
+<form class="container" (submit)="onLogin(loginForm)" #loginForm="ngForm">
     <input ngModel name="userInput" type="text" placeholder="name or email">
-    <input ngModel name="password" type="text" placeholder="password">
+    <input ngModel name="password" type="password" placeholder="password">
     <button>Login</button>
 </form>

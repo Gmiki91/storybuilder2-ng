@@ -20,7 +20,7 @@ app-author:hover{
     cursor:initial;
 }
 .story-card:hover{
-    transform: scale(1.1, 1.1);
+    transform: scale(1.05, 1.05);
 }
 .rating{
     margin:0 12px 0 5px
