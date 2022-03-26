@@ -15,17 +15,27 @@ export class SettingsComponent {
   @ViewChild('newPw') newPw!: ElementRef
   constructor(private authentication: AuthenticationService, private storyService: StoryService) { }
 
+  onLogout(): void {
+    this.authentication.logout();
+  }
+
   changePassword(): void {
     this.authentication.changePassword(this.currentPw.nativeElement.value, this.newPw.nativeElement.value);
   }
 
   async deleteUser() {
+
     if (this.currentPw1.nativeElement.value === this.currentPw2.nativeElement.value) {
-      const result = await firstValueFrom(this.authentication.deleteUser(this.currentPw1.nativeElement.value))
-      if (result.status === 'success') {
-        this.authentication.logout();
-        this.storyService.deleteStories();
-      }
-    } else { alert("Passwords do not match!") }
+      await firstValueFrom(this.authentication.deleteUser(this.currentPw1.nativeElement.value))
+        .then(result => {
+          if (result.status === 'success') {
+            this.authentication.logout();
+            this.storyService.deleteStories();
+          }
+        })
+        .catch(result => alert(result.error.message))
+    } else {
+      alert("Passwords do not match!")
+    }
   }
 }

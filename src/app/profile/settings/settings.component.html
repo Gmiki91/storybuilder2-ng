@@ -1,12 +1,15 @@
-<div>
-    <label>Change password</label>
+<div class="group">
+<button (click)="onLogout()">Logout</button>
+</div>
+<div class="group">
+    <label></label>
     <input #currentPw placeholder="Current password" type="password">
     <input #newPw placeholder="New password" type="password">
-    <button (click)="changePassword()">Submit</button>
+    <button (click)="changePassword()">Change password</button>
 </div>
-<div>
-    <label>Delete User</label>
+<div class="group">
+    <label></label>
     <input #currentPw1 placeholder="Current password" type="password">
     <input #currentPw2 placeholder="Confirm password" type="password">
-    <button (click)="deleteUser()">Submit</button>
+    <button (click)="deleteUser()">Delete User</button>
 </div>

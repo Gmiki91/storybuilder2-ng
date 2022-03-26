@@ -55,8 +55,8 @@ export class StoryComponent implements OnInit, OnDestroy {
     this.storyLoaded = false;
     this.getUser();
     this.getStory();
-    this.getPageList();
-    this.getPages('Confirmed');
+    this._getPageList();
+    this._getPages('Confirmed');
     this.hideToggle = this.story?.pendingPageIds.length === 0;
   }
 
@@ -84,85 +84,36 @@ export class StoryComponent implements OnInit, OnDestroy {
         }
         const type = story.pendingPageIds.length > 0 && this.toggleTypeLabel === 'Confirmed' ? 'Pending' : 'Confirmed';
         this.toggleTypeLabel = type === 'Confirmed' ? 'Pending' : 'Confirmed';
-        this.getPages(type);
+        this._getPages(type);
       });
     this.subscription.add(observable$);
   }
 
-  getPageList() {
-    this.pageList$ = this.pageService.getPageList().pipe(map(pages => {
-      this.maxPageCount = pages.length;
-      this.start = this.currentPaginationCount * PAG_SIZE;
-      this.end = this.start + PAG_SIZE;
-      return pages.slice(this.start, this.end);
-    }))
-  }
-
-  getPages(type: PageType): void {
-    const ids = type === 'Confirmed' ? 'pageIds' : 'pendingPageIds';
-    if (this.story)
-      this.pageService.updatePageList(this.story[ids]);
-  }
-
+  
   changeToggle(type: PageType): void {
     this.toggleTypeLabel = type === 'Confirmed' ? 'Pending' : 'Confirmed';
-    this.getPages(type);
+    this._getPages(type);
   }
 
   async pageAccepted(result: emitObject) {
     if (confirm('All other pending pages will be rejected. Are you sure?')) {
       this.hideToggle = true;
-      this.sendAcceptNote(result.authorId);
+      this._sendAcceptNote(result.authorId);
       if (this.story.pendingPageIds.length > 1) {
         const index = this.story.pendingPageIds.indexOf(result.pageId)
         const idsToDelete = [...this.story.pendingPageIds];
         idsToDelete.splice(index, 1);
         const response = await firstValueFrom(this.pageService.deletePages(idsToDelete, this.story._id));
-        this.sendRejectNotes(response.authorIds);
+        this._sendRejectNotes(response.authorIds);
         this.storyService.updateStory(this.story._id);
+        this.changeToggle('Confirmed');
       }
     }
   }
 
   pageDeclined(authorId: string) {
     this.storyService.updateStory(this.story._id);
-    this.sendRejectNotes([authorId]);
-  }
-
-  sendSubmitionNote() {
-    const note: Note = {
-      code: 'B',
-      date: Date.now(),
-      storyId: this.story._id,
-      message: `You've submitted page #${this.story.pageIds.length} for story "${this.story.title}". It is pending confirmation.`
-    }
-
-    this.noteService.addSelfNote(note);
-    if (this.story.authorName !== 'Source') {
-      note.message = `Page #${this.story.pageIds.length} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
-      this.noteService.addNotes(this.story.authorId, note);
-    }
-  }
-
-  sendRejectNotes(ids: string[]) {
-    const note: Note = {
-      code: 'C',
-      date: Date.now(),
-      storyId: this.story._id,
-      message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been rejected.`
-    }
-    this.noteService.addNotes(ids.join(','), note);
-  }
-
-  sendAcceptNote(authorId: string) {
-    const note: Note = {
-      code: 'A',
-      date: Date.now(),
-      storyId: this.story._id,
-      message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been accepted.`
-    }
-
-    this.noteService.addNotes(authorId, note);
+    this._sendRejectNotes([authorId]);
   }
 
   pageRated(rate: number) {
@@ -194,12 +145,12 @@ export class StoryComponent implements OnInit, OnDestroy {
 
   forward() {
     this.currentPaginationCount += 1;
-    this.getPages(this.toggleTypeLabel == 'Confirmed' ? 'Pending' : 'Confirmed');
+    this._getPages(this.toggleTypeLabel == 'Confirmed' ? 'Pending' : 'Confirmed');
   }
 
   backward() {
     this.currentPaginationCount -= 1;
-    this.getPages(this.toggleTypeLabel == 'Confirmed' ? 'Pending' : 'Confirmed');
+    this._getPages(this.toggleTypeLabel == 'Confirmed' ? 'Pending' : 'Confirmed');
   }
 
   addPage() {
@@ -213,8 +164,9 @@ export class StoryComponent implements OnInit, OnDestroy {
           if (text && text !== '') {
             const pageId = await firstValueFrom(this.pageService.addPage(text, this.story.language))
             const tributeCompleted = await firstValueFrom(this.storyService.addPendingPage(pageId, this.story._id))
-            this.sendSubmitionNote();
-            if (tributeCompleted){
+            this._sendSubmitionNote();
+            this._getPages('Pending');
+            if (tributeCompleted) {
               alert('You completed your daily task. Well done!');
               this.router.navigate(['/daily']);
             }
@@ -222,4 +174,56 @@ export class StoryComponent implements OnInit, OnDestroy {
         })
     }
   }
+  
+  _getPageList() {
+    this.pageList$ = this.pageService.getPageList().pipe(map(pages => {
+      this.maxPageCount = pages.length;
+      this.start = this.currentPaginationCount * PAG_SIZE;
+      this.end = this.start + PAG_SIZE;
+      return pages.slice(this.start, this.end);
+    }))
+  }
+
+  _getPages(type: PageType): void {
+    const ids = type === 'Confirmed' ? 'pageIds' : 'pendingPageIds';
+    if (this.story)
+      this.pageService.updatePageList(this.story[ids]);
+  }
+
+  _sendSubmitionNote() {
+    const note: Note = {
+      code: 'B',
+      date: Date.now(),
+      storyId: this.story._id,
+      message: `You've submitted page #${this.story.pageIds.length} for story "${this.story.title}". It is pending confirmation.`
+    }
+
+    this.noteService.addSelfNote(note);
+    if (this.story.authorName !== 'Source') {
+      note.message = `Page #${this.story.pageIds.length} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
+      this.noteService.addNotes(this.story.authorId, note);
+    }
+  }
+
+  _sendRejectNotes(ids: string[]) {
+    const note: Note = {
+      code: 'C',
+      date: Date.now(),
+      storyId: this.story._id,
+      message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been rejected.`
+    }
+    this.noteService.addNotes(ids.join(','), note);
+  }
+
+  _sendAcceptNote(authorId: string) {
+    const note: Note = {
+      code: 'A',
+      date: Date.now(),
+      storyId: this.story._id,
+      message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been accepted.`
+    }
+
+    this.noteService.addNotes(authorId, note);
+  }
+
 }

@@ -29,7 +29,7 @@ button{
     -webkit-user-select: none;
     user-select: none;
     background-color: transparent;
-    border: 1px solid;
+    /* border: 1px solid; */
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     border-radius: 0.25rem;
@@ -37,6 +37,10 @@ button{
 }
 button:disabled{
   opacity: 0.3;
+}
+
+mat-spinner{
+    stroke: #f6c05c;
 }
 .cancel-btn{
     color:var(--cancel-btn-color)
@@ -46,6 +50,21 @@ button:disabled{
 }
 .cancel-btn:focus{
     box-shadow:0 0 0 0.25rem var(--cancel-btn-color);
+}
+
+.card{
+    padding:1%;
+    margin: 0% 1% 1% 1%;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: black  ;
+    background-color:#f0c380;
+    border-radius:15px;
+    box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);  
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 .A{

@@ -5,6 +5,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDividerModule} from '@angular/material/divider';
 export const MAT_MODULES = [
     MatSelectModule,
     MatInputModule,
@@ -12,5 +14,7 @@ export const MAT_MODULES = [
     MatRadioModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatDividerModule
 ]

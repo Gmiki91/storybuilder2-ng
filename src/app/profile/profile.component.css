@@ -1,12 +1,11 @@
 .container{
-
-        align-items: 'center';
-        justify-content: 'center';
-    
-
-
-        width: '90%';
-        padding: 15;
-        border-width: 5;
-        border-radius: 10,
-    }
+    justify-content: center;
+    margin-top:1%;
+    background-color:#f0c380;
+    display: flex;
+    flex-direction: column;
+    width: 350px; 
+    padding: 1rem;
+    border: 1px solid;
+    border-radius: 10px
+}

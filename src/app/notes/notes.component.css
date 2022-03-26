@@ -1,0 +1,27 @@
+.container{
+    margin-top:1rem;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+}
+.card:hover {
+    transform: scale(1.1, 1.1);
+  }
+
+.A{
+    background-color: var(--a-color);
+    color:black;
+}
+
+
+.B{
+    background-color:var(--secondary);
+    color:black;
+}
+
+.C{
+    background-color: var(--c-color);
+    color:black;
+}
+

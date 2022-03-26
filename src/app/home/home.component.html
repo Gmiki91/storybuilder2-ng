@@ -1,20 +1,27 @@
 <div class="home-container">
     <div class="criteria">
         <div>
-            <input  class="searchbar" (keyup.enter)="search(input.value)" #input placeholder="Search title">
+            <input class="searchbar" (keyup.enter)="search(input.value)" #input placeholder="Search title">
             <p *ngIf="error">Title must be at least 3 characters long</p>
         </div>
         <div class="pending" *ngIf="storyListWithPending$|async as storyList">
             <span *ngIf="storyList.length>0" [class]="storyListWithPending$===storyList$ ? 'active' : null"
                 (click)="togglePending()">Pending!</span>
-                <app-sort-by></app-sort-by>
+            <app-sort-by></app-sort-by>
         </div>
         <app-filter *ngIf="showFilter" (closeFilter)="onFilter()"></app-filter>
-        <button style="margin-bottom:1%" *ngIf="!showFilter && loggedIn" type="button" (click)="onFilter()">Filter🡇</button> 
+        <button style="margin-bottom:1%" *ngIf="!showFilter && loggedIn" type="button"
+            (click)="onFilter()">Filter🡇</button>
         <button style="margin-bottom:1%" *ngIf="loggedIn" (click)="onNewStoryClicked()">Create new story</button>
     </div>
 
-    <div class="list-container">
-        <app-story-card *ngFor="let story of storyList$|async" [story]="story" [favorite]="favoriteIds.includes(story._id)"></app-story-card>
+    <div *ngIf="(storyList$|async)" class="list-container">
+        <app-story-card *ngFor="let story of storyList$|async" [story]="story"
+            [favorite]="favoriteIds.includes(story._id)"></app-story-card>
+        <div *ngIf="(storyList$|async)!.length===0"><label>Empty</label></div>
     </div>
+    <div *ngIf="!(storyList$|async)" class="list-container">
+        <mat-spinner> </mat-spinner>
+    </div>
+
 </div>

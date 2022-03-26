@@ -1,22 +1,33 @@
-<div>
-    <div *ngIf="user">
-        <h2>{{user.name}}</h2>
-        <p>{{user.email}}</p>
-        <p>Last activity: {{this.lastActivity}}</p>
-        <p *ngIf="!user.active">Inactive user</p>
-        <p>{{user.numberOfTablets}} x tablets</p>
-    </div>
-    <div *ngIf="storyData$|async as story">
-        <p>Stories: {{story.size}}</p>
-        <p>Rating: {{story.rating}} ({{story.upVotes}} / {{story.totalVotes}})</p>
-    </div>
-    <div *ngIf="pageData$|async as page">
-        <p>Pages: {{page.size}}</p>
-        <p>Rating: {{page.rating}} ({{page.upVotes}} / {{page.totalVotes}})</p>
-
-        <div *ngIf="page.langInfo?.length !== 0">
-            <p>Used languages:</p>
-            <p *ngFor="let obj of page.langInfo">{{obj.language}}: {{obj.ratio}}% - {{obj.level}}</p>
+<div [class]="isMe ? null:'container'">
+    <div class="group" *ngIf="user">
+        <div class="top">
+            <b>{{user.name}}</b>
+            <i>Last activity: {{this.lastActivity}}</i>
         </div>
+        <span>{{user.email}}</span>
+        <span *ngIf="!user.active">Inactive user</span>
+        <span>{{user.numberOfTablets}} <mat-icon>receipt</mat-icon></span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="group" *ngIf="storyData$|async as story">
+        <span>Stories: {{story.size}}</span>
+        <span>Rating: {{story.rating}} ({{story.upVotes}} / {{story.totalVotes}})</span>
+    </div>
+    <div *ngIf="!(storyData$|async)">
+        <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="group" *ngIf="pageData$|async as page">
+        <span>Pages: {{page.size}}</span>
+        <span>Rating: {{page.rating}} ({{page.upVotes}} / {{page.totalVotes}})</span>
+        <mat-divider></mat-divider>
+        <div class="group" *ngIf="page.langInfo?.length !== 0">
+            <span>Used languages:</span>
+            <span *ngFor="let obj of page.langInfo">{{obj.language}}: {{obj.ratio}}% - {{obj.level}}</span>
+        </div>
+        <div *ngIf="!(pageData$|async)">
+            <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
+
     </div>
 </div>

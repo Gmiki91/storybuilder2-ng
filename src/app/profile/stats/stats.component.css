@@ -1,0 +1,31 @@
+.group{
+    display: flex;
+    flex-direction:column;
+    padding:1%;
+}
+.top{
+    display: flex;
+    flex-direction:column;
+    margin-bottom:1rem;
+}
+.top b{
+    margin-bottom:1%;
+    font-size:1.5rem;
+    
+}
+mat-icon{
+    font-size:1rem;
+    vertical-align: -webkit-baseline-middle;
+    color:var(--main-btn-color)
+}
+.container{
+    justify-content: center;
+    margin-top:1%;
+    background-color:#f0c380;
+    display: flex;
+    flex-direction: column;
+    width: 350px; 
+    padding: 1rem;
+    border: 1px solid;
+    border-radius: 10px
+}
