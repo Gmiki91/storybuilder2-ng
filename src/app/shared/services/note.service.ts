@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import moment from "moment";
-import { BehaviorSubject, Observable, map } from "rxjs";
+import { BehaviorSubject, map } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Note } from "../models/note";
 
