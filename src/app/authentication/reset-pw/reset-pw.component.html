@@ -1,0 +1,12 @@
+<form class="container" (submit)="onClick(form)" #form="ngForm">
+    <input ngModel required maxlength="100" minlength="6" name="password"  #password="ngModel" type="password" placeholder="New password">
+    <div *ngIf="password.invalid && password.touched">
+        Password must be at least 6 characters long
+    </div>
+    <input ngModel required maxlength="100" minlength="6" name="confirmPassword"  #confirmPassword="ngModel" type="password"
+        placeholder="confirm password">
+    <div *ngIf="confirmPassword.invalid && confirmPassword.touched">
+        Password must be at least 6 characters long
+    </div> 
+    <button>Reset password</button>
+</form>

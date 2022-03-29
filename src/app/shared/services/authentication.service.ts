@@ -55,6 +55,28 @@ export class AuthenticationService {
             })
     }
 
+    forgotPassword(email: string): void {
+        this.httpClient.post<{ status: string, message: string, }>(`${environment.url}/users/forgotPassword`, { email: email.trim() })
+            .subscribe({
+                next: result => {
+                    alert(result.message)
+                },
+                error: response => { alert(response.error.message) }
+            })
+    }
+
+    resetPassword(resetToken: string, newPw: string) {
+        this.httpClient.patch<{ status: string, data: string }>(`${environment.url}/users/resetPassword/${resetToken}`, { password: newPw.trim() })
+            .subscribe({
+                next: result => {
+                    localStorage.setItem('access_token', result.data);
+                    this.refreshLoggedInUser();
+                    this.router.navigate(['/daily']);
+                },
+                error: response => { alert(response.error.message) }
+            })
+    }
+
     deleteUser(deletePassword: string) {
         return this.httpClient.patch<{ status: string, message: string }>(`${environment.url}/users/`, { deletePassword })
     }

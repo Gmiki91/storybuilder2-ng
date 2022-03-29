@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForgotPwComponent } from './authentication/forgot-pw/forgot-pw.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DailyComponent } from './daily/daily.component';
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path:'story',component:StoryComponent},
   {path:'stats',component:StatsComponent},
   {path:'notes',component:NotesComponent},
+  {path:'forgot',component:ForgotPwComponent},
+  {path:'reset/:token',component:ResetPwComponent},
   {path:'**',component:NotFoundComponent}
 
 ];

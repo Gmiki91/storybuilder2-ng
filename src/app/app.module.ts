@@ -8,11 +8,15 @@ import { AppComponent } from './app.component';
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import {MAT_MODULES} from './mat.modules'
 import {COMPONENTS} from './components';
+import { ForgotPwComponent } from './authentication/forgot-pw/forgot-pw.component';
+import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    COMPONENTS
+    COMPONENTS,
+    ForgotPwComponent,
+    ResetPwComponent
   ],
   imports: [
     MAT_MODULES,
