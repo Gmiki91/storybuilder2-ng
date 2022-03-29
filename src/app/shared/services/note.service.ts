@@ -9,14 +9,23 @@ import { Note } from "../models/note";
     providedIn: 'root'
 })
 export class NoteService {
-    noteList = new BehaviorSubject<Note[]>([])
+    news = new BehaviorSubject<boolean>(false)
     constructor(private http: HttpClient) { }
 
     getNotes() {
         return this.http.get<{ status: string, notifications: Note[] }>(`${environment.url}/notifications`)
-            .pipe(map(result => result.notifications
+            .pipe(map(result =>{
+                this.news.next(false);
+                return result.notifications
                 .map(note => ({ ...note, date: moment.utc(note.date).local().startOf('seconds').fromNow() }))
-            ))
+            }))
+    }
+    checkNewNotes(){
+        this.http.get<{ status: string, isNew: boolean }>(`${environment.url}/notifications/check`).subscribe(result=>this.news.next(result.isNew))
+    }
+
+    isNews(){
+        return this.news.asObservable();
     }
 
     addNotes(userIds: string, note: Note) {

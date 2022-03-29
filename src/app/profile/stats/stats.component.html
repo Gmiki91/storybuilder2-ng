@@ -6,28 +6,31 @@
         </div>
         <span>{{user.email}}</span>
         <span *ngIf="!user.active">Inactive user</span>
-        <span>{{user.numberOfTablets}} <mat-icon>receipt</mat-icon></span>
+        <span>{{user.coins}}x coin</span>
     </div>
     <mat-divider></mat-divider>
-    <div class="group" *ngIf="storyData$|async as story">
-        <span>Stories: {{story.size}}</span>
-        <span>Rating: {{story.rating}} ({{story.upVotes}} / {{story.totalVotes}})</span>
-    </div>
-    <div *ngIf="!(storyData$|async)">
-        <mat-spinner [diameter]="50"></mat-spinner>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="group" *ngIf="pageData$|async as page">
-        <span>Pages: {{page.size}}</span>
-        <span>Rating: {{page.rating}} ({{page.upVotes}} / {{page.totalVotes}})</span>
-        <mat-divider></mat-divider>
-        <div class="group" *ngIf="page.langInfo?.length !== 0">
-            <span>Used languages:</span>
-            <span *ngFor="let obj of page.langInfo">{{obj.language}}: {{obj.ratio}}% - {{obj.level}}</span>
+    <div *ngIf="storyData$|async as story">
+        <div class="group" *ngIf="story">
+            <span>Stories: {{story.size}}</span>
+            <span>Rating: {{story.rating}} ({{story.upVotes}} / {{story.totalVotes}})</span>
         </div>
-        <div *ngIf="!(pageData$|async)">
+        <div *ngIf="!story">
             <mat-spinner [diameter]="50"></mat-spinner>
         </div>
-
+    </div>
+    <mat-divider></mat-divider>
+    <div *ngIf="pageData$|async as page">
+        <div class="group" *ngIf="page">
+            <span>Pages: {{page.size}}</span>
+            <span>Rating: {{page.rating}} ({{page.upVotes}} / {{page.totalVotes}})</span>
+            <mat-divider></mat-divider>
+            <div class="group" *ngIf="page.langInfo?.length !== 0">
+                <span>Used languages:</span>
+                <span *ngFor="let obj of page.langInfo">{{obj.language}}: {{obj.ratio}}% - {{obj.level}}</span>
+            </div>
+            <div *ngIf="!page">
+                <mat-spinner [diameter]="50"></mat-spinner>
+            </div>
+        </div>
     </div>
 </div>

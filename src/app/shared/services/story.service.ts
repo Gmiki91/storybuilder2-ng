@@ -102,8 +102,8 @@ addStory(storyData: NewStoryData) {
         }));
 }
 
-addPage(pageId: string, storyId: string, pageRatings: Rate[]) {
-    return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings })
+addPage(pageId: string, storyId: string, pageRatings: Rate[], authorId:string) {
+    return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings, authorId })
 }
 
 addPendingPage(pageId: string, storyId: string): Observable < boolean > {

@@ -1,7 +1,7 @@
 <div class="container" *ngIf="storyLoaded">
     <div class="top">
         <span class="title" (click)="onTitleClicked()">{{ story.title }}</span>
-        <button [class]="story.level.code" disabled="!user" (click)="onLevelClicked()">{{story.level.code}}</button>
+        <button [class]="story.level.code" [disabled]="!user" (click)="onLevelClicked()">{{story.level.code}}</button>
     </div>
     <app-page-card *ngFor="let page of pageList$|async" [page]="page" [storyId]="story._id" [userId]="user?._id"
         [ownContent]="user?._id === (page.authorId || story.authorId)"

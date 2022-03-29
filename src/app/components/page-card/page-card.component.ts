@@ -44,7 +44,7 @@ export class PageCardComponent implements OnInit {
   }
 
   accept(): void {
-    firstValueFrom(this.storyService.addPage(this.page._id, this.storyId, this.page.ratings))
+    firstValueFrom(this.storyService.addPage(this.page._id, this.storyId, this.page.ratings, this.page.authorId))
       .then(() => this.pageAccepted.emit({pageId:this.page._id,authorId:this.page.authorId}))
   }
 

@@ -24,4 +24,6 @@
     background-color: var(--c-color);
     color:black;
 }
-
+.bold{
+    font-weight: bold;
+}

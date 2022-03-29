@@ -25,7 +25,7 @@ const PAG_SIZE = 50;
 export class StoryComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
 
-  user: User | undefined;
+  user!: User;
   story!: Story;
 
   storyLoaded: boolean = false;
@@ -53,6 +53,7 @@ export class StoryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.storyLoaded = false;
+    this.noteService.checkNewNotes();
     this.getUser();
     this.getStory();
     this._getPageList();
@@ -67,7 +68,8 @@ export class StoryComponent implements OnInit, OnDestroy {
   getUser() {
     const observable$ = this.authService.getCurrentUser()
       .subscribe(user => {
-        if (user !== undefined) this.user = user
+        if (user !== undefined) {
+          this.user = user}
       });
     this.subscription.add(observable$);
     if (this.authService.isLoggedIn())
@@ -134,7 +136,7 @@ export class StoryComponent implements OnInit, OnDestroy {
 
   onTitleClicked() {
     const dialogRef = this.dialog.open(EditStoryComponent, {
-      data: { story: { ...this.story }, userId: this.user?._id }
+      data: { story: { ...this.story }, userId: this.user._id }
     });
     dialogRef.afterClosed().subscribe(description => {
       if (description && description !== this.story.description) {
@@ -154,7 +156,7 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   addPage() {
-    if (this.user?.markedStoryId !== this.story._id && this.user?.numberOfTablets === 0) alert(`You need a tablet to write on. You can get tablets by completing the daily task.`)
+    if (this.user.markedStoryId !== this.story._id && this.user.coins === 0) alert(`You need 3 coins to write a new page. You can get coins by completing the daily task.`)
     else {
       const dialogRef = this.dialog.open(NewPageComponent, {
         data: [this.story.word1, this.story.word2, this.story.word3]

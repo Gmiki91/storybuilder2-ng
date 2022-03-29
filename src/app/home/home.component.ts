@@ -8,6 +8,7 @@ import { PageService } from '../shared/services/page.service';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { NoteService } from '../shared/services/note.service';
 import { Note } from '../shared/models/note';
+import { User } from '../shared/models/user';
 
 @Component({
   selector: 'app-home',
@@ -17,8 +18,8 @@ import { Note } from '../shared/models/note';
 export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription= new Subscription();
   storyList$!: Observable<Story[]>;
+  user$!: Observable<User>;
   tempStoryList$!: Observable<Story[]>;
-  storyListWithPending$!: Observable<Story[]>
   favoriteIds:string[] = [];
   loggedIn!: boolean;
   newStory: NewStoryData = {} as NewStoryData;
@@ -33,12 +34,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+   
     this.loggedIn = this.authService.isLoggedIn();
     this.storyList$ = this.storyService.getStoryList();
+    this.user$ = this.authService.getCurrentUser();
     if (this.loggedIn){
+      this.noteService.checkNewNotes();
       const observable$=this.authService.getFavoriteIds().subscribe(favoriteIds=>this.favoriteIds=favoriteIds);
       this.subscription.add(observable$);
-      this.storyListWithPending$ = this.storyService.getStoryListWithPendingPages();
     }
     this.storyService.updateStoryList();
   }
@@ -80,16 +83,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onFilter(): void {
     this.showFilter = !this.showFilter;
-  }
-
-
-  togglePending(): void {
-    if (this.storyListWithPending$ === this.storyList$) {
-      this.storyList$ = this.tempStoryList$;
-    } else {
-      this.tempStoryList$ = this.storyList$;
-      this.storyList$ = this.storyListWithPending$
-    }
   }
 
 }
