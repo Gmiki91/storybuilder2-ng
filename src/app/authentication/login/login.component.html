@@ -1,8 +1,8 @@
 <form class="container" (submit)="onLogin(loginForm)" #loginForm="ngForm">
-    <input ngModel name="userInput" type="text" placeholder="name or email">
-    <input ngModel name="password" type="password" placeholder="password">
+    <input required ngModel name="userInput" type="text" placeholder="name or email">
+    <input required ngModel name="password" type="password" placeholder="password">
+    <button [disabled]="!loginForm.valid">Login</button>
     <div style="display:flex; justify-content:flex-end; margin:1%">
         <a routerLink="/forgot">Forgot your password?</a>
     </div>
-    <button>Login</button>
 </form>

@@ -1,5 +1,5 @@
-<div class="header" *ngIf="user$ | async as user">
-    <div class="container"  *ngIf="user._id && loggedIn">
+<div class="header" *ngIf="user">
+    <div class="container"  *ngIf="user._id">
         <div class="group_big">
             <a routerLink="/daily" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>wb_sunny</mat-icon>Daily</a>
             <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>content_copy</mat-icon>Stories</a>   
@@ -10,7 +10,7 @@
             <a routerLink="/faq" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>help_outline</mat-icon>About</a>
         </div>
     </div>
-    <div class="container" *ngIf="!user._id || !loggedIn">
+    <div class="container" *ngIf="!user._id">
         <div class="group_small">
         <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>content_copy</mat-icon>Stories</a>
     </div>

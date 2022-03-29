@@ -1,7 +1,9 @@
-<div class="container">
-    <div [class]="[note.code, 'card']" *ngFor="let note of notes$|async" (click)="onStoryClicked(note.storyId)">
+<div class="container" *ngIf="notes$|async as notes">
+    <div [class]="[note.code, 'card']" *ngFor="let note of notes" (click)="onStoryClicked(note.storyId)">
         <p [class]="note.unseen ? 'bold' : null">{{note.message}}</p>
         <p style="align-self: end; padding-right:1%">{{note.date}}</p>
     </div>
-
+    <div *ngIf="notes.length===0" style="display:flex; justify-content:center; align-items:center">
+        <mat-spinner [diameter]="50"> </mat-spinner>
+    </div>
 </div>

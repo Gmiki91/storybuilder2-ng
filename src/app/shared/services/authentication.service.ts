@@ -20,8 +20,8 @@ export class AuthenticationService {
     signup(name: string, email: string, password: string) {
         return this.httpClient.post<{ status: string, token: string, user: User, }>(`${environment.url}/users/signup`, { name, email, password })
             .pipe(map(result => {
-                localStorage.setItem('access_token', result.token);
                 this.user.next(result.user);
+                localStorage.setItem('access_token', result.token);
             }))
     }
 
@@ -29,13 +29,12 @@ export class AuthenticationService {
         this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/login`, { userInput, password })
             .subscribe({
                 next: result => {
-                    localStorage.setItem('access_token', result.token);
                     this.user.next(result.user);
+                    localStorage.setItem('access_token', result.token);
                     this.router.navigate(['/daily']);
                 },
                 error: response => { alert(response.error.message) }
             })
-
     }
 
     logout(): void {

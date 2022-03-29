@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { NoteService } from '../shared/services/note.service';
@@ -9,20 +9,26 @@ import { NoteService } from '../shared/services/note.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
-  user$!: Observable<User>;
-  notification$!:Observable<boolean>;
-  loggedIn=false;
-  constructor(private authentication: AuthenticationService, private noteService:NoteService) { }
+export class HeaderComponent implements OnInit, OnDestroy {
+  subscription = new Subscription();
+  user!: User;
+  notification$!: Observable<boolean>;
+  constructor(private authentication: AuthenticationService, private noteService: NoteService) { }
 
   ngOnInit(): void {
-    this.user$ = this.authentication.getCurrentUser();
+    const observable$ = this.authentication.getCurrentUser()
+      .subscribe(user => this.user = user)
+    this.subscription.add(observable$);
     this.notification$ = this.noteService.isNews();
-    this.loggedIn = this.authentication.isLoggedIn()
-    if (this.loggedIn)
+    const loggedIn = this.authentication.isLoggedIn()
+    if (loggedIn)
       this.authentication.refreshLoggedInUser();
     else
-      this.user$ = of({} as User)
+      this.user = {} as User
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
