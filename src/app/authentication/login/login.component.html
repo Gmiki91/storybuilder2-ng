@@ -1,4 +1,5 @@
-<form class="container" (submit)="onLogin(loginForm)" #loginForm="ngForm">
+<div  *ngIf="!loading" class="container">
+<form style="display:flex; flex-direction:column;" (submit)="onLogin(loginForm)" #loginForm="ngForm">
     <input required ngModel name="userInput" type="text" placeholder="name or email">
     <input required ngModel name="password" type="password" placeholder="password">
     <button [disabled]="!loginForm.valid">Login</button>
@@ -6,3 +7,10 @@
         <a routerLink="/forgot">Forgot your password?</a>
     </div>
 </form>
+<button (click)="loginWithGoogle()" mat-raised-button class="google-login-btn">
+    Google
+  </button>   
+</div>
+<div *ngIf="loading"  class="container">
+    <mat-spinner [diameter]="50"></mat-spinner>
+</div>

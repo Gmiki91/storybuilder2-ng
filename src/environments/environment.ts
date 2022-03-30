@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url:'https://8t84fca4l8.execute-api.eu-central-1.amazonaws.com/dev/api'
+  url:'https://8t84fca4l8.execute-api.eu-central-1.amazonaws.com/dev/api',
+  googleClientId: '584741243002-odo96sn2ge84kelec3s6ucjqphvalmmt.apps.googleusercontent.com'
 };
 
 /*

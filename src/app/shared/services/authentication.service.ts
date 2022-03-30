@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { map, Subject } from "rxjs";
+import { map,tap, Subject } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { User } from "../models/user";
 
@@ -19,7 +19,7 @@ export class AuthenticationService {
 
     signup(name: string, email: string, password: string) {
         return this.httpClient.post<{ status: string, token: string, user: User, }>(`${environment.url}/users/signup`, { name, email, password })
-            .pipe(map(result => {
+            .pipe(tap(result => {
                 this.user.next(result.user);
                 localStorage.setItem('access_token', result.token);
             }))
@@ -37,6 +37,18 @@ export class AuthenticationService {
             })
     }
 
+    loginGoogle(email:string, name:string){
+        this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/loginGoogle`,{email, name})
+        .subscribe({
+            next: result => {
+                this.user.next(result.user);
+                localStorage.setItem('access_token', result.token);
+                this.router.navigate(['/daily']);
+            },
+            error: response => { alert(response.error.message) }
+        })
+    }
+
     logout(): void {
         localStorage.removeItem('access_token');
         this.user.next({} as User)
@@ -48,7 +60,7 @@ export class AuthenticationService {
             .subscribe({
                 next: result => {
                     localStorage.setItem('access_token', result.token);
-                    alert(result.message)
+                    alert('Password has been changed!')
                 },
                 error: response => { alert(response.error.message) }
             })
@@ -65,10 +77,10 @@ export class AuthenticationService {
     }
 
     resetPassword(resetToken: string, newPw: string) {
-        this.httpClient.patch<{ status: string, data: string }>(`${environment.url}/users/resetPassword/${resetToken}`, { password: newPw.trim() })
+        this.httpClient.patch<{ status: string, token: string }>(`${environment.url}/users/resetPassword/${resetToken}`, { password: newPw.trim() })
             .subscribe({
                 next: result => {
-                    localStorage.setItem('access_token', result.data);
+                    localStorage.setItem('access_token', result.token);
                     this.refreshLoggedInUser();
                     this.router.navigate(['/daily']);
                 },

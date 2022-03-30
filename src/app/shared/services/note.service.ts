@@ -14,17 +14,17 @@ export class NoteService {
 
     getNotes() {
         return this.http.get<{ status: string, notifications: Note[] }>(`${environment.url}/notifications`)
-            .pipe(map(result =>{
+            .pipe(map(result => {
                 this.news.next(false);
                 return result.notifications
-                .map(note => ({ ...note, date: moment.utc(note.date).local().startOf('seconds').fromNow() }))
+                    .map(note => ({ ...note, date: moment.utc(note.date).local().startOf('seconds').fromNow() }))
             }))
     }
-    checkNewNotes(){
-        this.http.get<{ status: string, isNew: boolean }>(`${environment.url}/notifications/check`).subscribe(result=>this.news.next(result.isNew))
+    checkNewNotes() {
+        this.http.get<{ status: string, isNew: boolean }>(`${environment.url}/notifications/check`).subscribe(result => this.news.next(result.isNew))
     }
 
-    isNews(){
+    isNews() {
         return this.news.asObservable();
     }
 
