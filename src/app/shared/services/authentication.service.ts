@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { map,tap, Subject } from "rxjs";
+import { map, tap, Subject } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { User } from "../models/user";
 
@@ -37,16 +37,13 @@ export class AuthenticationService {
             })
     }
 
-    loginGoogle(email:string, name:string){
-        this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/loginGoogle`,{email, name})
-        .subscribe({
-            next: result => {
+    loginGoogle(email: string, name: string) {
+        return this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/loginGoogle`, { email, name })
+            .pipe(tap((result) => {
                 this.user.next(result.user);
                 localStorage.setItem('access_token', result.token);
                 this.router.navigate(['/daily']);
-            },
-            error: response => { alert(response.error.message) }
-        })
+            }))
     }
 
     logout(): void {
