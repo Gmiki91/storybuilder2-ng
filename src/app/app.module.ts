@@ -13,6 +13,7 @@ import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
 import { GoogleLoginProvider,SocialLoginModule,SocialAuthServiceConfig } from 'angularx-social-login';
 import { environment } from "src/environments/environment";
 import { FaqComponent } from './faq/faq.component';
+import { MobileComponent } from './header/mobile/mobile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FaqComponent } from './faq/faq.component';
     COMPONENTS,
     ForgotPwComponent,
     ResetPwComponent,
-    FaqComponent
+    FaqComponent,
+    MobileComponent
   ],
   imports: [
     MAT_MODULES,
