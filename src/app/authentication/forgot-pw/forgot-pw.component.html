@@ -1,4 +1,5 @@
 <form class="container" (submit)="onClick(form)" #form="ngForm">
     <input ngModel name="userInput" type="text" placeholder="Your email">
-    <button>Recover password</button>
+    <button [disabled]="loading">Recover password</button>
+    <mat-spinner *ngIf="loading" [diameter]="50"></mat-spinner>
 </form>

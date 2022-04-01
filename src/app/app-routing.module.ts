@@ -6,6 +6,7 @@ import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DailyComponent } from './daily/daily.component';
+import { FaqComponent } from './faq/faq.component';
 import { HomeComponent } from './home/home.component';
 import { NotesComponent } from './notes/notes.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:'notes',component:NotesComponent},
   {path:'forgot',component:ForgotPwComponent},
   {path:'reset/:token',component:ResetPwComponent},
+  {path:'faq',component:FaqComponent},
   {path:'**',component:NotFoundComponent}
 
 ];

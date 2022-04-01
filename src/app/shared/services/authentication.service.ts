@@ -63,14 +63,8 @@ export class AuthenticationService {
             })
     }
 
-    forgotPassword(email: string): void {
-        this.httpClient.post<{ status: string, message: string, }>(`${environment.url}/users/forgotPassword`, { email: email.trim() })
-            .subscribe({
-                next: result => {
-                    alert(result.message)
-                },
-                error: response => { alert(response.error.message) }
-            })
+    forgotPassword(email: string) {
+       return this.httpClient.post<{ status: string, message: string, }>(`${environment.url}/users/forgotPassword`, { email: email.trim() })
     }
 
     resetPassword(resetToken: string, newPw: string) {

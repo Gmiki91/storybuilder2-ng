@@ -12,13 +12,15 @@ import { ForgotPwComponent } from './authentication/forgot-pw/forgot-pw.componen
 import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
 import { GoogleLoginProvider,SocialLoginModule,SocialAuthServiceConfig } from 'angularx-social-login';
 import { environment } from "src/environments/environment";
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     COMPONENTS,
     ForgotPwComponent,
-    ResetPwComponent
+    ResetPwComponent,
+    FaqComponent
   ],
   imports: [
     MAT_MODULES,

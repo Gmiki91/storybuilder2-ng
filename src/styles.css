@@ -41,6 +41,9 @@ button:disabled{
 
 .mat-spinner circle{
     stroke: #f6c05c;
+    display: flex;
+    text-align: center;
+    align-items: center;
 }
 .cancel-btn{
     color:var(--cancel-btn-color)
