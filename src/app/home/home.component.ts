@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { firstValueFrom, Observable, Subscription } from 'rxjs';
+import { firstValueFrom, Observable, Subscription, tap } from 'rxjs';
 import { Story } from '../shared/models/story';
 import { StoryService } from '../shared/services/story.service';
 import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.component';
@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   newStory: NewStoryData = {} as NewStoryData;
   error = false;
   showFilter=false;
+  loading=false;
   constructor(
     private authService: AuthenticationService,
     private storyService: StoryService,
@@ -34,9 +35,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-   
+   this.loading=true;
     this.loggedIn = this.authService.isLoggedIn();
-    this.storyList$ = this.storyService.getStoryList();
+    this.storyList$ = this.storyService.getStoryList()
+    .pipe(tap(result=>{
+      if(result){
+        this.loading=false;
+      }
+    }));
     this.user$ = this.authService.getCurrentUser();
     if (this.loggedIn){
       this.noteService.checkNewNotes();

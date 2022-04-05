@@ -7,10 +7,11 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
   templateUrl: './story-card.component.html',
   styleUrls: ['../style.css']
 })
-export class StoryCardComponent{
+export class StoryCardComponent {
   @Input() story!: Story;
-  @Input() favorite!:boolean;
-  @Input() tribute?:boolean;
+  @Input() favorite!: boolean;
+  @Input() guest!: boolean;
+  @Input() tribute?: boolean;
   icon!: string;
 
   constructor(private router: Router, private authService: AuthenticationService) { }
@@ -20,10 +21,12 @@ export class StoryCardComponent{
   }
 
   clicked(event: any): void {
-    this.favorite = !this.favorite;
-    if(this.favorite) this.authService.addToFavoriteIds(this.story._id);
-    else this.authService.removeFromFavoriteIds(this.story._id);
     event.stopPropagation();
+    if (!this.guest) {
+      this.favorite = !this.favorite;
+      if (this.favorite) this.authService.addToFavoriteIds(this.story._id);
+      else this.authService.removeFromFavoriteIds(this.story._id);
+    }
   }
 
 }

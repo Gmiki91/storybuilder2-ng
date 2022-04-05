@@ -18,12 +18,14 @@
 
     <div *ngIf="(storyList$|async) as storyList">
         <div *ngIf="storyList.length>0" class="list-container">
-            <app-story-card *ngFor="let story of storyList$|async" [story]="story"
-                [favorite]="favoriteIds.includes(story._id)"></app-story-card>
+            <app-story-card *ngFor="let story of storyList$|async" 
+            [story]="story"
+                [favorite]="favoriteIds.includes(story._id)"
+                [guest]="!loggedIn"
+                ></app-story-card>
         </div>
-        <div *ngIf="storyList.length===0" style="display:flex; justify-content:center; align-items:center">
+        <div *ngIf="storyList.length===0 && loading" style="display:flex; justify-content:center; align-items:center">
             <mat-spinner [diameter]="50"> </mat-spinner>
         </div>
     </div>
-
 </div>

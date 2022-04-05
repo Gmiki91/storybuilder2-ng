@@ -19,14 +19,16 @@ export class FilterComponent implements OnInit {
   languages: Language[] = languages;
   filteredLanguages!: Observable<Language[]>;
   selectedLanguages: string[] = [];
-
+  default:SearchCriteria;
   filterForm: FormGroup;
 
   constructor(private storyService: StoryService, private fb: FormBuilder) {
+    this.default=this.storyService.getSearchCriteria();
+    this.selectedLanguages = this.default.languages;
     this.filterForm = this.fb.group({
-      levels: this.fb.array([]),
-      from: new FormControl('all'),
-      open: new FormControl('both')
+      levels: this.fb.array(this.default.levels),
+      from: new FormControl(this.default.from),
+      open: new FormControl(this.default.open)
     });
 
   }
@@ -47,8 +49,8 @@ export class FilterComponent implements OnInit {
       checkArray.removeAt(index);
     }
   }
-  isCheckboxChecked(value: string): boolean {
-    const checkArray: FormArray = this.filterForm.get('levels') as FormArray;
+  isCheckboxChecked(arr:string,value: string): boolean {    
+    const checkArray: FormArray = this.filterForm.get(arr) as FormArray;
     return checkArray.value.indexOf(value) > -1;
   }
 
@@ -73,7 +75,7 @@ export class FilterComponent implements OnInit {
   }
 
   onClear(): void {
-    this.selectedLanguages = [];
+    this.storyService.changeSearchCriteria()
     this.closeFilter.emit(true);
   }
 
