@@ -25,9 +25,9 @@ export class PageService {
         return this.http.get<{ status: string, size:number, langInfo:LangInfo[], upVotes:number, totalVotes:number  }>(`${environment.url}/pages/all/${authorId}`)
     }
 
-    addPage(text: string, language: string): Observable<string> {
-        return this.http.post<{ status: string, pageId: string }>(`${environment.url}/pages/`, { text, language })
-            .pipe(map(result => result.pageId));
+    addPage(text: string, language: string){
+        return this.http.post<{ status: string, pageId: string,tributeCompleted: boolean }>(`${environment.url}/pages/`, { text, language })
+            .pipe(map(result => ({pageId:result.pageId, tributeCompleted:result.tributeCompleted})));
     }
 
     rateText(pageId: string, vote: number) {

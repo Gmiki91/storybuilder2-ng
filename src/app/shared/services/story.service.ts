@@ -107,13 +107,9 @@ export class StoryService {
         return this.http.put(`${environment.url}/stories/page`, { pageId, storyId, pageRatings, authorId })
     }
 
-    addPendingPage(pageId: string, storyId: string): Observable<boolean> {
-        return this.http.post<{ status: string, story: Story, tributeCompleted: boolean }>(`${environment.url}/stories/pendingPage`, { pageId, storyId })
-            .pipe(map(result => {
-                this.story.next(result.story);
-                return result.tributeCompleted;
-            }))
-
+    addPendingPage(pageId: string, storyId: string) {
+        this.http.post<{ status: string, story: Story }>(`${environment.url}/stories/pendingPage`, { pageId, storyId })
+            .subscribe(result => this.story.next(result.story))
     }
 
     editStory(id: string, description: string) {
