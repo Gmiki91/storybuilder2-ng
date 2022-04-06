@@ -21,7 +21,7 @@ export class NoteService {
             }))
     }
     checkNewNotes() {
-        this.http.get<{ status: string, isNew: boolean }>(`${environment.url}/notifications/check`).subscribe(result => this.news.next(result.isNew))
+        this.http.get<{ status: string, notes: number }>(`${environment.url}/notifications/check`).subscribe(result => this.news.next(result.notes>0))
     }
 
     isNews() {
