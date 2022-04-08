@@ -58,7 +58,7 @@ export class SignupComponent  {
 
   async _confirmSignUp(story: NewStoryData) {
     await firstValueFrom(this.authenticationService.signup(this.formData.name, this.formData.email, this.formData.password))
-    const pageId = await firstValueFrom(this.pageService.addPage(story.text, story.language));
+    const {pageId} = await firstValueFrom(this.pageService.addPage(story.text, story.language));
     story.pageId = pageId;
     const storyId = await firstValueFrom(this.storyService.addStory(story))
     const note: Note = {

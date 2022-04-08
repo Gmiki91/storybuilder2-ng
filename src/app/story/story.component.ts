@@ -164,7 +164,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       dialogRef.afterClosed()
         .subscribe(async (text: string) => {
           if (text && text !== '') {
-            const {pageId,tributeCompleted} = await firstValueFrom(this.pageService.addPage(text, this.story.language))
+            const {pageId,tributeCompleted} = await firstValueFrom(this.pageService.addPage(text, this.story.language.code))
             this.storyService.addPendingPage(pageId, this.story._id)
             this._sendSubmitionNote();
             this._getPages('Pending');

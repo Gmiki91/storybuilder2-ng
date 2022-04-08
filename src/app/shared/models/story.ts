@@ -1,4 +1,4 @@
-import { Level } from "./languageData";
+import { LanguageModel, Level } from "./languageData";
 type Rate = 'Terrible' | 'Bad' | 'Mixed' | 'Good' | 'Excellent';
 export interface StoryData {
     size: number,
@@ -10,7 +10,7 @@ export type Story = {
     _id: string;
     title: string;
     description: string;
-    language: string;
+    language: LanguageModel;
     level: Level;
     authorId: string;
     authorName: string;

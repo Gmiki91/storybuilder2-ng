@@ -19,7 +19,10 @@ import { AuthorComponent } from './components/author/author.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SettingsComponent } from './profile/settings/settings.component';
 import { NotesComponent } from './notes/notes.component';
-
+import { ForgotPwComponent } from './authentication/forgot-pw/forgot-pw.component';
+import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
+import { FaqComponent } from './faq/faq.component';
+import { MobileComponent } from './header/mobile/mobile.component';
 export const COMPONENTS = [
     LoginComponent,
     SignupComponent,
@@ -44,5 +47,9 @@ export const COMPONENTS = [
     AuthorComponent,
     NotFoundComponent,
     SettingsComponent,
-    NotesComponent
+    NotesComponent,
+    ForgotPwComponent,
+    ResetPwComponent,
+    FaqComponent,
+    MobileComponent
 ]

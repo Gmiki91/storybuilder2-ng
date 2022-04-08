@@ -11,7 +11,6 @@ export interface PageData extends StoryData {
 export type Page = {
     _id:string
     text: string,
-    language: string,
     authorId: string,
     authorName: string,
     ratings: [Rate]

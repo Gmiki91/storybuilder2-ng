@@ -26,7 +26,7 @@
             <mat-divider></mat-divider>
             <div class="group" *ngIf="page.langInfo?.length !== 0">
                 <span>Used languages:</span>
-                <span *ngFor="let obj of page.langInfo">{{obj.language}}: {{obj.ratio}}% - {{obj.level}}</span>
+                <span *ngFor="let obj of page.langInfo">{{obj.language.text}}: {{obj.ratio}}% - {{obj.level}}</span>
             </div>
             <div *ngIf="!page">
                 <mat-spinner [diameter]="50"></mat-spinner>

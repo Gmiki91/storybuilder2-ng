@@ -7,19 +7,18 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
   templateUrl: './story-card.component.html',
   styleUrls: ['../style.css']
 })
-export class StoryCardComponent {
+export class StoryCardComponent{
   @Input() story!: Story;
   @Input() favorite!: boolean;
   @Input() guest!: boolean;
   @Input() tribute?: boolean;
-  icon!: string;
 
-  constructor(private router: Router, private authService: AuthenticationService) { }
+  constructor(private router: Router, private authService: AuthenticationService) {}
 
   onStoryClicked(): void {
     this.router.navigate(['/story'], { state: { storyId: this.story._id } })
   }
-
+  
   clicked(event: any): void {
     event.stopPropagation();
     if (!this.guest) {

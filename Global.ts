@@ -14,4 +14,4 @@ export const Color = {
     'A': '#32a83c',
     'B': '#dea749',
     'C': '#de4949',
-} 
+};

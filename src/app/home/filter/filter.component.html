@@ -7,7 +7,9 @@
         *ngFor="let selectedLanguage of selectedLanguages">{{selectedLanguage}}&nbsp;&nbsp;</i>
       <input type="text" placeholder="Pick one" matInput [formControl]="languageControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectOption($event.option.value)'>
-        <mat-option *ngFor="let language of filteredLanguages| async" [value]="language.name">{{language.name}}
+        <mat-option *ngFor="let language of filteredLanguages| async" [value]="language.code">
+            <img class="icon" src="../assets/flags/{{language.text}}.png"/>
+            <span>{{language.text}}</span>
         </mat-option>
       </mat-autocomplete>
     </section>

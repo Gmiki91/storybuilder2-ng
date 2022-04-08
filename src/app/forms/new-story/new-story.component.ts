@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Language,Level } from 'src/app/shared/models/languageData';
-import languages from '../../../assets/languages.json';
+import { LanguageModel,Level, languages } from 'src/app/shared/models/languageData';
 
 export interface NewStoryData {
   title: string,
@@ -21,7 +20,7 @@ export interface NewStoryData {
   styleUrls: ['../style.css']
 })
 export class NewStoryComponent {
-  languages: Language[] = languages;
+  languages: LanguageModel[] = languages;
   constructor(
     public dialogRef: MatDialogRef<NewStoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: NewStoryData) {}

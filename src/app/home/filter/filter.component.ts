@@ -1,9 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
-import { Language } from 'src/app/shared/models/languageData';
+import { LanguageModel,languages } from 'src/app/shared/models/languageData';
 import { StoryService, SearchCriteria } from 'src/app/shared/services/story.service';
-import languages from '../../../assets/languages.json';
 
 @Component({
   selector: 'app-filter',
@@ -16,8 +15,8 @@ export class FilterComponent implements OnInit {
   @Output() closeFilter: EventEmitter<boolean> = new EventEmitter(false)
 
   languageControl = new FormControl();
-  languages: Language[] = languages;
-  filteredLanguages!: Observable<Language[]>;
+  languages: LanguageModel[] = languages;
+  filteredLanguages!: Observable<LanguageModel[]>;
   selectedLanguages: string[] = [];
   default:SearchCriteria;
   filterForm: FormGroup;
@@ -91,9 +90,9 @@ export class FilterComponent implements OnInit {
     this.languageControl.setValue('');
   }
 
-  private _filter(value: string): Language[] {
+  private _filter(value: string): LanguageModel[] {
     const filterValue = value.toLowerCase();
-    return this.languages.filter(language => language.name.toLowerCase().includes(filterValue));
+    return this.languages.filter(language => language.text.toLowerCase().includes(filterValue));
   }
 
 }

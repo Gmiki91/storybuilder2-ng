@@ -8,21 +8,13 @@ import { AppComponent } from './app.component';
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import { MAT_MODULES } from './mat.modules'
 import { COMPONENTS } from './components';
-import { ForgotPwComponent } from './authentication/forgot-pw/forgot-pw.component';
-import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
-import { GoogleLoginProvider,SocialLoginModule,SocialAuthServiceConfig } from 'angularx-social-login';
 import { environment } from "src/environments/environment";
-import { FaqComponent } from './faq/faq.component';
-import { MobileComponent } from './header/mobile/mobile.component';
+import { GoogleLoginProvider,SocialLoginModule,SocialAuthServiceConfig } from 'angularx-social-login';
 
 @NgModule({
   declarations: [
     AppComponent,
-    COMPONENTS,
-    ForgotPwComponent,
-    ResetPwComponent,
-    FaqComponent,
-    MobileComponent
+    COMPONENTS
   ],
   imports: [
     MAT_MODULES,

@@ -10,7 +10,9 @@
     </div>
     <mat-select class="field" required placeholder="Select a language*" [(ngModel)]="data.language" name="language"
       #language="ngModel">
-      <mat-option *ngFor="let language of languages" [value]="language.name">{{language.name}}
+      <mat-option *ngFor="let language of languages" [value]="language.code">
+          <img class="icon" src="../assets/flags/{{language.text}}.png"/>
+          <span>{{language.text}}</span>
       </mat-option>
     </mat-select>
     <div class="error" *ngIf="language.invalid && language.touched">
