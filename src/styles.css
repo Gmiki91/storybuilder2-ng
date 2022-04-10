@@ -59,9 +59,6 @@ button:disabled{
     padding:1%;
     margin: 0% 1% 1% 1%;
     width: 25rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     background: black  ;
     background-color:#f0c380;
     border-radius:15px;

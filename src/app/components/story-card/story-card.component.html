@@ -1,15 +1,15 @@
 <div (click)="onStoryClicked()" class="card story-card">
     <div class="top">
-        <h2 style=display:flex;flex-direction:column>{{story.title}}
+        <h2 style=display:flex;flex-direction:column;margin-bottom:0>{{story.title}}
+            <span class="description">{{story.description}}</span>
             <app-author [authorName]="story.authorName" [authorId]="story.authorId"></app-author>
         </h2>
         <mat-icon style="cursor:pointer" *ngIf="!tribute" (click)="clicked($event)"
             [class]="favorite ? 'liked' : 'disliked'">{{favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
-    </div>
-    <span style="margin-bottom:1%">{{story.description}}</span>
+        </div>
+        <img class="icon" src="../assets/flags/{{story.language.text}}.png" />
     <div class="story-data">
         <div style="display:flex; flex-direction:column">
-            <img class="icon" src="../assets/flags/{{story.language.text}}.png" />
             <div>{{story.language.text}}: {{story.level.code}} - {{story.level.text}}</div>
             <div>Last updated: {{story.updatedAt}}</div>
         </div>

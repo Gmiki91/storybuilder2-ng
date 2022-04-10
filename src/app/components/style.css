@@ -15,7 +15,12 @@ app-author:hover{
 .button-container{
     display:flex;
 }
-
+.description{
+    font-size: 0.9rem;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 1rem;
+}
 .page-card{
     align-items:flex-start;
     cursor:initial;
@@ -67,4 +72,5 @@ span mat-icon{
     border-radius:1rem;
     height:2rem;
     width: 2rem;
+    margin-bottom:1rem;
 }
