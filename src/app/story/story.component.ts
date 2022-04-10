@@ -140,9 +140,9 @@ export class StoryComponent implements OnInit, OnDestroy {
       const dialogRef = this.dialog.open(EditStoryComponent, {
         data: { story: { ...this.story }, userId: this.user._id }
       });
-      dialogRef.afterClosed().subscribe(description => {
-        if (description && description !== this.story.description) {
-          this.storyService.editStory(this.story._id, description);
+      dialogRef.afterClosed().subscribe(data => {
+        if (data && (data.description !== this.story.description || data.title !==this.story.title)) {
+          this.storyService.editStory(this.story._id, data.title, data.description);
         }
       });
     }

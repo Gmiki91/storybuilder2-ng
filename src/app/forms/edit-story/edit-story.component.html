@@ -1,7 +1,8 @@
 <div mat-dialog-content class="container" >
-    <p style="font-size:2rem">{{story.title}}</p>
+    <p *ngIf="!edit" style="font-size:2rem">{{story.title}}</p>
+    <input *ngIf="edit" #title style="font-size:2rem" [value]="story.title">
     <p *ngIf="!edit">{{story.description}}</p>
-    <textarea #description *ngIf="edit">{{story.description}}</textarea>
+    <textarea *ngIf="edit" #description >{{story.description}}</textarea>
     <div *ngIf="ownStory">
         <button style="margin-right:1%" class="C" mat-button (click)="onClose()">Cancel</button>
         <button mat-button (click)="onEdit()">{{editLabel}}</button>

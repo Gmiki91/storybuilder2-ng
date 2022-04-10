@@ -115,8 +115,8 @@ export class StoryService {
             .subscribe(result => this.story.next(result.story))
     }
 
-    editStory(id: string, description: string) {
-        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { description })
+    editStory(id: string, title:string, description:string) {
+        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { title, description })
             .subscribe(result => this.story.next(result.story));
     }
     deleteStories(): void {

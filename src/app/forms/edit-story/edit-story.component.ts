@@ -9,6 +9,7 @@ import { Story } from 'src/app/shared/models/story';
 })
 export class EditStoryComponent {
   @ViewChild('description') description!: ElementRef;
+  @ViewChild('title') title!: ElementRef;
   editLabel: string = "Edit";
   edit: boolean = false;
   story: Story;
@@ -28,7 +29,8 @@ export class EditStoryComponent {
     if (this.edit) {
       this.edit = false;
       this.story.description = this.description.nativeElement.value;
-      this.dialogRef.close(this.story.description)
+      this.story.title=this.title.nativeElement.value.trim().length>2 ? this.title.nativeElement.value : this.story.title;
+      this.dialogRef.close({description:this.story.description, title:this.story.title})
     } else {
       this.edit = true;
       this.editLabel = "Done";
