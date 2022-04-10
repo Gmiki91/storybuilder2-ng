@@ -37,7 +37,7 @@ export class StatsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();
+   this.getData();
   }
 
   async getData() {

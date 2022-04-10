@@ -6,16 +6,17 @@
     margin-top:1%;
 }
 .top{
-    justify-content: space-between;
+    justify-content: center;
     display: flex;
     align-items: center;
-    width: 450px;
+    width: 25rem;
     margin-bottom: 1%;
     font-size: 1rem;
 }
 .title{
     font-weight: bold;
     cursor:pointer;
+    margin-right:2rem;
 }
 .title:hover{
     text-decoration: underline

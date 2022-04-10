@@ -16,7 +16,6 @@ export class AuthorComponent implements OnInit {
   }
   onAuthor(event: MouseEvent): void {
     event.stopPropagation();
-    window.location.href = this.authorId;
     this.router.navigate(['/stats'], { state: { authorId: this.authorId } })
   }
 }
