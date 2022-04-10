@@ -8,19 +8,15 @@ import { Router } from '@angular/router';
 })
 export class AuthorComponent implements OnInit {
 
-  @Input()authorName!:string
-  @Input()authorId!:string
+  @Input() authorName!: string
+  @Input() authorId!: string
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
   onAuthor(event: MouseEvent): void {
     event.stopPropagation();
-    if (this.authorName === 'Source') {
-      window.location.href=this.authorId;
-    }else{
-
-    }
+    window.location.href = this.authorId;
     this.router.navigate(['/stats'], { state: { authorId: this.authorId } })
   }
 }

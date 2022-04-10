@@ -69,7 +69,8 @@ export class StoryComponent implements OnInit, OnDestroy {
     const observable$ = this.authService.getCurrentUser()
       .subscribe(user => {
         if (user !== undefined) {
-          this.user = user}
+          this.user = user
+        }
       });
     this.subscription.add(observable$);
     if (this.authService.isLoggedIn())
@@ -91,7 +92,7 @@ export class StoryComponent implements OnInit, OnDestroy {
     this.subscription.add(observable$);
   }
 
-  
+
   changeToggle(type: PageType): void {
     this.toggleTypeLabel = type === 'Confirmed' ? 'Pending' : 'Confirmed';
     this._getPages(type);
@@ -164,7 +165,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       dialogRef.afterClosed()
         .subscribe(async (text: string) => {
           if (text && text !== '') {
-            const {pageId,tributeCompleted} = await firstValueFrom(this.pageService.addPage(text, this.story.language.code))
+            const { pageId, tributeCompleted } = await firstValueFrom(this.pageService.addPage(text, this.story.language.code))
             this.storyService.addPendingPage(pageId, this.story._id)
             this._sendSubmitionNote();
             this._getPages('Pending');
@@ -176,7 +177,7 @@ export class StoryComponent implements OnInit, OnDestroy {
         })
     }
   }
-  
+
   _getPageList() {
     this.pageList$ = this.pageService.getPageList().pipe(map(pages => {
       this.maxPageCount = pages.length;
@@ -201,10 +202,8 @@ export class StoryComponent implements OnInit, OnDestroy {
     }
 
     this.noteService.addSelfNote(note);
-    if (this.story.authorName !== 'Source') {
-      note.message = `Page #${this.story.pageIds.length} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
-      this.noteService.addNotes(this.story.authorId, note);
-    }
+    note.message = `Page #${this.story.pageIds.length} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
+    this.noteService.addNotes(this.story.authorId, note);
   }
 
   _sendRejectNotes(ids: string[]) {
