@@ -4,15 +4,15 @@
             <input class="searchbar" (keyup.enter)="search(input.value)" #input placeholder="Search title">
             <p *ngIf="error">Title must be at least 3 characters long</p>
         </div>
-
         <app-sort-by></app-sort-by>
 
         <app-filter *ngIf="showFilter" (closeFilter)="onFilter()"></app-filter>
         <button style="margin-bottom:1%" *ngIf="!showFilter && loggedIn" type="button"
             (click)="onFilter()">Filter🡇</button>
-        <div *ngIf="(user$|async) as user">
-            <button style="margin-bottom:1%" *ngIf="user.frogcoins>2" (click)="onNewStoryClicked()">Create new
-                story</button>
+        <div *ngIf="user$|async as user">
+            <button style="margin-bottom:1%" *ngIf="user.frogcoins>2" (click)="onNewStoryClicked()">
+                Create new story
+            </button>
         </div>
     </div>
 

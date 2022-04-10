@@ -53,7 +53,6 @@ export class StoryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.storyLoaded = false;
-    this.noteService.checkNewNotes();
     this.getUser();
     this.getStory();
     this._getPageList();
@@ -68,8 +67,9 @@ export class StoryComponent implements OnInit, OnDestroy {
   getUser() {
     const observable$ = this.authService.getCurrentUser()
       .subscribe(user => {
-        if (user !== undefined) {
-          this.user = user
+        if (user._id) {
+          this.user = user;
+          this.noteService.checkNewNotes();
         }
       });
     this.subscription.add(observable$);
@@ -136,14 +136,16 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   onTitleClicked() {
-    const dialogRef = this.dialog.open(EditStoryComponent, {
-      data: { story: { ...this.story }, userId: this.user._id }
-    });
-    dialogRef.afterClosed().subscribe(description => {
-      if (description && description !== this.story.description) {
-        this.storyService.editStory(this.story._id, description);
-      }
-    });
+    if (this.user._id) {
+      const dialogRef = this.dialog.open(EditStoryComponent, {
+        data: { story: { ...this.story }, userId: this.user._id }
+      });
+      dialogRef.afterClosed().subscribe(description => {
+        if (description && description !== this.story.description) {
+          this.storyService.editStory(this.story._id, description);
+        }
+      });
+    }
   }
 
   forward() {

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { map, tap, Subject } from "rxjs";
+import { map, tap, BehaviorSubject } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { User } from "../models/user";
 
@@ -10,7 +10,7 @@ import { User } from "../models/user";
 })
 
 export class AuthenticationService {
-    user = new Subject<User>();
+    user = new BehaviorSubject<User>({}as User);
     constructor(private httpClient: HttpClient, private router: Router) { }
 
     presignup(name: string, email: string) {
