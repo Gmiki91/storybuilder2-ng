@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Observable, startWith, map } from 'rxjs';
-import { LanguageModel,languages } from 'src/app/shared/models/languageData';
+import { LanguageModel, languages } from 'src/app/shared/models/languageData';
 import { StoryService, SearchCriteria } from 'src/app/shared/services/story.service';
 
 @Component({
@@ -17,12 +17,12 @@ export class FilterComponent implements OnInit {
   languageControl = new FormControl();
   languages: LanguageModel[] = languages;
   filteredLanguages!: Observable<LanguageModel[]>;
-  selectedLanguages: string[] = [];
-  default:SearchCriteria;
+  selectedLanguages: LanguageModel[] = [];
+  default: SearchCriteria;
   filterForm: FormGroup;
 
   constructor(private storyService: StoryService, private fb: FormBuilder) {
-    this.default=this.storyService.getSearchCriteria();
+    this.default = this.storyService.getSearchCriteria();
     this.selectedLanguages = this.default.languages;
     this.filterForm = this.fb.group({
       levels: this.fb.array(this.default.levels),
@@ -48,7 +48,7 @@ export class FilterComponent implements OnInit {
       checkArray.removeAt(index);
     }
   }
-  isCheckboxChecked(arr:string,value: string): boolean {    
+  isCheckboxChecked(arr: string, value: string): boolean {
     const checkArray: FormArray = this.filterForm.get(arr) as FormArray;
     return checkArray.value.indexOf(value) > -1;
   }
@@ -78,21 +78,25 @@ export class FilterComponent implements OnInit {
     this.closeFilter.emit(true);
   }
 
-  remove(language: string) {
+  remove(language: LanguageModel) {
     const index = this.selectedLanguages.indexOf(language);
     this.selectedLanguages.splice(index, 1);
   }
 
-  selectOption(value: string) {
+  selectOption(value: LanguageModel) {
+    console.log(value);
     if (this.selectedLanguages.indexOf(value) === -1) {
       this.selectedLanguages.push(value);
     }
     this.languageControl.setValue('');
   }
 
-  private _filter(value: string): LanguageModel[] {
-    const filterValue = value.toLowerCase();
-    return this.languages.filter(language => language.text.toLowerCase().includes(filterValue));
+  private _filter(value: LanguageModel): LanguageModel[] {
+    if (value) {
+      const filterValue = value.text.toLowerCase();
+      return this.languages.filter(language => language.text.toLowerCase().includes(filterValue));
+    } else {
+      return this.languages;
+    }
   }
-
 }

@@ -1,22 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-    --text-color:white;
+    --text-color: white;
     --main: #fce3b3;
     --secondary: #f6c05c;
     --main-btn-color: #cc6018;
-    --cancel-btn-color:#4d1f00;
+    --cancel-btn-color: #4d1f00;
     --a-color: #32a83c;
     --b-color: #dea749;
     --c-color: #de4949;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-button:hover:enabled{
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button:hover:enabled {
     color: var(--text-color);
     background-color: var(--main-btn-color);
 }
 
-button{
+button {
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
@@ -33,67 +42,77 @@ button{
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     border-radius: 0.25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-button:disabled{
-  opacity: 0.3;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.mat-spinner circle{
+button:disabled {
+    opacity: 0.3;
+}
+
+.mat-spinner circle {
     stroke: #f6c05c;
     display: flex;
     text-align: center;
     align-items: center;
 }
-.cancel-btn{
-    color:var(--cancel-btn-color)
-}
-.cancel-btn:hover:enabled{
-    background-color: var(--cancel-btn-color);
-}
-.cancel-btn:focus{
-    box-shadow:0 0 0 0.25rem var(--cancel-btn-color);
+
+.cancel-btn {
+    color: var(--cancel-btn-color)
 }
 
-.card{
-    padding:1%;
+.cancel-btn:hover:enabled {
+    background-color: var(--cancel-btn-color);
+}
+
+.cancel-btn:focus {
+    box-shadow: 0 0 0 0.25rem var(--cancel-btn-color);
+}
+
+.card {
+    padding: 1%;
     margin: 0% 1% 1% 1%;
     width: 25rem;
-    background: black  ;
-    background-color:#f0c380;
-    border-radius:15px;
-    box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);  
+    background: black;
+    background-color: #f0c380;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, .08);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 }
 
-.A{
+.A {
     color: var(--a-color);
     border-color: var(--a-color);
 }
 
-.A:hover:enabled{
+.A:hover:enabled {
     color: var(--text-color);
     background-color: var(--a-color);
 }
 
-.B{
+.B {
     color: var(--b-color);
     border-color: var(--b-color);
 }
 
-.B:hover:enabled{
+.B:hover:enabled {
     color: var(--text-color);
     background-color: var(--b-color);
 }
 
 
-.C{
+.C {
     color: var(--c-color);
     border-color: var(--c-color);
 }
 
-.C:hover:enabled{
+.C:hover:enabled {
     color: var(--text-color);
     background-color: var(--c-color);
+}
+
+.icon {
+    border-radius: 1rem;
+    height: 2rem;
+    width: 2rem;
 }

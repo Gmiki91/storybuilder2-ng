@@ -6,11 +6,12 @@ import { environment } from '../../../environments/environment';
 import moment from "moment";
 import { NewStoryData } from "src/app/forms/new-story/new-story.component";
 import { Rate } from "../models/page";
+import { LanguageModel } from "../models/languageData";
 
 export type Sort = 'title' | 'updatedAt' | 'rating';
 export type SearchCriteria = {
     from: string,
-    languages: string[],
+    languages: LanguageModel[],
     levels: string[],
     open: string;
 }
@@ -36,7 +37,9 @@ export class StoryService {
     constructor(private http: HttpClient) { }
 
     updateStoryList(): void {
-        const body = { ...this.searchCriteria, sortBy: this.sortBy, sortDirection: this.sortDirection, storyName: this.storyName }
+        const languages = this.searchCriteria.languages.map(language=>language.code);
+        console.log(languages);
+        const body = { ...this.searchCriteria, sortBy: this.sortBy, sortDirection: this.sortDirection, storyName: this.storyName, languages }
         this.http.post<{ status: string, stories: Story[] }>(`${environment.url}/stories/all`, body)
             .pipe(
                 map(result => result.stories
@@ -128,7 +131,6 @@ export class StoryService {
     rateText(storyId: string, vote: number): void {
         this.http.put(`${environment.url}/stories/rate`, { vote, storyId })
             .subscribe(() => { })
-
     }
 
     removePendingPage(pageId: string, storyId: string) {
