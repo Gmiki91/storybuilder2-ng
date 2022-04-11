@@ -1,7 +1,7 @@
 <div style="display:flex; flex-direction:column;">
   <form class="container" mat-dialog-content #f="ngForm">
     <input style="text-align:center" class="field" required minlength="3" maxlength="100" [(ngModel)]="data.title" placeholder="Story title*" name="title"
-      #title="ngModel" />
+      #title="ngModel" #titleText (input)="changeTitle($event)" />
     <div class="error" *ngIf="title.invalid && title.touched">
       <div *ngIf="title.errors?.['minlength']">
         Title must be at least 3 characters long.
@@ -27,10 +27,10 @@
       Required!
     </div>
     <textarea class="description field" placeholder="A short summary/description (optional)" matInput
-      [(ngModel)]="data.description" name="description" #description="ngModel"></textarea>
+      [(ngModel)]="data.description" name="description" #description="ngModel" (input)="changeText($event)"></textarea>
       <span [class]="(pageText.value.length>2800 || pageText.value.length<10) ? 'C' :'A' ">{{pageText.value.length}}/2800</span>
     <textarea required minlength="10" class="text field" placeholder="The first page" matInput
-      [(ngModel)]="data.text" name="text" #pageText #text="ngModel"></textarea>
+      [(ngModel)]="data.text" name="text" #pageText (input)="changeText($event)"></textarea>
     <label>Words/phrases to include for the next page (optional)</label>
     <input class="field" [(ngModel)]="data.word1" placeholder="#1" name="word1" #word1="ngModel" maxlength="50"/>
     <input class="field" [(ngModel)]="data.word2" placeholder="#2" name="word2" #word2="ngModel" maxlength="50"/>

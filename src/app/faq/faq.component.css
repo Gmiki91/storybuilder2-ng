@@ -1,9 +1,15 @@
 a{
     width:250px;
 }
+p{
+    text-align: center;
+}
 .container{
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 1%;
 }
+img{
+    width:100%;
+   }

@@ -4,10 +4,6 @@ mat-icon{
 }
 app-author{
     cursor:pointer;
-    align-self: flex-end;
-    font-style: italic;
-    font-size:1rem;;
-    margin-bottom:1%;
 }
 app-author:hover{
     text-decoration: underline;
@@ -25,6 +21,7 @@ app-author:hover{
     align-items:flex-start;
     cursor:initial;
     padding:5%;
+    white-space:pre-wrap;
 }
 .story-card:hover{
     transform: scale(1.05, 1.05);

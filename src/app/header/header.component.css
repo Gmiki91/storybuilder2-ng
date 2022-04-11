@@ -44,6 +44,7 @@ a:hover{
 .blinking{
     animation:blinkingText 2s infinite;
 }
+
 @keyframes blinkingText{
     0%{     color:var(--main-btn-color);    }
     50%{    color: red; }

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['../style.css']
 })
 export class NewPageComponent {
+  @ViewChild('input') input!:ElementRef;
   words: {
     value: string;
     color: string;
@@ -22,10 +23,14 @@ export class NewPageComponent {
   }
 
 
-  changeText(event: any): void {
-    const value = event.target.value as String;
-    const allWordsChecked = this._checkWords(value.toLowerCase());
-    this.validForm = allWordsChecked && value.length>9 && value.length<281;
+  changeText(event: any):void {
+    if (event.target.value.substring(event.target.value.length - 2) === '  ') {
+      this.input.nativeElement.value = event.target.value.substring(0,event.target.value.length - 1)
+    } else {
+      const value = event.target.value as String;
+      const allWordsChecked = this._checkWords(value.toLowerCase());
+      this.validForm = allWordsChecked && value.length > 27 && value.length < 281;
+    }
   }
 
   onSubmit(value: any) {

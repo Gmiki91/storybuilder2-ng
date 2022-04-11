@@ -1,6 +1,6 @@
 <div class="card page-card">
     <span>{{page.text}}</span>
-    <app-author style="text-align:end" [authorName]="page.authorName" [authorId]="page.authorId"></app-author>
+    <app-author style="text-align:end;  font-style: italic;" [authorName]="page.authorName" [authorId]="page.authorId"></app-author>
     <div class="button-container" *ngIf="userId && !toConfirm && !ownContent">
         <span class="liked" (click)="rate(1)" [class]="liked ? 'pushed' : null">
             <mat-icon>thumb_up</mat-icon>

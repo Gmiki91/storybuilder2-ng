@@ -2,7 +2,6 @@
     <div class="top">
         <h2 style=display:flex;flex-direction:column;margin-bottom:0>{{story.title}}
             <span class="description">{{story.description}}</span>
-            <app-author [authorName]="story.authorName" [authorId]="story.authorId"></app-author>
         </h2>
         <mat-icon style="cursor:pointer" *ngIf="!tribute" (click)="clicked($event)"
             [class]="favorite ? 'liked' : 'disliked'">{{favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
@@ -11,6 +10,7 @@
     <div class="story-data">
         <div style="display:flex; flex-direction:column">
             <div>{{story.language.text}}: {{story.level.code}} - {{story.level.text}}</div>
+            <span>Author: <app-author [authorName]="story.authorName" [authorId]="story.authorId"></app-author></span>
             <div>Last updated: {{story.updatedAt}}</div>
         </div>
         <div style="display:flex; flex-direction:column;justify-content: flex-end;">
