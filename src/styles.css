@@ -116,3 +116,10 @@ button:disabled {
     height: 2rem;
     width: 2rem;
 }
+
+@media (max-width: 450px){
+    .card{
+        width:100%;
+    }
+  
+}

@@ -1,5 +1,5 @@
 <div class="card page-card">
-    <p>{{page.text}}</p>
+    <span>{{page.text}}</span>
     <app-author style="text-align:end" [authorName]="page.authorName" [authorId]="page.authorId"></app-author>
     <div class="button-container" *ngIf="userId && !toConfirm && !ownContent">
         <span class="liked" (click)="rate(1)" [class]="liked ? 'pushed' : null">

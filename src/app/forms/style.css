@@ -42,3 +42,12 @@ margin-bottom:15px;
     background-color: #FFBABA;
     padding-left:5px;
 }
+@media (max-width: 450px){
+    textarea{
+        width:80%;
+        
+    }
+    button{
+        width:80%;
+    }
+}

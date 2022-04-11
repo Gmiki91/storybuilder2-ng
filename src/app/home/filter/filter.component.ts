@@ -84,7 +84,6 @@ export class FilterComponent implements OnInit {
   }
 
   selectOption(value: LanguageModel) {
-    console.log(value);
     if (this.selectedLanguages.indexOf(value) === -1) {
       this.selectedLanguages.push(value);
     }
