@@ -48,6 +48,8 @@ export class StoryComponent implements OnInit, OnDestroy {
     let nav = this.router.getCurrentNavigation();
     if (nav?.extras.state) {
       this.storyService.updateStory(nav.extras.state['storyId']);
+    }else{
+      this.router.navigate(['/']);
     }
   }
 
