@@ -29,3 +29,9 @@ label{
 .selected-levels{
     cursor:pointer;
 }
+
+@media (max-width: 450px){
+    .levels{
+        padding-right: 10px;
+    }
+}

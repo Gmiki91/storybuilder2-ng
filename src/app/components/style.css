@@ -24,7 +24,7 @@ app-author:hover{
 .page-card{
     align-items:flex-start;
     cursor:initial;
-    padding:5%
+    padding:5%;
 }
 .story-card:hover{
     transform: scale(1.05, 1.05);
@@ -71,4 +71,10 @@ span mat-icon{
 
 .icon{
     margin-bottom:1rem;
+}
+
+@media (max-width: 450px){
+    .page-card{
+        word-break: break-all;
+    }
 }

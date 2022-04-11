@@ -14,7 +14,7 @@
       </mat-autocomplete>
     </section>
 
-    <div class="filter-field" formControlname="levels">
+    <div class="filter-field levels" formControlname="levels">
       <label>Level:</label>
       <input type="checkbox" value="A" (change)="onCheckboxChange($event)" [checked]="isCheckboxChecked('levels','A')">Beginner
       <input type="checkbox" value="B" (change)="onCheckboxChange($event)" [checked]="isCheckboxChecked('levels','B')">Intermediate
