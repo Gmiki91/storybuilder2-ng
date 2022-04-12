@@ -16,7 +16,7 @@ import { StoryService } from '../shared/services/story.service';
 
 type PageType = 'Confirmed' | 'Pending';
 type emitObject = { pageId: string, authorId: string }
-const PAG_SIZE = 50;
+const PAG_SIZE = 10;
 @Component({
   selector: 'app-story',
   templateUrl: './story.component.html',
@@ -48,7 +48,7 @@ export class StoryComponent implements OnInit, OnDestroy {
     let nav = this.router.getCurrentNavigation();
     if (nav?.extras.state) {
       this.storyService.updateStory(nav.extras.state['storyId']);
-    }else{
+    } else {
       this.router.navigate(['/']);
     }
   }
@@ -110,9 +110,9 @@ export class StoryComponent implements OnInit, OnDestroy {
         idsToDelete.splice(index, 1);
         const response = await firstValueFrom(this.pageService.deletePages(idsToDelete, this.story._id));
         this._sendRejectNotes(response.authorIds);
-        this.storyService.updateStory(this.story._id);
-        this.changeToggle('Confirmed');
       }
+      this.storyService.updateStory(this.story._id);
+      this.changeToggle('Confirmed');
     }
   }
 
@@ -143,7 +143,7 @@ export class StoryComponent implements OnInit, OnDestroy {
         data: { story: { ...this.story }, userId: this.user._id }
       });
       dialogRef.afterClosed().subscribe(data => {
-        if (data && (data.description !== this.story.description || data.title !==this.story.title)) {
+        if (data && (data.description !== this.story.description || data.title !== this.story.title)) {
           this.storyService.editStory(this.story._id, data.title, data.description);
         }
       });
@@ -169,13 +169,20 @@ export class StoryComponent implements OnInit, OnDestroy {
       dialogRef.afterClosed()
         .subscribe(async (text: string) => {
           if (text && text !== '') {
-            const { pageId, tributeCompleted } = await firstValueFrom(this.pageService.addPage(text, this.story.language.code))
-            this.storyService.addPendingPage(pageId, this.story._id)
-            this._sendSubmitionNote();
-            this._getPages('Pending');
-            if (tributeCompleted) {
-              alert('You completed your daily task. Well done!');
-              this.router.navigate(['/daily']);
+            const currentStoryLength = this.story.pageIds.length;
+            this.storyService.updateStory(this.story._id);
+            const updatedStory = await firstValueFrom(this.storyService.getStory());
+            if (currentStoryLength === updatedStory.pageIds.length) {
+              const { pageId, tributeCompleted } = await firstValueFrom(this.pageService.addPage(text, this.story.language.code,this.story._id))
+              this.storyService.addPendingPage(pageId, this.story._id)
+              this._sendSubmitionNote();
+              this._getPages('Confirmed');
+              if (tributeCompleted) {
+                alert('You completed your daily task. Well done!');
+                this.router.navigate(['/daily']);
+              }
+            } else {
+              alert('A page has been accepted while you were typing. Please check the new contribution by refreshing the story.')
             }
           }
         })
@@ -193,8 +200,9 @@ export class StoryComponent implements OnInit, OnDestroy {
 
   _getPages(type: PageType): void {
     const ids = type === 'Confirmed' ? 'pageIds' : 'pendingPageIds';
-    if (this.story)
+    if (this.story) {
       this.pageService.updatePageList(this.story[ids]);
+    }
   }
 
   _sendSubmitionNote() {

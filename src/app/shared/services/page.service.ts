@@ -13,7 +13,8 @@ export class PageService {
     constructor(private http: HttpClient) { }
 
     updatePageList(ids: string[]): void {
-        this.http.get<{ status: string, pages: Page[] }>(`${environment.url}/pages/many/${ids}`)
+        console.log(ids.join(','));
+        this.http.get<{ status: string, pages: Page[] }>(`${environment.url}/pages/many/${ids.join(',')}`)
             .subscribe(result => this.pageList.next(result.pages));
     }
 
@@ -22,11 +23,11 @@ export class PageService {
     }
 
     getPageData(authorId: string) {
-        return this.http.get<{ status: string, size:number, langInfo:LangInfo[], upVotes:number, totalVotes:number  }>(`${environment.url}/pages/all/${authorId}`)
+        return this.http.get<{ status: string, size:number, langInfo:LangInfo[], upVotes:number, totalVotes:number  }>(`${environment.url}/pages/data/${authorId}`)
     }
 
-    addPage(text: string, language: string){
-        return this.http.post<{ status: string, pageId: string,tributeCompleted: boolean }>(`${environment.url}/pages/`, { text, language })
+    addPage(text: string, language: string, storyId?:string){
+        return this.http.post<{ status: string, pageId: string,tributeCompleted: boolean }>(`${environment.url}/pages/`, { text, language,storyId })
             .pipe(map(result => ({pageId:result.pageId, tributeCompleted:result.tributeCompleted})));
     }
 
@@ -39,7 +40,7 @@ export class PageService {
     }
 
     deletePage(pageId: string, storyId: string): void {
-        this.http.patch(`${environment.url}/pages/${pageId}`, { storyId }).subscribe(() => { })
+        this.http.patch(`${environment.url}/pages/one/${pageId}`, { storyId }).subscribe(() => { })
 
     }
 

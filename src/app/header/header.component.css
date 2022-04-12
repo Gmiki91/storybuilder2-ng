@@ -37,12 +37,13 @@ a:hover{
    width:10rem
 }
 .header{
-    background-color:var(--main);
+    background:var(--main);
+    background: linear-gradient(90deg, var(--main) 0%, var(--secondary) 100%);
     padding:10px;
     width: 100%;
 }
 .blinking{
-    animation:blinkingText 2s infinite;
+    animation:blinkingText 2s infinite; 
 }
 
 @keyframes blinkingText{
