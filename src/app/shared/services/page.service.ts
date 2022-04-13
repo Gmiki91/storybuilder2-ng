@@ -13,7 +13,6 @@ export class PageService {
     constructor(private http: HttpClient) { }
 
     updatePageList(ids: string[]): void {
-        console.log(ids.join(','));
         this.http.get<{ status: string, pages: Page[] }>(`${environment.url}/pages/many/${ids.join(',')}`)
             .subscribe(result => this.pageList.next(result.pages));
     }

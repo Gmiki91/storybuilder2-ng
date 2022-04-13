@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { firstValueFrom } from 'rxjs';
 import { NewStoryComponent, NewStoryData } from 'src/app/forms/new-story/new-story.component';
 import { Note } from 'src/app/shared/models/note';
@@ -15,16 +16,18 @@ import { StoryService } from 'src/app/shared/services/story.service';
   templateUrl: './signup.component.html',
   styleUrls: ['../auth.style.css']
 })
-export class SignupComponent  {
+export class SignupComponent {
   newStory: NewStoryData = {} as NewStoryData;
   formData = { name: '', email: '', password: '' }
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(
+    private authenticationService: AuthenticationService,
     private dialog: MatDialog,
     private pageService: PageService,
     private storyService: StoryService,
     private noteService: NoteService,
-    private router: Router
+    private router: Router,
+    public socialAuthService: SocialAuthService,
   ) { }
 
   async onSignUp(form: NgForm) {
@@ -41,6 +44,15 @@ export class SignupComponent  {
       } else if (result.duplicate) alert("Name or email is already taken")
       else alert("Something went wrong, please try again later")
     }
+  }
+
+  onSignUpGoogle(){
+      this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
+        .then(result => {
+              this.formData.name = result.firstName
+              this.formData.email = result.email
+              this._openDialog();
+        });
   }
 
   async _openDialog() {

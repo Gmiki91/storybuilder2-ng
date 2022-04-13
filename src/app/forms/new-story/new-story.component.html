@@ -28,8 +28,8 @@
     </div>
     <textarea class="description field" placeholder="A short summary/description (optional)" matInput
       [(ngModel)]="data.description" name="description" #description="ngModel" (input)="changeText($event)"></textarea>
-      <span [class]="(pageText.value.length>2800 || pageText.value.length<10) ? 'C' :'A' ">{{pageText.value.length}}/2800</span>
-    <textarea required minlength="10" class="text field" placeholder="The first page" matInput
+      <span [class]="(pageText.value.length>2800 || pageText.value.length<28) ? 'C' :'A' ">{{pageText.value.length}}/2800</span>
+    <textarea required minlength="28" class="text field" placeholder="The first page" matInput
       [(ngModel)]="data.text" name="text" #pageText (input)="changeText($event)"></textarea>
     <label>Words/phrases to include for the next page (optional)</label>
     <input class="field" [(ngModel)]="data.word1" placeholder="#1" name="word1" #word1="ngModel" maxlength="50"/>

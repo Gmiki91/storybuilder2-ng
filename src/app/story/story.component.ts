@@ -161,7 +161,8 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   addPage() {
-    if (this.user.markedStoryId !== this.story._id && this.user.coins === 0) alert(`You need 3 coins to write a new page. You can get coins by completing the daily task.`)
+    if (this.user.markedStoryId !== this.story._id && this.user.coins < 3)
+      alert(`You need 3 coins to write a new page. You can get coins by completing the daily task.`)
     else {
       const dialogRef = this.dialog.open(NewPageComponent, {
         data: [this.story.word1, this.story.word2, this.story.word3]
@@ -173,7 +174,7 @@ export class StoryComponent implements OnInit, OnDestroy {
             this.storyService.updateStory(this.story._id);
             const updatedStory = await firstValueFrom(this.storyService.getStory());
             if (currentStoryLength === updatedStory.pageIds.length) {
-              const { pageId, tributeCompleted } = await firstValueFrom(this.pageService.addPage(text, this.story.language.code,this.story._id))
+              const { pageId, tributeCompleted } = await firstValueFrom(this.pageService.addPage(text, this.story.language.code, this.story._id))
               this.storyService.addPendingPage(pageId, this.story._id)
               this._sendSubmitionNote();
               this._getPages('Confirmed');
