@@ -74,7 +74,8 @@ export class FilterComponent implements OnInit {
   }
 
   onClear(): void {
-    this.storyService.changeSearchCriteria()
+    this.storyService.changeSearchCriteria();
+    this.selectedLanguages.splice(0,this.selectedLanguages.length);
     this.closeFilter.emit(true);
   }
 

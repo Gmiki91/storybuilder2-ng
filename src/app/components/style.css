@@ -23,6 +23,12 @@ app-author:hover{
     padding:5%;
     white-space:pre-wrap;
 }
+.page-card .footer{
+    display:flex; 
+    flex-direction:row;
+    justify-content: space-between;
+    width:100%;
+}
 .story-card:hover{
     transform: scale(1.05, 1.05);
 }

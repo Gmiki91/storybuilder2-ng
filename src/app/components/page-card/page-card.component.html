@@ -1,18 +1,23 @@
 <div class="card page-card">
-    <span>{{page.text}}</span>
-    <app-author style="text-align:end;  font-style: italic;" [authorName]="page.authorName" [authorId]="page.authorId"></app-author>
-    <div class="button-container" *ngIf="userId && !toConfirm && !ownContent">
-        <span class="liked" (click)="rate(1)" [class]="liked ? 'pushed' : null">
-            <mat-icon>thumb_up</mat-icon>
-        </span>
-        <span class="rating">{{rating}}</span>
-        <span class="disliked" (click)="rate(-1)" [class]="disliked ? 'pushed' : null">
-            <mat-icon>thumb_down</mat-icon>
-        </span>
-    </div>
-    <div class="button-container" *ngIf="userId && toConfirm">
-        <button (click)="accept()">Accept</button>
-        <span class="rating">{{rating}}</span>
-        <button (click)="decline()">Decline</button>
+    <span style="margin-bottom:3%">{{page.text}}</span>
+    <div class="footer">
+        <div class="button-container">
+            <span *ngIf="userId && !toConfirm && !ownContent" class="liked" (click)="rate(1)"
+                [class]="liked ? 'pushed' : null">
+                <mat-icon>thumb_up</mat-icon>
+            </span>
+            <span class="rating">{{rating}}</span>
+            <span *ngIf="userId && !toConfirm && !ownContent" class="disliked" (click)="rate(-1)"
+                [class]="disliked ? 'pushed' : null">
+                <mat-icon>thumb_down</mat-icon>
+            </span>
+        </div>
+        <div class="button-container" *ngIf="userId && toConfirm">
+            <button (click)="accept()">Accept</button>
+            <span class="rating">{{rating}}</span>
+            <button (click)="decline()">Decline</button>
+        </div>
+        <app-author style="text-align:end;  font-style: italic;" [authorName]="page.authorName"
+            [authorId]="page.authorId"></app-author>
     </div>
 </div>
