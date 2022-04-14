@@ -146,7 +146,12 @@ export class StoryService {
             this.searchCriteria = sc;
 
         } else {
-            this.searchCriteria = defaultSearchCriteria;
+            this.searchCriteria =  {
+                from: 'all',
+                languages: [],
+                levels: [],
+                open: 'both',
+            }
         }
         this.updateStoryList();
     }

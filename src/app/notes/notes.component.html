@@ -3,7 +3,8 @@
         <p [class]="note.unseen ? 'bold' : null">{{note.message}}</p>
         <p style="align-self: end; padding-right:1%">{{note.date}}</p>
     </div>
-    <div *ngIf="notes.length===0" style="display:flex; justify-content:center; align-items:center">
+    <div *ngIf="notes.length===0 && !empty" style="display:flex; justify-content:center; align-items:center">
         <mat-spinner [diameter]="50"> </mat-spinner>
     </div>
+    <span style="text-align:center" *ngIf="empty">No notifications</span>
 </div>

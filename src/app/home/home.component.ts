@@ -70,14 +70,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   async addStory(story: NewStoryData) {
     const {pageId} = await firstValueFrom(this.pageService.addPage(story.text, story.language))
     story.pageId = pageId;
-    const storyId = await firstValueFrom(this.storyService.addStory(story))
-    const note: Note = {
-      storyId,
-      message: `Story "${story.title.trim()}" has been added.`,
-      code: 'B',
-      date: Date.now()
-    }
-    this.noteService.addSelfNote(note);
+    await firstValueFrom(this.storyService.addStory(story))
     this.authService.refreshLoggedInUser();
   }
 
