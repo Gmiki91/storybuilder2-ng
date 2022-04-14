@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, map, Subscription, firstValueFrom } from 'rxjs';
 import { EditStoryComponent } from '../forms/edit-story/edit-story.component';
 import { NewPageComponent } from '../forms/new-page/new-page.component';
+import { NewWordsComponent } from '../forms/new-words/new-words.component';
 import { RateLevelComponent } from '../forms/rate-level/rate-level.component';
 import { Note } from '../shared/models/note';
 import { Page } from '../shared/models/page';
@@ -100,10 +101,25 @@ export class StoryComponent implements OnInit, OnDestroy {
     this._getPages(type);
   }
 
+  submitNewWords(): void {
+    const dialogRef = this.dialog.open(NewWordsComponent, {
+      data: [this.story.word1, this.story.word2, this.story.word3],
+      disableClose: true
+    });
+    dialogRef.afterClosed()
+      .subscribe(async (words: string[]) => {
+        if (words.length === 0) this.submitNewWords();
+        else{
+          this.storyService.addWords(this.story._id,words[0],words[1],words[2]);
+        }
+      })
+  }
+
   async pageAccepted(result: emitObject) {
     if (confirm('All other pending pages will be rejected. Are you sure?')) {
+      this.submitNewWords();
       this.hideToggle = true;
-      this._sendAcceptNote(result.authorId);
+      if(this.story.authorId!==this.user._id) this._sendAcceptNote(result.authorId);
       if (this.story.pendingPageIds.length > 1) {
         const index = this.story.pendingPageIds.indexOf(result.pageId)
         const idsToDelete = [...this.story.pendingPageIds];
@@ -176,7 +192,7 @@ export class StoryComponent implements OnInit, OnDestroy {
             if (currentStoryLength === updatedStory.pageIds.length) {
               const { pageId, tributeCompleted } = await firstValueFrom(this.pageService.addPage(text, this.story.language.code, this.story._id))
               this.storyService.addPendingPage(pageId, this.story._id)
-              this._sendSubmitionNote();
+              if(this.user._id!==this.story.authorId)this._sendSubmitionNote();
               this._getPages('Confirmed');
               if (tributeCompleted) {
                 alert('You completed your daily task. Well done!');
@@ -225,6 +241,10 @@ export class StoryComponent implements OnInit, OnDestroy {
       date: Date.now(),
       storyId: this.story._id,
       message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been rejected.`
+    }
+    const index = ids.indexOf(this.user._id);
+    if(index!==-1){
+      ids.splice(index,1);
     }
     this.noteService.addNotes(ids.join(','), note);
   }

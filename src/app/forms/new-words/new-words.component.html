@@ -1,0 +1,7 @@
+<div style="display: flex; flex-direction: column" mat-dialog-content>
+    <span style="font-size: 1rem">Add 2+1 words/phrases to include on the next page:</span>
+    <input class="field" maxlength="50" [(ngModel)]="data.word1" placeholder="#1" />
+    <input class="field" maxlength="50" [(ngModel)]="data.word2" placeholder="#2" />
+    <input class="field" maxlength="50" [(ngModel)]="data.word3" placeholder="#3 (optional)" />
+    <button  (click)="onSubmit()">Submit</button>
+</div>

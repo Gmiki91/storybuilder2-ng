@@ -46,18 +46,19 @@ export class SignupComponent {
     }
   }
 
-  onSignUpGoogle(){
-      this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-        .then(result => {
-              this.formData.name = result.firstName
-              this.formData.email = result.email
-              this._openDialog();
-        });
+  onSignUpGoogle() {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then(result => {
+        this.formData.name = result.firstName
+        this.formData.email = result.email
+        this._openDialog();
+      });
   }
 
   async _openDialog() {
     const dialogRef = this.dialog.open(NewStoryComponent, {
-      data: { story: this.newStory }
+      data: { story: this.newStory },
+      disableClose: true
     });
     dialogRef.afterClosed().subscribe((story: NewStoryData) => {
       if (story !== undefined) {
@@ -70,7 +71,7 @@ export class SignupComponent {
 
   async _confirmSignUp(story: NewStoryData) {
     await firstValueFrom(this.authenticationService.signup(this.formData.name, this.formData.email, this.formData.password))
-    const {pageId} = await firstValueFrom(this.pageService.addPage(story.text, story.language));
+    const { pageId } = await firstValueFrom(this.pageService.addPage(story.text, story.language));
     story.pageId = pageId;
     const storyId = await firstValueFrom(this.storyService.addStory(story))
     const note: Note = {

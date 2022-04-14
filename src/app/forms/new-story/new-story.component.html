@@ -31,10 +31,10 @@
       <span [class]="(pageText.value.length>2800 || pageText.value.length<28) ? 'C' :'A' ">{{pageText.value.length}}/2800</span>
     <textarea required minlength="28" class="text field" placeholder="The first page" matInput
       [(ngModel)]="data.text" name="text" #pageText (input)="changeText($event)"></textarea>
-    <label>Words/phrases to include for the next page (optional)</label>
-    <input class="field" [(ngModel)]="data.word1" placeholder="#1" name="word1" #word1="ngModel" maxlength="50"/>
-    <input class="field" [(ngModel)]="data.word2" placeholder="#2" name="word2" #word2="ngModel" maxlength="50"/>
-    <input class="field" [(ngModel)]="data.word3" placeholder="#3" name="word3" #word3="ngModel" maxlength="50"/>
+    <label>Words/phrases to include for the next page</label>
+    <input class="field" [(ngModel)]="data.word1" placeholder="#1" required name="word1" #word1="ngModel" maxlength="50"/>
+    <input class="field" [(ngModel)]="data.word2" placeholder="#2" required name="word2" #word2="ngModel" maxlength="50"/>
+    <input class="field" [(ngModel)]="data.word3" placeholder="#3 (optional)" name="word3" #word3="ngModel" maxlength="50"/>
   </form>
   <button style="text-align:center" [disabled]="!f.form.valid" mat-button [mat-dialog-close]="data">Submit</button>
 </div>

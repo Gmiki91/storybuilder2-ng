@@ -114,6 +114,11 @@ export class StoryService {
             .subscribe(result => this.story.next(result.story))
     }
 
+    addWords(storyId:string,word1:string, word2:string, word3:string) {
+        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/`, {storyId, word1, word2, word3})
+        .subscribe(result => this.story.next(result.story))
+    }
+
     editStory(id: string, title:string, description:string) {
         this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { title, description })
             .subscribe(result => this.story.next(result.story));

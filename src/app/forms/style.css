@@ -19,6 +19,9 @@
     border:transparent;
     border-bottom: 1px solid
 }
+.field:focus{
+    outline:none;
+}
 textarea{
 padding:15px;
 margin-bottom:15px;

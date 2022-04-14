@@ -29,11 +29,13 @@ export class NoteService {
     }
 
     addNotes(userIds: string, note: Note) {
+        note.unseen=true;
         this.http.post(`${environment.url}/notifications/${userIds}`, { note })
             .subscribe(() => { })
     }
 
     addSelfNote(note: Note) {
+        note.unseen=false;
         this.http.post(`${environment.url}/notifications/`, { note })
             .subscribe(() => { this.getNotes() })
     }

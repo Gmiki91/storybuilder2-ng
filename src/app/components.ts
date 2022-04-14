@@ -23,6 +23,7 @@ import { ForgotPwComponent } from './authentication/forgot-pw/forgot-pw.componen
 import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
 import { FaqComponent } from './faq/faq.component';
 import { MobileComponent } from './header/mobile/mobile.component';
+import { NewWordsComponent } from './forms/new-words/new-words.component';
 export const COMPONENTS = [
     LoginComponent,
     SignupComponent,
@@ -51,5 +52,6 @@ export const COMPONENTS = [
     ForgotPwComponent,
     ResetPwComponent,
     FaqComponent,
-    MobileComponent
+    MobileComponent,
+    NewWordsComponent
 ]
