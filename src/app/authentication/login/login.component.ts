@@ -25,7 +25,7 @@ export class LoginComponent implements OnDestroy {
     this.loading = true;
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then((result) => {
-        const observable$ = this.authenticationService.loginGoogle(result.email, result.firstName).subscribe({
+        const observable$ = this.authenticationService.loginGoogle(result.email).subscribe({
           next: () => this.loading = false,
           error: response => {
             alert(response.error.message);

@@ -37,8 +37,8 @@ export class AuthenticationService {
             })
     }
 
-    loginGoogle(email: string, name: string) {
-        return this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/loginGoogle`, { email, name })
+    loginGoogle(email: string) {
+        return this.httpClient.post<{ token: string, user: User }>(`${environment.url}/users/loginGoogle`, { email })
             .pipe(tap((result) => {
                 this.user.next(result.user);
                 localStorage.setItem('access_token', result.token);

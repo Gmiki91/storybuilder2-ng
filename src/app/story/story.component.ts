@@ -242,10 +242,6 @@ export class StoryComponent implements OnInit, OnDestroy {
       storyId: this.story._id,
       message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been rejected.`
     }
-    const index = ids.indexOf(this.user._id);
-    if(index!==-1){
-      ids.splice(index,1);
-    }
     this.noteService.addNotes(ids.join(','), note);
   }
 

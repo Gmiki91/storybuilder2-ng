@@ -5,9 +5,7 @@ import { Router } from '@angular/router';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { firstValueFrom } from 'rxjs';
 import { NewStoryComponent, NewStoryData } from 'src/app/forms/new-story/new-story.component';
-import { Note } from 'src/app/shared/models/note';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
-import { NoteService } from 'src/app/shared/services/note.service';
 import { PageService } from 'src/app/shared/services/page.service';
 import { StoryService } from 'src/app/shared/services/story.service';
 
@@ -25,7 +23,6 @@ export class SignupComponent {
     private dialog: MatDialog,
     private pageService: PageService,
     private storyService: StoryService,
-    private noteService: NoteService,
     private router: Router,
     public socialAuthService: SocialAuthService,
   ) { }
@@ -73,14 +70,7 @@ export class SignupComponent {
     await firstValueFrom(this.authenticationService.signup(this.formData.name, this.formData.email, this.formData.password))
     const { pageId } = await firstValueFrom(this.pageService.addPage(story.text, story.language));
     story.pageId = pageId;
-    const storyId = await firstValueFrom(this.storyService.addStory(story))
-    const note: Note = {
-      storyId,
-      message: `Story "${story.title.trim()}" has been added.`,
-      code: 'B',
-      date: Date.now()
-    }
-    this.noteService.addSelfNote(note);
+    firstValueFrom(this.storyService.addStory(story))
     this.router.navigate(['/daily']);
   }
 
