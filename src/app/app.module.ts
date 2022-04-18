@@ -9,12 +9,14 @@ import { AuthenticationInterceptor } from './authentication/authentication.inter
 import { MAT_MODULES } from './mat.modules'
 import { COMPONENTS } from './components';
 import { environment } from "src/environments/environment";
-import { GoogleLoginProvider,SocialLoginModule,SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { DirectionDirective } from './shared/direction.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    COMPONENTS
+    COMPONENTS,
+    DirectionDirective
   ],
   imports: [
     MAT_MODULES,

@@ -13,5 +13,6 @@ export type Page = {
     text: string,
     authorId: string,
     authorName: string,
-    ratings: [Rate]
+    ratings: [Rate],
+    language:string
 }

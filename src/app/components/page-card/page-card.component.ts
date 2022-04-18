@@ -4,7 +4,6 @@ import { firstValueFrom } from 'rxjs';
 import { Page, Rate } from 'src/app/shared/models/page';
 import { PageService } from 'src/app/shared/services/page.service';
 import { StoryService } from 'src/app/shared/services/story.service';
-
 @Component({
   selector: 'app-page-card',
   templateUrl: './page-card.component.html',

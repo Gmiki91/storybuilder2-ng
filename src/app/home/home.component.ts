@@ -7,7 +7,6 @@ import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.co
 import { PageService } from '../shared/services/page.service';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { NoteService } from '../shared/services/note.service';
-import { Note } from '../shared/models/note';
 import { User } from '../shared/models/user';
 
 @Component({

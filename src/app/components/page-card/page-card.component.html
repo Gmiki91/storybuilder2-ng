@@ -1,5 +1,5 @@
 <div class="card page-card">
-    <span style="margin-bottom:3%">{{page.text}}</span>
+    <span [textDirection]="page.language" style="margin-bottom:3%">{{page.text}}</span>
     <div class="footer">
         <div class="button-container">
             <span *ngIf="userId && !toConfirm && !ownContent" class="liked" (click)="rate(1)"
