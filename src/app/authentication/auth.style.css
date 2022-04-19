@@ -28,4 +28,9 @@ button:hover:enabled{
     background-color: rgb(53, 120, 231);
     border-color: rgb(53, 120, 231);
 }
-
+.error{
+    color: #D8000C;
+    background-color: #FFBABA;
+    padding-left:5px;
+    font-size: 12px;
+}

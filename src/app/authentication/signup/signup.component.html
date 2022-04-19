@@ -2,27 +2,30 @@
     <form class="container" (submit)="onSignUp(loginForm)" #loginForm="ngForm">
         <input ngModel required maxlength="100" minlength="3" name="name" #name="ngModel" type="text"
             placeholder="name">
-        <div *ngIf="name.invalid && name.touched">
+        <span class="error" *ngIf="name.invalid && name.touched">
             Minimum name length is 3 characters
-        </div>
+        </span>
         <input ngModel required maxlength="100" minlength="3" name="email" #email="ngModel" type="email"
             placeholder="email">
-        <div *ngIf="email.invalid && email.touched">
+        <span class="error" *ngIf="email.invalid && email.touched">
             Email is invalid
-        </div>
+        </span>
         <input ngModel required maxlength="100" minlength="6" name="password" #password="ngModel" type="password"
             placeholder="password">
-        <div *ngIf="password.invalid && password.touched">
+        <span class="error" *ngIf="password.invalid && password.touched">
             Password must be at least 6 characters long
-        </div>
+        </span>
         <input ngModel required maxlength="100" minlength="6" name="confirmPassword" #confirmPassword="ngModel"
             type="password" placeholder="confirm password">
-        <div *ngIf="confirmPassword.invalid && confirmPassword.touched">
+        <span class="error" *ngIf="confirmPassword.invalid && confirmPassword.touched">
             Password must be at least 6 characters long
-        </div>
-        <button [disabled]="!loginForm.valid">Sign Up</button>
+        </span>
+        <mat-checkbox (change)="checkAgreement($event.checked)"><span style="font-size: 12px">I agree to the <a
+                    routerLink="/terms">terms and conditions </a>and the <a routerLink="/privacy">privacy
+                    policy</a>.*</span></mat-checkbox>
+        <button [disabled]="!loginForm.valid || !agreement">Sign Up</button>
     </form>
-    <button class="google-btn" (click)="onSignUpGoogle()" mat-raised-button>
+    <button [disabled]="!agreement" class="google-btn" (click)="onSignUpGoogle()" mat-raised-button>
         <svg textAlign="left" width="40" height="40">
             <g id="Google-Button" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <rect x="0" y="0" width="40" height="40" rx="2" style="fill: rgb(255, 255, 255);"></rect>

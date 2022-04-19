@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDividerModule} from '@angular/material/divider';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 export const MAT_MODULES = [
     MatSelectModule,
     MatInputModule,
@@ -17,5 +17,6 @@ export const MAT_MODULES = [
     MatFormFieldModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCheckboxModule
 ]

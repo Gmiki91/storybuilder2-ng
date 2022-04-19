@@ -24,6 +24,8 @@ import { ResetPwComponent } from './authentication/reset-pw/reset-pw.component';
 import { FaqComponent } from './faq/faq.component';
 import { MobileComponent } from './header/mobile/mobile.component';
 import { NewWordsComponent } from './forms/new-words/new-words.component';
+import { PrivacyComponent } from './faq/privacy.component';
+import { TermsComponent } from './faq/terms.component';
 export const COMPONENTS = [
     LoginComponent,
     SignupComponent,
@@ -53,5 +55,7 @@ export const COMPONENTS = [
     ResetPwComponent,
     FaqComponent,
     MobileComponent,
-    NewWordsComponent
+    NewWordsComponent,
+    PrivacyComponent,
+    TermsComponent
 ]

@@ -17,7 +17,7 @@ import { StoryService } from 'src/app/shared/services/story.service';
 export class SignupComponent {
   newStory: NewStoryData = {} as NewStoryData;
   formData = { name: '', email: '', password: '' }
-
+  agreement=false;
   constructor(
     private authenticationService: AuthenticationService,
     private dialog: MatDialog,
@@ -50,6 +50,10 @@ export class SignupComponent {
         this.formData.email = result.email
         this._openDialog();
       });
+  }
+
+  checkAgreement(check:boolean){
+    this.agreement = check;
   }
 
   async _openDialog() {

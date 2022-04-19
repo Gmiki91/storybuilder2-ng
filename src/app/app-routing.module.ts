@@ -7,6 +7,8 @@ import { SignupComponent } from './authentication/signup/signup.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DailyComponent } from './daily/daily.component';
 import { FaqComponent } from './faq/faq.component';
+import { PrivacyComponent } from './faq/privacy.component';
+import { TermsComponent } from './faq/terms.component';
 import { HomeComponent } from './home/home.component';
 import { NotesComponent } from './notes/notes.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -27,6 +29,8 @@ const routes: Routes = [
   {path:'forgot',component:ForgotPwComponent},
   {path:'reset/:token',component:ResetPwComponent},
   {path:'faq',component:FaqComponent},
+  {path:'privacy',component:PrivacyComponent},
+  {path:'terms',component:TermsComponent},
   {path:'**',component:NotFoundComponent}
 
 ];
