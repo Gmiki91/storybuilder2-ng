@@ -7,7 +7,7 @@
         <app-sort-by></app-sort-by>
 
         <app-filter *ngIf="showFilter" (closeFilter)="onFilter()"></app-filter>
-        <button  *ngIf="!showFilter" [routerLink]="'/signup'" style="margin-bottom:1%" *ngIf="!showFilter">Start writing</button>
+        <button [routerLink]="'/signup'" style="margin-bottom:1%"  *ngIf="!loggedIn">Start writing</button>
         <button style="margin-bottom:1%" *ngIf="!showFilter && loggedIn" type="button"
             (click)="onFilter()">Filter</button>
         <div *ngIf="user$|async as user">
