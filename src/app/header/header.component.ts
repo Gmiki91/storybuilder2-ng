@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { User } from '../shared/models/user';
 import { AuthenticationService } from '../shared/services/authentication.service';
-import { NoteService } from '../shared/services/note.service';
 import { MobileComponent } from './mobile/mobile.component';
 
 @Component({
@@ -14,8 +13,7 @@ import { MobileComponent } from './mobile/mobile.component';
 export class HeaderComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   user!: User;
-  notification$!: Observable<boolean>;
-  constructor(private authentication: AuthenticationService, private noteService: NoteService, private dialog: MatDialog,) { }
+  constructor(private authentication: AuthenticationService, private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.checkMobile();
@@ -25,7 +23,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         } this.user = user
       })
     this.subscription.add(observable$);
-    this.notification$ = this.noteService.isNews();
     const loggedIn = this.authentication.isLoggedIn()
     if (loggedIn)
       this.authentication.refreshLoggedInUser();

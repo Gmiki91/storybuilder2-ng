@@ -89,7 +89,7 @@ export class SignupComponent {
     const { pageId } = await firstValueFrom(this.pageService.addPage(story.text, story.language));
     story.pageId = pageId;
     firstValueFrom(this.storyService.addStory(story))
-    this.router.navigate(['/daily']);
+    this.router.navigate(['/']);
   }
 
 }

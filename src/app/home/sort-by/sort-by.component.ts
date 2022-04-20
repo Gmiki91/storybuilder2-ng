@@ -7,7 +7,7 @@ import { Sort, StoryService } from 'src/app/shared/services/story.service';
   styleUrls: ['./sort-by.component.css']
 })
 export class SortByComponent implements OnInit {
-  currentSort:Sort = 'title';
+  currentSort:Sort = 'rating';
   
   constructor(private storyService: StoryService) {}
 

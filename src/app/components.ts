@@ -26,6 +26,7 @@ import { MobileComponent } from './header/mobile/mobile.component';
 import { NewWordsComponent } from './forms/new-words/new-words.component';
 import { PrivacyComponent } from './faq/privacy.component';
 import { TermsComponent } from './faq/terms.component';
+import { IntroductionComponent } from './home/introduction/introduction.component';
 export const COMPONENTS = [
     LoginComponent,
     SignupComponent,
@@ -57,5 +58,6 @@ export const COMPONENTS = [
     MobileComponent,
     NewWordsComponent,
     PrivacyComponent,
-    TermsComponent
+    TermsComponent,
+    IntroductionComponent
 ]

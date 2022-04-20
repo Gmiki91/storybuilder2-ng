@@ -1,59 +1,53 @@
-a{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-decoration:none;
+a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
     color: var(--main-btn-color);
     font-size: 1rem;
-    padding:5px;
+    padding: 5px;
     border-radius: 15px;
-    transition:   all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
-a:hover{
+a:hover {
     color: var(--text-color);
-    background-color:var(--main-btn-color);
-   
-   
+    background-color: var(--main-btn-color);
+
 }
-.active{
-    color:var(--cancel-btn-color);
+
+.active {
     font-weight: bold
 }
-.container{
+
+.container {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+}
+
+.group_big {
+    display: flex;
     justify-content: space-around;
+    width: 20rem
 }
-.group_big{
+
+.group_small {
     display: flex;
-   justify-content: space-around;
-   width:20rem
+    justify-content: space-around;
+    width: 10rem
 }
-.group_small{
-    display: flex;
-   justify-content: space-around;
-   width:10rem
-}
-.header{
-    background:var(--main);
+
+.header {
+    background: var(--main);
     background: linear-gradient(90deg, var(--main) 0%, var(--secondary) 100%);
-    padding:10px;
+    padding: 10px;
     width: 100%;
 }
-.blinking{
-    animation:blinkingText 2s infinite; 
-}
 
-@keyframes blinkingText{
-    0%{     color:var(--main-btn-color);    }
-    50%{    color: red; }
-    100%{    color: var(--main-btn-color); }
-}
-
-@media (max-width: 450px){
-    a{
+@media (max-width: 450px) {
+    a {
         font-size: 12px;
     }
 

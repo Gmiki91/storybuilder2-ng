@@ -72,7 +72,6 @@ export class StoryComponent implements OnInit, OnDestroy {
       .subscribe(user => {
         if (user._id) {
           this.user = user;
-          this.noteService.checkNewNotes();
         }
       });
     this.subscription.add(observable$);
@@ -196,7 +195,6 @@ export class StoryComponent implements OnInit, OnDestroy {
               this._getPages('Confirmed');
               if (tributeCompleted) {
                 alert('You completed your daily task. Well done!');
-                this.router.navigate(['/daily']);
               }
             } else {
               alert('A page has been accepted while you were typing. Please check the new contribution by refreshing the story.')

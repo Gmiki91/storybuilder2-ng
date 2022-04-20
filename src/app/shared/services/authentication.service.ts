@@ -31,7 +31,7 @@ export class AuthenticationService {
                 next: result => {
                     this.user.next(result.user);
                     localStorage.setItem('access_token', result.token);
-                    this.router.navigate(['/daily']);
+                    this.router.navigate(['/']);
                 },
                 error: response => { alert(response.error.message) }
             })
@@ -42,7 +42,7 @@ export class AuthenticationService {
             .pipe(tap((result) => {
                 this.user.next(result.user);
                 localStorage.setItem('access_token', result.token);
-                this.router.navigate(['/daily']);
+                this.router.navigate(['/']);
             }))
     }
 
@@ -73,7 +73,7 @@ export class AuthenticationService {
                 next: result => {
                     localStorage.setItem('access_token', result.token);
                     this.refreshLoggedInUser();
-                    this.router.navigate(['/daily']);
+                    this.router.navigate(['/']);
                 },
                 error: response => { alert(response.error.message) }
             })

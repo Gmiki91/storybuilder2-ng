@@ -1,4 +1,5 @@
 <div class="container" *ngIf="notes$|async as notes">
+    <h1><mat-icon>notifications</mat-icon>Notifications</h1>
     <div [class]="[note.code, 'card']" *ngFor="let note of notes" (click)="onStoryClicked(note.storyId)">
         <p [class]="note.unseen ? 'bold' : null">{{note.message}}</p>
         <p style="align-self: end; padding-right:1%">{{note.date}}</p>

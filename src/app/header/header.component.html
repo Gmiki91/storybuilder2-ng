@@ -1,9 +1,7 @@
 <div class="header">
     <div class="container"  *ngIf="user._id">
         <div class="group_big">
-            <a routerLink="/daily" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>wb_sunny</mat-icon>Daily</a>
-            <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>content_copy</mat-icon>Stories</a>   
-            <a [class]="(notification$|async) ?'blinking':null" routerLink="/notes" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>notifications</mat-icon>Notifications</a>
+            <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">Glyphses</a>   
         </div>
         <div class="group_small">
             <a routerLink="/profile" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>account_circle</mat-icon>{{user.name}}</a>
@@ -12,7 +10,7 @@
     </div>
     <div class="container" *ngIf="!user._id">
         <div class="group_small">
-        <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>content_copy</mat-icon>Stories</a>
+        <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">Glyphses</a>
     </div>
     <div class="group_big">
         <a style="margin-right:1rem" routerLink="/login" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>power_settings_new</mat-icon>Sign in</a>

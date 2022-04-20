@@ -1,32 +1,40 @@
 <div class="home-container">
-    <div class="criteria">
-        <div>
-            <input class="searchbar" (keyup.enter)="search(input.value)" #input placeholder="Search title">
-            <p *ngIf="error">Title must be at least 3 characters long</p>
+    <div class="group-container">
+        <div *ngIf="loggedIn">
+            <app-daily></app-daily>
+            <app-notes></app-notes>
         </div>
-        <app-sort-by></app-sort-by>
+        <div *ngIf="!loggedIn">
+            <app-introduction></app-introduction>
+        </div>
+        <div class="stories-container">
+            <h1>
+                <mat-icon>content_copy</mat-icon>Stories
+            </h1>
+            <div *ngIf="(storyList$|async) as storyList" class="stories-container-container">
+                <div class="criteria" *ngIf="loggedIn">
+                    <div>
+                        <input class="searchbar" (keyup.enter)="search(input.value)" #input placeholder="Search title">
+                        <p *ngIf="error">Title must be at least 3 characters long</p>
+                    </div>
+                    <app-sort-by></app-sort-by>
+                    <app-filter></app-filter>
 
-        <app-filter *ngIf="showFilter" (closeFilter)="onFilter()"></app-filter>
-        <button [routerLink]="'/signup'" style="margin-bottom:1%"  *ngIf="!loggedIn">Start writing</button>
-        <button style="margin-bottom:1%" *ngIf="!showFilter && loggedIn" type="button"
-            (click)="onFilter()">Filter</button>
-        <div *ngIf="user$|async as user">
-            <button style="margin-bottom:1%" *ngIf="user.frogcoins>2" (click)="onNewStoryClicked()">
-                Create new story
-            </button>
-        </div>
-    </div>
-
-    <div *ngIf="(storyList$|async) as storyList">
-        <div *ngIf="storyList.length>0" class="list-container">
-            <app-story-card *ngFor="let story of storyList$|async" 
-            [story]="story"
-                [favorite]="favoriteIds.includes(story._id)"
-                [guest]="!loggedIn"
-                ></app-story-card>
-        </div>
-        <div *ngIf="storyList.length===0 && loading" style="display:flex; justify-content:center; align-items:center">
-            <mat-spinner [diameter]="50"> </mat-spinner>
+                    <div style="text-align:center" *ngIf="user$|async as user">
+                        <button style="margin-bottom:1%" *ngIf="user.frogcoins>2" (click)="onNewStoryClicked()">
+                            Create new story
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="storyList.length>0" class="list-container">
+                    <app-story-card *ngFor="let story of storyList$|async" [story]="story"
+                        [favorite]="favoriteIds.includes(story._id)" [guest]="!loggedIn"></app-story-card>
+                </div>
+                <div *ngIf="storyList.length===0 && loading"
+                    style="display:flex; justify-content:center; align-items:center">
+                    <mat-spinner [diameter]="50"> </mat-spinner>
+                </div>
+            </div>
         </div>
     </div>
 </div>

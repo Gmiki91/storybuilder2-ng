@@ -6,7 +6,6 @@ import { StoryService } from '../shared/services/story.service';
 import { NewStoryComponent, NewStoryData } from '../forms/new-story/new-story.component';
 import { PageService } from '../shared/services/page.service';
 import { AuthenticationService } from '../shared/services/authentication.service';
-import { NoteService } from '../shared/services/note.service';
 import { User } from '../shared/models/user';
 
 @Component({
@@ -23,13 +22,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   loggedIn!: boolean;
   newStory: NewStoryData = {} as NewStoryData;
   error = false;
-  showFilter=false;
   loading=false;
   constructor(
     private authService: AuthenticationService,
     private storyService: StoryService,
     private pageService: PageService,
-    private noteService: NoteService,
     private dialog: MatDialog
   ) { }
 
@@ -44,7 +41,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }));
     this.user$ = this.authService.getCurrentUser();
     if (this.loggedIn){
-      this.noteService.checkNewNotes();
       const observable$=this.authService.getFavoriteIds().subscribe(favoriteIds=>this.favoriteIds=favoriteIds);
       this.subscription.add(observable$);
     }
@@ -77,10 +73,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.error = title.trim().length < 3 && title.trim().length !== 0;
     if (!this.error)
       this.storyService.changeSearchTitle(title);
-  }
-
-  onFilter(): void {
-    this.showFilter = !this.showFilter;
   }
 
 }

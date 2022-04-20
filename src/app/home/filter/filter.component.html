@@ -8,35 +8,46 @@
       <input type="text" placeholder="Pick one" matInput [formControl]="languageControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectOption($event.option.value)'>
         <mat-option *ngFor="let language of filteredLanguages| async" [value]="language">
-            <img class="icon" src="../assets/flags/{{language.text}}.png"/>
-            <span>{{language.text}}</span>
+          <img class="icon" src="../assets/flags/{{language.text}}.png" />
+          <span>{{language.text}}</span>
         </mat-option>
       </mat-autocomplete>
     </section>
 
     <div class="filter-field levels" formControlname="levels">
       <label>Level:</label>
-      <input type="checkbox" value="A" (change)="onCheckboxChange($event)" [checked]="isCheckboxChecked('levels','A')">Beginner
-      <input type="checkbox" value="B" (change)="onCheckboxChange($event)" [checked]="isCheckboxChecked('levels','B')">Intermediate
-      <input type="checkbox" value="C" (change)="onCheckboxChange($event)" [checked]="isCheckboxChecked('levels','C')">Advanced
+      <div class="filter-options-container">
+        <span><input type="checkbox" value="A" (change)="onCheckboxChange($event)"
+            [checked]="isCheckboxChecked('levels','A')">Beginner</span>
+        <span><input type="checkbox" value="B" (change)="onCheckboxChange($event)"
+            [checked]="isCheckboxChecked('levels','B')">Intermediate</span>
+        <span> <input type="checkbox" value="C" (change)="onCheckboxChange($event)"
+            [checked]="isCheckboxChecked('levels','C')">Advanced</span>
+      </div>
     </div>
 
     <section class="filter-field" formControlname="from" selected="sc.from" (change)="onFromChange($event)">
       <label>Story:</label>
-      <input type="radio" value="own" name="from" [checked]="isCheckboxChecked('from','own')"/>Own
-      <input type="radio" value="favorite" name="from"  [checked]="isCheckboxChecked('from','favorite')" />Favorite
-      <input type="radio" value="all" name="from" [checked]="isCheckboxChecked('from','all')"  />All
+      <div class="filter-options-container">
+        <span><input type="radio" value="own" name="from" [checked]="isCheckboxChecked('from','own')" />Own</span>
+        <span><input type="radio" value="favorite" name="from"
+            [checked]="isCheckboxChecked('from','favorite')" />Favorite</span>
+        <span><input type="radio" value="all" name="from" [checked]="isCheckboxChecked('from','all')" />All</span>
+      </div>
     </section>
 
     <section class="filter-field" (change)="onOpenChange($event)">
       <label>Archived:</label>
-      <input type="radio" value="no" name="open" [checked]="isCheckboxChecked('open','no')" />Yes
-      <input type="radio" value="yes" name="open" [checked]="isCheckboxChecked('open','yes')" />No
-      <input type="radio" value="both" name="open" [checked]="isCheckboxChecked('open','both')"  />Both
+      <div class="filter-options-container">
+        <span><input type="radio" value="no" name="open" [checked]="isCheckboxChecked('open','no')" />Yes</span>
+        <span><input type="radio" value="yes" name="open" [checked]="isCheckboxChecked('open','yes')" />No</span>
+        <span><input type="radio" value="both" name="open" [checked]="isCheckboxChecked('open','both')" />Both</span>
+      </div>
     </section>
+
   </form>
-  <div class="filter-field">
+  <div>
     <button type="button" class="cancel-btn" (click)="onClear()">Clear</button>
-    <button type="button"  (click)="onApply()">Apply</button>
+    <button type="button" (click)="onApply()">Apply</button>
   </div>
 </div>

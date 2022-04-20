@@ -1,13 +1,19 @@
-<div *ngIf="(dailyData$ | async) as data" >
-<div *ngIf="data" class="container">
-    <div  *ngIf="data.story">
-        <app-story-card [tribute]="true" [story]="data.story" ></app-story-card>
-        <app-timer [hoursLeft]="data.hoursLeft" [minutesLeft]="data.minutesLeft" text="to contribute to this story"></app-timer>
+<div class="daily">
+    <h1><mat-icon>wb_sunny</mat-icon>Daily</h1>
+    <div *ngIf="(dailyData$ | async) as data">
+        <div *ngIf="data" class="container">
+            <div *ngIf="data.story">
+                <app-story-card [tribute]="true" [story]="data.story"></app-story-card>
+                <app-timer [hoursLeft]="data.hoursLeft" [minutesLeft]="data.minutesLeft"
+                    text="to contribute to this story"></app-timer>
+            </div>
+            <div *ngIf="!data.story">
+                <app-timer [hoursLeft]="data.hoursLeft" [minutesLeft]="data.minutesLeft" text="until next story">
+                </app-timer>
+            </div>
+        </div>
+        <div *ngIf="!data" class="container">
+            <mat-spinner [diameter]="50"></mat-spinner>
+        </div>
     </div>
-    <div *ngIf="!data.story">
-        <app-timer [hoursLeft]="data.hoursLeft" [minutesLeft]="data.minutesLeft" text="until next story"></app-timer>
-    </div>
-</div>
-<div *ngIf="!data"  class="container">
-    <mat-spinner [diameter]="50"></mat-spinner>
 </div>
