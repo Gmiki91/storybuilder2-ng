@@ -30,7 +30,7 @@ input[type="radio"]:checked {
 button:hover:enabled {
     color: var(--text-color);
     background-color: var(--main-btn-color);
-    border-color:  var(--cancel-btn-color)
+    border-color:  var(--main-btn-color);
 }
 
 button {
@@ -71,6 +71,7 @@ button:disabled {
 
 .cancel-btn:hover:enabled {
     background-color: var(--cancel-btn-color);
+    border-color:  var(--cancel-btn-color)
 }
 
 .cancel-btn:focus {

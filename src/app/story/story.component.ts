@@ -108,8 +108,8 @@ export class StoryComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .subscribe(async (words: string[]) => {
         if (words.length === 0) this.submitNewWords();
-        else{
-          this.storyService.addWords(this.story._id,words[0],words[1],words[2]);
+        else {
+          this.storyService.addWords(this.story._id, words[0], words[1], words[2]);
         }
       })
   }
@@ -118,7 +118,7 @@ export class StoryComponent implements OnInit, OnDestroy {
     if (confirm('All other pending pages will be rejected. Are you sure?')) {
       this.submitNewWords();
       this.hideToggle = true;
-      if(this.story.authorId!==this.user._id) this._sendAcceptNote(result.authorId);
+      if (this.story.authorId !== this.user._id) this._sendAcceptNote(result.authorId);
       if (this.story.pendingPageIds.length > 1) {
         const index = this.story.pendingPageIds.indexOf(result.pageId)
         const idsToDelete = [...this.story.pendingPageIds];
@@ -176,9 +176,7 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   addPage() {
-    if (this.user.markedStoryId !== this.story._id && this.user.coins < 3)
-      alert(`You need 3 coins to write a new page. You can get coins by completing the daily task.`)
-    else {
+    if (this.user.coins >= 3 || (this.user.markedStoryId === this.story._id && !this.user.dailyCompleted)) {
       const dialogRef = this.dialog.open(NewPageComponent, {
         data: [this.story.word1, this.story.word2, this.story.word3]
       });
@@ -191,16 +189,19 @@ export class StoryComponent implements OnInit, OnDestroy {
             if (currentStoryLength === updatedStory.pageIds.length) {
               const { pageId, tributeCompleted } = await firstValueFrom(this.pageService.addPage(text, this.story.language.code, this.story._id))
               this.storyService.addPendingPage(pageId, this.story._id)
-              if(this.user._id!==this.story.authorId)this._sendSubmitionNote();
+              if (this.user._id !== this.story.authorId) this._sendSubmitionNote();
               this._getPages('Confirmed');
               if (tributeCompleted) {
                 alert('You completed your daily task. Well done!');
+                this.router.navigate(['/']);
               }
             } else {
               alert('A page has been accepted while you were typing. Please check the new contribution by refreshing the story.')
             }
           }
         })
+    } else {
+      alert(`You need 3 coins to write a new page. You can get coins by completing the daily task.`)
     }
   }
 
