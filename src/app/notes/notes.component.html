@@ -1,8 +1,8 @@
 <div class="container" *ngIf="notes$|async as notes">
     <h1><mat-icon>notifications</mat-icon>Notifications</h1>
-    <div [class]="[note.code, 'card']" *ngFor="let note of notes" (click)="onStoryClicked(note.storyId)">
-        <p [class]="note.unseen ? 'bold' : null">{{note.message}}</p>
-        <p style="align-self: end; padding-right:1%">{{note.date}}</p>
+    <div  [class]="[note.code, 'card']" style="width:100%" *ngFor="let note of notes" (click)="onStoryClicked(note.storyId)">
+        <span [class]="note.unseen ? 'bold' : null">{{note.message}}</span>
+        <span style="align-self: end; padding-right:1%">{{note.date}}</span>
     </div>
     <div *ngIf="notes.length===0 && !empty" style="display:flex; justify-content:center; align-items:center">
         <mat-spinner [diameter]="50"> </mat-spinner>
