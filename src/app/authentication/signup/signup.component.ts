@@ -17,7 +17,9 @@ import { StoryService } from 'src/app/shared/services/story.service';
 export class SignupComponent {
   newStory: NewStoryData = {} as NewStoryData;
   formData = { name: '', email: '', password: '' }
-  agreement=false;
+  agreement = false;
+  loading=false;
+
   constructor(
     private authenticationService: AuthenticationService,
     private dialog: MatDialog,
@@ -28,32 +30,44 @@ export class SignupComponent {
   ) { }
 
   async onSignUp(form: NgForm) {
+    this.loading=true;
     if (form.value.confirmPassword !== form.value.password) {
       alert('The passwords do not match');
+      this.loading=false;
     } else {
-      const name = form.value.name.trim();
-      const email = form.value.email.trim();
-      const password = form.value.password.trim();
-      this.formData = { name, email, password }
-      const result = await firstValueFrom(this.authenticationService.presignup(name, email));
-      if (!result.duplicate) {
-        this._openDialog();
-      } else if (result.duplicate) alert("Name or email is already taken")
-      else alert("Something went wrong, please try again later")
+      this.formData = {
+        name: form.value.name.trim(),
+        email: form.value.email.trim(),
+        password: form.value.password.trim()
+      }
+      this._checkDuplicate();
     }
   }
 
   onSignUpGoogle() {
+    this.loading=true;
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(result => {
-        this.formData.name = result.firstName
-        this.formData.email = result.email
-        this._openDialog();
+        this.formData = {
+          name: result.firstName,
+          email: result.email,
+          password: ''
+        }
+        this._checkDuplicate();
       });
   }
 
-  checkAgreement(check:boolean){
+  checkAgreement(check: boolean) {
     this.agreement = check;
+  }
+
+  async _checkDuplicate() {
+    const result = await firstValueFrom(this.authenticationService.presignup(this.formData.name, this.formData.email));
+    this.loading=false;
+    if (!result.duplicate) {
+      this._openDialog();
+    } else if (result.duplicate) alert("Name or email is already taken")
+    else alert("Something went wrong, please try again later")
   }
 
   async _openDialog() {

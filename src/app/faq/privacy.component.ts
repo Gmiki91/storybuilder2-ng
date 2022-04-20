@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-privacy',
   template: `
+  <div style="padding:5%">
   <h1>Privacy Policy of Glyphses</h1>
 
 <p>Glyphses operates the glyphses.com website, which provides the service.</p>
@@ -60,7 +61,8 @@ import { Component } from '@angular/core';
 
 <h2>Contact Us</h2>
 
-<p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.</p>`
+<p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.</p>
+</div>`
 })
 export class PrivacyComponent {
 

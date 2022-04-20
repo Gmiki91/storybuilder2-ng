@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-terms',
-  template: `<h2><strong>Terms and Conditions</strong></h2>
+  template: `
+  <div style="padding:5%">
+  <h2><strong>Terms and Conditions</strong></h2>
 
   <p>Welcome to Glyphses!</p>
   
@@ -120,7 +122,8 @@ import { Component } from '@angular/core';
   
   <p>The limitations and prohibitions of liability set in this Section and elsewhere in this disclaimer: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under the disclaimer, including liabilities arising in contract, in tort and for breach of statutory duty.</p>
   
-  <p>As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.</p>`
+  <p>As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.</p>
+  </div>`
 })
 export class TermsComponent {
 
