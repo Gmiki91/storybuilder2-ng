@@ -30,6 +30,10 @@
                     <app-story-card *ngFor="let story of storyList$|async" [story]="story"
                         [favorite]="favoriteIds.includes(story._id)" [guest]="!loggedIn"></app-story-card>
                 </div>
+                <div *ngIf="storyList.length===0 && !loading"
+                style="display:flex; justify-content:center; align-items:center">
+                <div class="card" style="text-align:center">No stories to show</div>
+            </div>
                 <div *ngIf="storyList.length===0 && loading"
                     style="display:flex; justify-content:center; align-items:center">
                     <mat-spinner [diameter]="50"> </mat-spinner>
