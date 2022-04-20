@@ -1,7 +1,7 @@
 <div class="header">
     <div class="container"  *ngIf="user._id">
         <div class="group_big">
-            <a routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">Glyphses</a>   
+            <a style="font-size:1.5rem" routerLink="/" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">Glyphses</a>   
         </div>
         <div class="group_small">
             <a routerLink="/profile" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"><mat-icon>account_circle</mat-icon>{{user.name}}</a>
