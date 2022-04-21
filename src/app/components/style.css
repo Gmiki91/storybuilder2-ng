@@ -8,6 +8,10 @@ app-author{
 app-author:hover{
     text-decoration: underline;
 }
+h2{
+    font-size:1.8rem;
+    font-family:cursive;
+}
 .button-container{
     display:flex;
 }

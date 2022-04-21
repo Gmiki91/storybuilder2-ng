@@ -14,9 +14,11 @@
     font-size: 1rem;
 }
 .title{
-    font-weight: bold;
     cursor:pointer;
-    margin-right:2rem;
+    margin:0rem 2rem;
+    font-family: cursive;
+    font-size:2rem;
+    line-height: normal;
 }
 .title:hover{
     text-decoration: underline
