@@ -10,7 +10,7 @@ app-author:hover{
 }
 h2{
     font-size:1.8rem;
-    font-family:cursive;
+    font-family: 'Patrick Hand', cursive;
 }
 .button-container{
     display:flex;
@@ -81,6 +81,7 @@ span mat-icon{
 }
 
 @media (max-width: 450px){
+  
     .page-card{
         word-break: break-all;
     }

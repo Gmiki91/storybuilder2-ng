@@ -86,7 +86,7 @@ button:disabled {
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, .08);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
-    font-family:cursive;
+    font-family: 'Patrick Hand', cursive;
     font-size:0.9rem;
 }
 
