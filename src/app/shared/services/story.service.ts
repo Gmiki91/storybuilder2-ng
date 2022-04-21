@@ -37,7 +37,7 @@ export class StoryService {
     constructor(private http: HttpClient) { }
 
     updateStoryList(): void {
-        const languages = this.searchCriteria.languages.map(language=>language.code);
+        const languages = this.searchCriteria.languages.map(language=>language.text);
         const body = { ...this.searchCriteria, sortBy: this.sortBy, sortDirection: this.sortDirection, storyName: this.storyName, languages }
         this.http.post<{ status: string, stories: Story[] }>(`${environment.url}/stories/all`, body)
             .pipe(

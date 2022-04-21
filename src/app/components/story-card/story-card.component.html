@@ -1,7 +1,7 @@
 <div (click)="onStoryClicked()" class="card story-card">
     <div class="top">
-        <h2 [textDirection]="story.language.code"  style=display:flex;flex-direction:column;margin-bottom:0>{{story.title}}
-            <span [textDirection]="story.language.code" class="description">{{story.description}}</span>
+        <h2 [textDirection]="story.language.text"  style=display:flex;flex-direction:column;margin-bottom:0>{{story.title}}
+            <span [textDirection]="story.language.text" class="description">{{story.description}}</span>
         </h2>
         <mat-icon style="cursor:pointer" *ngIf="!tribute" (click)="clicked($event)"
             [class]="favorite ? 'liked' : 'disliked'">{{favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
