@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
-const rtlLanguages = ['ar', 'fa', 'he']
+const rtlLanguages = ['Arabic', 'Persian', 'Hebrew']
 @Directive({
   selector: '[textDirection]'
 })
