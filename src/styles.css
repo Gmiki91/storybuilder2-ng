@@ -19,16 +19,19 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
 input[type="radio"]:checked {
-    accent-color:var(--main-btn-color);
-  }
-  input[type="checkbox"]:checked {
-    accent-color:var(--main-btn-color);
-  }
+    accent-color: var(--main-btn-color);
+}
+
+input[type="checkbox"]:checked {
+    accent-color: var(--main-btn-color);
+}
+
 button:hover:enabled {
     color: var(--text-color);
     background-color: var(--main-btn-color);
-    border-color:  var(--main-btn-color);
+    border-color: var(--main-btn-color);
 }
 
 button {
@@ -46,7 +49,7 @@ button {
     background-color: transparent;
     border: 1px solid;
     padding: 0.375rem 0.75rem;
-    margin:0.4rem;
+    margin: 0.4rem;
     font-size: 1rem;
     border-radius: 0.25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
@@ -69,7 +72,7 @@ button:disabled {
 
 .cancel-btn:hover:enabled {
     background-color: var(--cancel-btn-color);
-    border-color:  var(--cancel-btn-color)
+    border-color: var(--cancel-btn-color)
 }
 
 .cancel-btn:focus {
@@ -86,8 +89,7 @@ button:disabled {
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, .08);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-    font-size:0.9rem;
+    font-size: 0.9rem;
 }
 
 .A {
@@ -127,9 +129,15 @@ button:disabled {
     width: 2rem;
 }
 
-@media (max-width: 450px){
-    .card{
-        width:100%;
+@media (max-width: 450px) {
+    .card {
+        width: 100%;
     }
-  
+
+}
+
+@media (min-width:450px) {
+    .card {
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+    }
 }

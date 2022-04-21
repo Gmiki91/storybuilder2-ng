@@ -10,7 +10,6 @@ app-author:hover{
 }
 h2{
     font-size:1.8rem;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 .button-container{
     display:flex;
@@ -84,5 +83,11 @@ span mat-icon{
   
     .page-card{
         word-break: break-all;
+    }
+}
+
+@media (min-width:450px) {
+    h2 {
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
     }
 }
