@@ -8,7 +8,7 @@ import { NewStoryData } from "src/app/forms/new-story/new-story.component";
 import { Rate } from "../models/page";
 import { LanguageModel } from "../models/languageData";
 
-export type Sort = 'title' | 'updatedAt' | 'rating';
+export type Sort = 'title' | 'updatedAt' | 'ratingAvg';
 export type SearchCriteria = {
     from: string,
     languages: LanguageModel[],
@@ -30,8 +30,8 @@ export class StoryService {
     storyList = new BehaviorSubject<Story[]>([])
     story = new Subject<Story>()
     searchCriteria: SearchCriteria = defaultSearchCriteria;
-    sortBy: Sort = 'rating';
-    sortDirection: 1 | -1 = 1;
+    sortBy: Sort = 'ratingAvg';
+    sortDirection: 1 | -1 = -1;
     storyName: string = '';
 
     constructor(private http: HttpClient) { }
