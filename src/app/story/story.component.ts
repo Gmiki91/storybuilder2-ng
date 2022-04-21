@@ -190,11 +190,9 @@ export class StoryComponent implements OnInit, OnDestroy {
               const { pageId, tributeCompleted } = await firstValueFrom(this.pageService.addPage(text, this.story.language.code, this.story._id))
               this.storyService.addPendingPage(pageId, this.story._id)
               if (this.user._id !== this.story.authorId) this._sendSubmitionNote();
-              this._getPages('Confirmed');
-              if (tributeCompleted) {
-                alert('You completed your daily task. Well done!');
-                this.router.navigate(['/']);
-              }
+              if (tributeCompleted) alert('You completed your daily task. Well done!');
+              else alert('Your text has been submitted');
+              this.router.navigate(['/']);
             } else {
               alert('A page has been accepted while you were typing. Please check the new contribution by refreshing the story.')
             }

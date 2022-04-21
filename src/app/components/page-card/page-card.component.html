@@ -14,7 +14,6 @@
         </div>
         <div class="button-container" *ngIf="userId && toConfirm">
             <button (click)="accept()">Accept</button>
-            <span class="rating">{{rating}}</span>
             <button (click)="decline()">Decline</button>
         </div>
         <app-author style="text-align:end;  font-style: italic;" [authorName]="page.authorName"
