@@ -118,7 +118,7 @@ export class StoryComponent implements OnInit, OnDestroy {
     if (confirm('All other pending pages will be rejected. Are you sure?')) {
       this.submitNewWords();
       this.hideToggle = true;
-      if (this.story.authorId !== this.user._id) this._sendAcceptNote(result.authorId);
+      this._sendAcceptNote(result.authorId);
       if (this.story.pendingPageIds.length > 1) {
         const index = this.story.pendingPageIds.indexOf(result.pageId)
         const idsToDelete = [...this.story.pendingPageIds];
