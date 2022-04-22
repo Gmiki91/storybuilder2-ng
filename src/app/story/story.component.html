@@ -3,7 +3,7 @@
         <span class="title" (click)="onTitleClicked()">{{ story.title }}</span>
         <button [class]="story.level.code" [disabled]="!user" (click)="onLevelClicked()">{{story.level.code}}</button>
     </div>
-    <app-page-card *ngFor="let page of pageList$|async" [page]="page" [storyId]="story._id" [userId]="user?._id"
+    <app-page-card *ngFor="let page of pageList$|async" [page]="page" [storyId]="story._id" [archived]="!story.open" [userId]="user?._id"
         [ownContent]="user?._id === (page.authorId || story.authorId)"
         [toConfirm]="toggleTypeLabel === 'Confirmed' && story.authorId === user?._id" (pageRated)="pageRated($event)"
         (pageAccepted)="pageAccepted($event)" (pageDeclined)="pageDeclined($event)"></app-page-card>
@@ -14,7 +14,7 @@
             <button *ngIf="end<maxPageCount" (click)="forward()">></button>
             <button style="margin-bottom:1%" [hidden]="hideToggle"
                 (click)="changeToggle(toggleTypeLabel)">{{toggleTypeLabel}}</button>
-            <button *ngIf="toggleTypeLabel === 'Pending' && user" (click)="addPage()">Add page</button>
+            <button *ngIf="toggleTypeLabel === 'Pending' && user && story.open" (click)="addPage()">Add page</button>
 </div>
 <div class="container" *ngIf="!storyLoaded">
     <mat-spinner [diameter]="50"> </mat-spinner>

@@ -1,16 +1,18 @@
 <div (click)="onStoryClicked()" class="card story-card">
     <div class="top">
-        <h2 [textDirection]="story.language.text"  style=display:flex;flex-direction:column;margin-bottom:0>{{story.title}}
+        <h2 [textDirection]="story.language.text" style=display:flex;flex-direction:column;margin-bottom:0>
+            {{story.title}}
             <span [textDirection]="story.language.text" class="description">{{story.description}}</span>
         </h2>
+        <mat-icon *ngIf="!story.open">lock</mat-icon>
         <mat-icon style="cursor:pointer" *ngIf="!tribute" (click)="clicked($event)"
             [class]="favorite ? 'liked' : 'disliked'">{{favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
-        </div>
-        <img class="icon" src="../assets/flags/{{story.language.text}}.png" />
+    </div>
+    <img class="icon" src="../assets/flags/{{story.language.text}}.png" />
     <div class="story-data">
         <div style="display:flex; flex-direction:column">
             <div>{{story.language.text}}: {{story.level.code}} - {{story.level.text}}</div>
-            <span>Author: <app-author [authorName]="story.authorName" [authorId]="story.authorId"></app-author></span>
+            <span  *ngIf="story.open">Author: <app-author [authorName]="story.authorName" [authorId]="story.authorId"></app-author></span>
             <div>Last updated: {{story.updatedAt}}</div>
         </div>
         <div style="display:flex; flex-direction:column;justify-content: flex-end;">

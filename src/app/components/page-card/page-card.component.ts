@@ -14,6 +14,7 @@ export class PageCardComponent implements OnInit {
   @Input() page!: Page;
   @Input() userId: string | undefined;
   @Input() storyId!: string;
+  @Input() archived!:boolean
   @Input() toConfirm!: boolean;
   @Input() ownContent!: boolean;
   @Output() pageAccepted: EventEmitter<{pageId:string,authorId:string}> = new EventEmitter;

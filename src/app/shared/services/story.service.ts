@@ -123,8 +123,8 @@ export class StoryService {
         this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { title, description })
             .subscribe(result => this.story.next(result.story));
     }
-    deleteStories(): void {
-        this.http.delete(`${environment.url}/stories/all/`).subscribe(() => { })
+    deleteStories() {
+       return this.http.delete(`${environment.url}/stories/all/`);
     }
 
     rateLevel(storyId: string, rate: string): void {

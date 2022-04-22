@@ -26,11 +26,11 @@ export class SettingsComponent {
   async deleteUser() {
 
     if (this.currentPw1.nativeElement.value === this.currentPw2.nativeElement.value) {
+      await firstValueFrom(this.storyService.deleteStories()).catch(result => alert(result.error.message))
       await firstValueFrom(this.authentication.deleteUser(this.currentPw1.nativeElement.value))
         .then(result => {
           if (result.status === 'success') {
             this.authentication.logout();
-            this.storyService.deleteStories();
           }
         })
         .catch(result => alert(result.error.message))

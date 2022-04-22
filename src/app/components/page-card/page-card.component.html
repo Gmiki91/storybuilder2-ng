@@ -16,7 +16,7 @@
             <button (click)="accept()">Accept</button>
             <button (click)="decline()">Decline</button>
         </div>
-        <app-author style="text-align:end;  font-style: italic;" [authorName]="page.authorName"
+        <app-author *ngIf="!archived" style="text-align:end;  font-style: italic;" [authorName]="page.authorName"
             [authorId]="page.authorId"></app-author>
     </div>
 </div>
