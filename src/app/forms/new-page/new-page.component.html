@@ -1,6 +1,6 @@
 <div mat-dialog-content class="container">
     <div class="top">
-        <span [class]="(input.value.length>280 || input.value.length<28) ? 'C' :'A' ">{{input.value.length}}/280</span>
+        <span [class]="(input.value.length>560 || input.value.length<28) ? 'C' :'A' ">{{input.value.length}}/560</span>
         <div class="words">
             <span *ngFor="let word of words" [class]="[word.color, 'word']">
                 <mat-icon *ngIf="word.color==='C'">clear</mat-icon>
