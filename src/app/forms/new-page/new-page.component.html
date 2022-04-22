@@ -5,7 +5,7 @@
             <span *ngFor="let word of words" [class]="[word.color, 'word']">
                 <mat-icon *ngIf="word.color==='C'">clear</mat-icon>
                 <mat-icon *ngIf="word.color==='A'">check</mat-icon>
-                <div>{{word.value}}</div>
+                <div style="cursor: pointer;" (click)="clickWord(word)">{{word.value}}</div>
             </span>
         </div>
     </div>
