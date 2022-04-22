@@ -29,7 +29,7 @@ export class NewPageComponent {
     } else {
       const value = event.target.value as String;
       const allWordsChecked = this._checkWords(value.toLowerCase());
-      this.validForm = allWordsChecked && value.length > 27 && value.length < 281;
+      this.validForm = allWordsChecked && value.length > 27 && value.length < 561;
     }
   }
 
