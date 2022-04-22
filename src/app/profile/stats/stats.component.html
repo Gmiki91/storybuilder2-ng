@@ -4,7 +4,6 @@
             <b>{{user.name}}</b>
             <i>Last activity: {{this.lastActivity}}</i>
         </div>
-        <span>{{user.email}}</span>
         <span *ngIf="!user.active">Inactive user</span>
         <span>{{user.coins}}x coin</span>
     </div>
