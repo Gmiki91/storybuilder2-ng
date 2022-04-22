@@ -118,7 +118,7 @@ export class StoryComponent implements OnInit, OnDestroy {
     if (confirm('All other pending pages will be rejected. Are you sure?')) {
       this.submitNewWords();
       this.hideToggle = true;
-      this._sendAcceptNote(result.authorId);
+      if (result.authorId !== this.user._id) this._sendAcceptNote(result.authorId);
       if (this.story.pendingPageIds.length > 1) {
         const index = this.story.pendingPageIds.indexOf(result.pageId)
         const idsToDelete = [...this.story.pendingPageIds];
@@ -132,8 +132,8 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   pageDeclined(authorId: string) {
-    this.storyService.updateStory(this.story._id);
     this._sendRejectNotes([authorId]);
+    this.storyService.updateStory(this.story._id);
   }
 
   pageRated(rate: number) {
@@ -224,11 +224,11 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'B',
       date: Date.now(),
       storyId: this.story._id,
-      message: `You've submitted page #${this.story.pageIds.length} for story "${this.story.title}". It is pending confirmation.`
+      message: `You've submitted page #${this.story.pageIds.length+1} for story "${this.story.title}". It is pending confirmation.`
     }
 
     this.noteService.addSelfNote(note);
-    note.message = `Page #${this.story.pageIds.length} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
+    note.message = `Page #${this.story.pageIds.length+1} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
     this.noteService.addNotes(this.story.authorId, note);
   }
 
@@ -237,7 +237,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'C',
       date: Date.now(),
       storyId: this.story._id,
-      message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been rejected.`
+      message: `Your submition for page #${this.story.pageIds.length+1} for story "${this.story.title}" has been rejected.`
     }
     this.noteService.addNotes(ids.join(','), note);
   }
@@ -247,7 +247,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'A',
       date: Date.now(),
       storyId: this.story._id,
-      message: `Your submition for page #${this.story.pageIds.length} for story "${this.story.title}" has been accepted.`
+      message: `Your submition for page #${this.story.pageIds.length+1} for story "${this.story.title}" has been accepted.`
     }
 
     this.noteService.addNotes(authorId, note);
