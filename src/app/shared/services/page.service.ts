@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, map } from "rxjs";
 import { environment } from "src/environments/environment";
-import { Page } from "../models/page";
+import { Correction, Page } from "../models/page";
 import { LangInfo } from '../models/languageData';
 
 @Injectable({
@@ -30,17 +30,20 @@ export class PageService {
             .pipe(map(result => ({pageId:result.pageId, tributeCompleted:result.tributeCompleted})));
     }
 
+    
+    deletePages(ids: string[], storyId: string) {
+        return this.http.patch<{ status: string, authorIds: string[] }>(`${environment.url}/pages/many/${ids.join(',')}`, { storyId })
+    }
+    
+    deletePage(pageId: string, storyId: string): void {
+        this.http.patch(`${environment.url}/pages/one/${pageId}`, { storyId }).subscribe(() => { })
+    }
+
     rateText(pageId: string, vote: number) {
         return this.http.put<{ status: string, newPage: Page }>(`${environment.url}/pages/rateText`, { vote, pageId });
     }
 
-    deletePages(ids: string[], storyId: string) {
-        return this.http.patch<{ status: string, authorIds: string[] }>(`${environment.url}/pages/many/${ids.join(',')}`, { storyId })
+    addCorrection(pageId:string,error:string,correction:string) {
+        return this.http.post<{status:string, correction:Correction}>(`${environment.url}/pages/one/${pageId}`,{error,correction});
     }
-
-    deletePage(pageId: string, storyId: string): void {
-        this.http.patch(`${environment.url}/pages/one/${pageId}`, { storyId }).subscribe(() => { })
-
-    }
-
 }

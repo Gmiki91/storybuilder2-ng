@@ -1,33 +1,51 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { Page, Rate } from 'src/app/shared/models/page';
 import { PageService } from 'src/app/shared/services/page.service';
 import { StoryService } from 'src/app/shared/services/story.service';
+
 @Component({
   selector: 'app-page-card',
   templateUrl: './page-card.component.html',
-  styleUrls: ['../style.css']
+  styleUrls: ['../style.css', './page-card.component.css'],
+  animations: [
+    trigger('cardFlip', [
+      state('default', style({
+        transform: 'none'
+      })),
+      state('flipped', style({
+        transform: 'rotateX(180deg)'
+      })),
+      transition('default => flipped', [
+        animate('400ms')
+      ]),
+      transition('flipped => default', [
+        animate('400ms')
+      ])
+    ])
+  ]
 })
 export class PageCardComponent implements OnInit {
-
   @Input() page!: Page;
   @Input() userId: string | undefined;
   @Input() storyId!: string;
-  @Input() archived!:boolean
+  @Input() archived!: boolean
   @Input() toConfirm!: boolean;
   @Input() ownContent!: boolean;
-  @Output() pageAccepted: EventEmitter<{pageId:string,authorId:string}> = new EventEmitter;
+  @Output() pageAccepted: EventEmitter<{ pageId: string, authorId: string }> = new EventEmitter;
   @Output() pageDeclined: EventEmitter<string> = new EventEmitter;
   @Output() pageRated: EventEmitter<number> = new EventEmitter;
   rating: number = 0;
   ratedByUser: Rate | undefined;
-  liked: boolean = false;
-  disliked: boolean = false;
-  constructor(private pageService: PageService, private storyService: StoryService, private router: Router) {}
+  liked = false;
+  disliked = false;
+  flipState: 'default' | 'flipped' = 'default';
+  constructor(private pageService: PageService, private storyService: StoryService, private router: Router) { }
 
   ngOnInit(): void {
-    this.checkVote();
+    this._checkVote();
   }
 
   rate(vote: number): void {
@@ -39,13 +57,13 @@ export class PageCardComponent implements OnInit {
     this.pageRated.emit(updatedVote);
     firstValueFrom(this.pageService.rateText(this.page._id, updatedVote)).then(result => {
       if (result.status === 'success') this.page = result.newPage;
-      this.checkVote();
+      this._checkVote();
     });
   }
 
   accept(): void {
     firstValueFrom(this.storyService.addPage(this.page._id, this.storyId, this.page.ratings, this.page.authorId))
-      .then(() => this.pageAccepted.emit({pageId:this.page._id,authorId:this.page.authorId}))
+      .then(() => this.pageAccepted.emit({ pageId: this.page._id, authorId: this.page.authorId }))
   }
 
   decline(): void {
@@ -54,7 +72,30 @@ export class PageCardComponent implements OnInit {
       .then(() => this.pageDeclined.emit(this.page.authorId))
   }
 
-  checkVote(): void {
+  flipPage(): void {
+    if (this.flipState === "default") {
+      this.flipState = "flipped";
+    } else {
+      this.flipState = "default";
+    }
+  }
+
+  addCorrection(error: string, correction: string): void {
+    console.log(this.page.corrections);
+    if (error.trim().length === 0 || correction.trim().length === 0) {
+      alert('input value cannot be empty')
+    } else {
+      firstValueFrom(this.pageService.addCorrection(this.page._id, error, correction))
+        .then(result => {
+          if (result.status === "success") {
+            this.page.corrections.push(result.correction);
+          }
+        })
+        .catch(err => alert(err))
+    }
+  }
+
+  _checkVote(): void {
     this.rating = this.page.ratings.reduce((sum, rating) => sum + rating.rate, 0);
     this.ratedByUser = this.page.ratings.find(rating => rating.userId === this.userId);
     if (this.ratedByUser) {
@@ -66,10 +107,10 @@ export class PageCardComponent implements OnInit {
         this.liked = false;
         this.disliked = true;
       }
-    }else{
-      this.liked=false;
-      this.disliked=false;
+    } else {
+      this.liked = false;
+      this.disliked = false;
     }
   }
-  
+
 }

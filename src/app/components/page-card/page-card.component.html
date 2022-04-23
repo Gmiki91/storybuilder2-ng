@@ -1,22 +1,39 @@
-<div class="card page-card">
-    <span [textDirection]="page.language" style="margin-bottom:3%">{{page.text}}</span>
-    <div class="footer">
-        <div class="button-container">
-            <span *ngIf="userId && !toConfirm && !ownContent" class="liked" (click)="rate(1)"
-                [class]="liked ? 'pushed' : null">
-                <mat-icon>thumb_up</mat-icon>
-            </span>
-            <span class="rating">{{rating}}</span>
-            <span *ngIf="userId && !toConfirm && !ownContent" class="disliked" (click)="rate(-1)"
-                [class]="disliked ? 'pushed' : null">
-                <mat-icon>thumb_down</mat-icon>
-            </span>
+<div class="card page-card" [@cardFlip]="flipState">
+    <div *ngIf="flipState==='default'" class="face back">
+        <span [textDirection]="page.language">{{page.text}}</span>
+        <div class="footer">
+            <div class="button-container">
+                <span *ngIf="userId && !toConfirm && !ownContent" class="liked" (click)="rate(1)"
+                    [class]="liked ? 'pushed' : null">
+                    <mat-icon>thumb_up</mat-icon>
+                </span>
+                <span class="rating">{{rating}}</span>
+                <span *ngIf="userId && !toConfirm && !ownContent" class="disliked" (click)="rate(-1)"
+                    [class]="disliked ? 'pushed' : null">
+                    <mat-icon>thumb_down</mat-icon>
+                </span>
+            </div>
+            <mat-icon style="cursor:pointer" [matTooltip]="page.corrections.length +' correction(s)'" [class]="'A'"
+                (click)="flipPage()">spellcheck icon</mat-icon>
+            <div class="button-container" *ngIf="userId && toConfirm">
+                <button (click)="accept()">Accept</button>
+                <button (click)="decline()">Decline</button>
+            </div>
+            <app-author *ngIf="!archived" style="text-align:end;  font-style: italic;" [authorName]="page.authorName"
+                [authorId]="page.authorId"></app-author>
         </div>
-        <div class="button-container" *ngIf="userId && toConfirm">
-            <button (click)="accept()">Accept</button>
-            <button (click)="decline()">Decline</button>
+    </div>
+    <div *ngIf="flipState!=='default'" class="face front">
+        <div *ngFor="let correction of page.corrections">
+           <span class="C"> {{correction.error}} -> </span>
+           <span class="A"> {{correction.correction}}</span>
         </div>
-        <app-author *ngIf="!archived" style="text-align:end;  font-style: italic;" [authorName]="page.authorName"
-            [authorId]="page.authorId"></app-author>
+        <div class="input">
+            <input #error placeholder="error">
+            <input #correction placeholder="correction">
+            <button (click)="addCorrection(error.value, correction.value)">Add correction</button>
+        </div>
+        <mat-icon class="return" style="cursor:pointer" (click)="flipPage()">
+            keyboard_return</mat-icon>
     </div>
 </div>

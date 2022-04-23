@@ -8,6 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTooltipModule} from '@angular/material/tooltip';
 export const MAT_MODULES = [
     MatSelectModule,
     MatInputModule,
@@ -18,5 +19,6 @@ export const MAT_MODULES = [
     MatIconModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTooltipModule
 ]

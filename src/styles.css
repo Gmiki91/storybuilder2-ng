@@ -100,6 +100,7 @@ button:disabled {
 .A:hover:enabled {
     color: var(--text-color);
     background-color: var(--a-color);
+    border-color: var(--a-color);
 }
 
 .B {
@@ -110,6 +111,7 @@ button:disabled {
 .B:hover:enabled {
     color: var(--text-color);
     background-color: var(--b-color);
+    border-color: var(--b-color);
 }
 
 
@@ -121,6 +123,7 @@ button:disabled {
 .C:hover:enabled {
     color: var(--text-color);
     background-color: var(--c-color);
+    border-color: var(--c-color);
 }
 
 .icon {

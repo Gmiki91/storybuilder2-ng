@@ -1,0 +1,25 @@
+:host {
+    perspective: 600px;
+}
+
+.card {
+    transform-style: preserve-3d;
+}
+
+.face {
+    backface-visibility: hidden;
+}
+
+.front {
+    transform: rotateX(180deg);
+    text-align: center;
+}
+
+.footer {
+    margin-top: 3%;
+}
+.return{
+    position:absolute;
+    bottom:0;
+     left:0;
+}
