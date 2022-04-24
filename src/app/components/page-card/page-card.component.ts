@@ -81,7 +81,6 @@ export class PageCardComponent implements OnInit {
   }
 
   addCorrection(error: string, correction: string): void {
-    console.log(this.page.corrections);
     if (error.trim().length === 0 || correction.trim().length === 0) {
       alert('input value cannot be empty')
     } else {

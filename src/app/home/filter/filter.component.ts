@@ -12,8 +12,6 @@ import { StoryService, SearchCriteria } from 'src/app/shared/services/story.serv
 
 export class FilterComponent implements OnInit {
 
-  @Output() closeFilter: EventEmitter<boolean> = new EventEmitter(false)
-
   languageControl = new FormControl();
   languages: LanguageModel[] = languages;
   filteredLanguages!: Observable<LanguageModel[]>;
@@ -70,13 +68,11 @@ export class FilterComponent implements OnInit {
 
     }
     this.storyService.changeSearchCriteria(change)
-    this.closeFilter.emit(true);
   }
 
   onClear(): void {
     this.storyService.changeSearchCriteria();
     this.selectedLanguages.splice(0,this.selectedLanguages.length);
-    this.closeFilter.emit(true);
   }
 
   remove(language: LanguageModel) {
