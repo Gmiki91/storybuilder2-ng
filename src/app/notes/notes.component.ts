@@ -24,7 +24,7 @@ export class NotesComponent implements OnInit {
   }
 
   onStoryClicked(storyId:string): void {
-    this.router.navigate(['/story'], { state: { storyId } })
+    this.router.navigate([`/story/${storyId}`])
   }
 
 }

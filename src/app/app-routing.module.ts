@@ -19,7 +19,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent, canActivate:[PublicGuard]},
   {path:'signup',component:SignupComponent, canActivate:[PublicGuard]},
   {path:'profile',component:ProfileComponent},
-  {path:'story',component:StoryComponent},
+  {path:'story/:id',component:StoryComponent},
   {path:'stats',component:StatsComponent},
   {path:'forgot',component:ForgotPwComponent},
   {path:'reset/:token',component:ResetPwComponent},

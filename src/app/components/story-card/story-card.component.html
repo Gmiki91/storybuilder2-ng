@@ -4,7 +4,7 @@
             {{story.title}}
             <span [textDirection]="story.language.text" class="description">{{story.description}}</span>
         </h2>
-        <mat-icon *ngIf="!story.open">lock</mat-icon>
+        <mat-icon matTooltip="Archived story" *ngIf="!story.open">lock</mat-icon>
         <mat-icon style="cursor:pointer" *ngIf="!tribute" (click)="clicked($event)"
             [class]="favorite ? 'liked' : 'disliked'">{{favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
     </div>

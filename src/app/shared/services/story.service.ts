@@ -37,7 +37,7 @@ export class StoryService {
     constructor(private http: HttpClient) { }
 
     updateStoryList(): void {
-        const languages = this.searchCriteria.languages.map(language=>language.text);
+        const languages = this.searchCriteria.languages.map(language => language.text);
         const body = { ...this.searchCriteria, sortBy: this.sortBy, sortDirection: this.sortDirection, storyName: this.storyName, languages }
         this.http.post<{ status: string, stories: Story[] }>(`${environment.url}/stories/all`, body)
             .pipe(
@@ -114,17 +114,23 @@ export class StoryService {
             .subscribe(result => this.story.next(result.story))
     }
 
-    addWords(storyId:string,word1:string, word2:string, word3:string) {
-        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/`, {storyId, word1, word2, word3})
-        .subscribe(result => this.story.next(result.story))
+    addWords(storyId: string, word1: string, word2: string, word3: string) {
+        this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/`, { storyId, word1, word2, word3 })
+            .subscribe(result => this.story.next(result.story))
     }
 
-    editStory(id: string, title:string, description:string) {
+    archiveStory(id:string,open: boolean) {
+        this.http.patch<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { open })
+            .subscribe(result => this.story.next(result.story))
+
+    }
+
+    editStory(id: string, title: string, description: string) {
         this.http.put<{ status: string, story: Story }>(`${environment.url}/stories/one/${id}`, { title, description })
             .subscribe(result => this.story.next(result.story));
     }
     deleteStories() {
-       return this.http.delete(`${environment.url}/stories/all/`);
+        return this.http.delete(`${environment.url}/stories/all/`);
     }
 
     rateLevel(storyId: string, rate: string): void {
@@ -146,7 +152,7 @@ export class StoryService {
             this.searchCriteria = sc;
 
         } else {
-            this.searchCriteria =  {
+            this.searchCriteria = {
                 from: 'all',
                 languages: [],
                 levels: [],

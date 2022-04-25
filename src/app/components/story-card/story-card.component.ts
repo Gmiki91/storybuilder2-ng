@@ -16,7 +16,7 @@ export class StoryCardComponent{
   constructor(private router: Router, private authService: AuthenticationService) {}
 
   onStoryClicked(): void {
-    this.router.navigate(['/story'], { state: { storyId: this.story._id } })
+    this.router.navigate([`/story/${this.story._id}`])
   }
   
   clicked(event: any): void {

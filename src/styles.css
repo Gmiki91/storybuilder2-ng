@@ -58,7 +58,9 @@ button {
 button:disabled {
     opacity: 0.3;
 }
-
+.mat-dialog-container{
+    position: relative;
+}
 .mat-spinner circle {
     stroke: #f6c05c;
     display: flex;

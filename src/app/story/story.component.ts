@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, Subscription, firstValueFrom } from 'rxjs';
 import { EditStoryComponent } from '../forms/edit-story/edit-story.component';
 import { NewPageComponent } from '../forms/new-page/new-page.component';
@@ -40,15 +40,16 @@ export class StoryComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private authService: AuthenticationService,
     private storyService: StoryService,
     private noteService: NoteService,
     private pageService: PageService) {
 
-    let nav = this.router.getCurrentNavigation();
-    if (nav?.extras.state) {
-      this.storyService.updateStory(nav.extras.state['storyId']);
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (id) {
+      this.storyService.updateStory(id);
     } else {
       this.router.navigate(['/']);
     }
@@ -224,11 +225,11 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'B',
       date: Date.now(),
       storyId: this.story._id,
-      message: `You've submitted page #${this.story.pageIds.length+1} for story "${this.story.title}". It is pending confirmation.`
+      message: `You've submitted page #${this.story.pageIds.length + 1} for story "${this.story.title}". It is pending confirmation.`
     }
 
     this.noteService.addSelfNote(note);
-    note.message = `Page #${this.story.pageIds.length+1} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
+    note.message = `Page #${this.story.pageIds.length + 1} has been submitted to your story "${this.story.title}". It is waiting your confirmation.`;
     this.noteService.addNotes(this.story.authorId, note);
   }
 
@@ -237,7 +238,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'C',
       date: Date.now(),
       storyId: this.story._id,
-      message: `Your submition for page #${this.story.pageIds.length+1} for story "${this.story.title}" has been rejected.`
+      message: `Your submition for page #${this.story.pageIds.length + 1} for story "${this.story.title}" has been rejected.`
     }
     this.noteService.addNotes(ids.join(','), note);
   }
@@ -247,7 +248,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'A',
       date: Date.now(),
       storyId: this.story._id,
-      message: `Your submition for page #${this.story.pageIds.length+1} for story "${this.story.title}" has been accepted.`
+      message: `Your submition for page #${this.story.pageIds.length + 1} for story "${this.story.title}" has been accepted.`
     }
 
     this.noteService.addNotes(authorId, note);

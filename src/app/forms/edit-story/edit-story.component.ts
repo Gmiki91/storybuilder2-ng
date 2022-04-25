@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Story } from 'src/app/shared/models/story';
+import { StoryService } from 'src/app/shared/services/story.service';
 
 @Component({
   selector: 'app-edit-story',
@@ -15,6 +16,7 @@ export class EditStoryComponent {
   story: Story;
   ownStory:boolean;
   constructor(
+    private storyService: StoryService,
     public dialogRef: MatDialogRef<EditStoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {story:Story, userId:string}) {
     this.story = data.story;
@@ -35,5 +37,10 @@ export class EditStoryComponent {
       this.edit = true;
       this.editLabel = "Done";
     }
+  }
+
+  onArchive():void{
+    this.storyService.archiveStory(this.story._id,!this.story.open);
+    this.onClose();
   }
 }

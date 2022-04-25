@@ -1,5 +1,6 @@
 <div class="container" *ngIf="storyLoaded">
     <div class="top">
+        <mat-icon matTooltip="Archived story" *ngIf="!story.open">lock</mat-icon>
         <span class="title" (click)="onTitleClicked()">{{ story.title }}</span>
         <button [class]="story.level.code" [disabled]="!user" (click)="onLevelClicked()">{{story.level.code}}</button>
     </div>
