@@ -1,6 +1,6 @@
 <div class="card page-card" [@cardFlip]="flipState">
     <div *ngIf="flipState==='default'" class="face back">
-        <span [textDirection]="page.language">{{page.text}}</span>
+        <span style="display:flex" [textDirection]="page.language">{{page.text}}</span>
         <div class="footer">
             <div class="button-container">
                 <span *ngIf="userId && !toConfirm && !ownContent" class="liked" (click)="rate(1)"

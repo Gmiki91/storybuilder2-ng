@@ -8,6 +8,7 @@
 
 .face {
     backface-visibility: hidden;
+    width:100%
 }
 
 .front {
