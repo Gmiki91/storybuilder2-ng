@@ -9,3 +9,9 @@ li{
 button{
     font-size: 1.5rem;
 }
+h1, ul,li{
+    text-align: center;
+}
+ul{
+    list-style: none
+}

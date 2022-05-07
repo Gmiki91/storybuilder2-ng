@@ -1,12 +1,6 @@
 <div class="home-container">
     <div class="group-container">
-        <div *ngIf="loggedIn">
-            <app-daily></app-daily>
-            <app-notes></app-notes>
-        </div>
-        <div *ngIf="!loggedIn">
-            <app-introduction></app-introduction>
-        </div>
+      
         <div class="stories-container">
             <h1>
                 <mat-icon>content_copy</mat-icon>Stories
@@ -39,6 +33,13 @@
                     <mat-spinner [diameter]="50"> </mat-spinner>
                 </div>
             </div>
+        </div>
+        <div *ngIf="!loggedIn">
+            <app-introduction></app-introduction>
+        </div>
+        <div *ngIf="loggedIn">
+            <app-daily></app-daily>
+            <app-notes></app-notes>
         </div>
     </div>
 </div>
