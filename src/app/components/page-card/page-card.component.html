@@ -28,7 +28,10 @@
            <span class="C"> {{correction.error}} -> </span>
            <span class="A"> {{correction.correction}}</span>
         </div>
-        <div  *ngIf="userId"  class="input">
+        <div *ngIf="page.corrections.length===0">
+            <p>No corrections added yet</p>
+            </div>
+        <div *ngIf="userId"  class="input">
             <input #error placeholder="error">
             <input #correction placeholder="correction">
             <button (click)="addCorrection(error.value, correction.value)">Add correction</button>
