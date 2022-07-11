@@ -23,8 +23,9 @@ h2{
 .page-card{
     align-items:flex-start;
     cursor:initial;
-    padding:5%;
+    padding:3%;
     white-space:pre-wrap;
+    width:50rem;
 }
 .page-card .footer{
     display:flex; 
