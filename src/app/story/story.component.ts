@@ -226,7 +226,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'B',
       date: Date.now(),
       storyId: this.story._id,
-      message: `You've submitted page #${this.story.pageIds.length + 1} for story "${this.story.title}". It is pending confirmation.`
+      message: `You've submitted page #${this.story.pageIds.length + 1} for the story "${this.story.title}". It is pending confirmation.`
     }
 
     this.noteService.addSelfNote(note);
@@ -239,7 +239,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'C',
       date: Date.now(),
       storyId: this.story._id,
-      message: `Your submition for page #${this.story.pageIds.length + 1} for story "${this.story.title}" has been rejected.`
+      message: `Your submition for page #${this.story.pageIds.length + 1} for the story "${this.story.title}" has been rejected.`
     }
     this.noteService.addNotes(ids.join(','), note);
   }
@@ -249,7 +249,7 @@ export class StoryComponent implements OnInit, OnDestroy {
       code: 'A',
       date: Date.now(),
       storyId: this.story._id,
-      message: `Your submition for page #${this.story.pageIds.length + 1} for story "${this.story.title}" has been accepted.`
+      message: `Your submition for page #${this.story.pageIds.length + 1} for the story "${this.story.title}" has been accepted.`
     }
 
     this.noteService.addNotes(authorId, note);
