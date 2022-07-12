@@ -45,6 +45,7 @@ export class FilterComponent implements OnInit {
       const index = checkArray.controls.findIndex(x => x.value === e.target.value);
       checkArray.removeAt(index);
     }
+    this.applyChanges();
   }
   isCheckboxChecked(arr: string, value: string): boolean {
     const checkArray: FormArray = this.filterForm.get(arr) as FormArray;
@@ -53,13 +54,15 @@ export class FilterComponent implements OnInit {
 
   onFromChange(e: any) {
     this.filterForm.controls['from'].setValue(e.target.value);
+    this.applyChanges();
   }
 
   onOpenChange(e: any) {
     this.filterForm.controls['open'].setValue(e.target.value);
+    this.applyChanges();
   }
 
-  onApply(): void {
+  applyChanges(): void {
     const change: SearchCriteria = {
       languages: this.selectedLanguages,
       from: this.filterForm.controls['from'].value,
@@ -70,14 +73,10 @@ export class FilterComponent implements OnInit {
     this.storyService.changeSearchCriteria(change)
   }
 
-  onClear(): void {
-    this.storyService.changeSearchCriteria();
-    this.selectedLanguages.splice(0,this.selectedLanguages.length);
-  }
-
   remove(language: LanguageModel) {
     const index = this.selectedLanguages.indexOf(language);
     this.selectedLanguages.splice(index, 1);
+    this.applyChanges();
   }
 
   selectOption(value: LanguageModel) {
@@ -85,6 +84,7 @@ export class FilterComponent implements OnInit {
       this.selectedLanguages.push(value);
     }
     this.languageControl.setValue('');
+    this.applyChanges();
   }
 
   private _filter(value: LanguageModel): LanguageModel[] {

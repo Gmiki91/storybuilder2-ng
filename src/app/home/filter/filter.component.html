@@ -2,7 +2,7 @@
   <form [formGroup]="filterForm" class="filter-options-container">
 
     <section class="filter-field">
-      <label>Language:</label>
+      <label>Language</label>
       <i class="selected-levels" (click)="remove(selectedLanguage)"
         *ngFor="let selectedLanguage of selectedLanguages">{{selectedLanguage.text}}&nbsp;&nbsp;</i>
       <input type="text" placeholder="Pick one" matInput [formControl]="languageControl" [matAutocomplete]="auto">
@@ -15,7 +15,7 @@
     </section>
 
     <div class="filter-field levels" formControlname="levels">
-      <label>Level:</label>
+      <label>Level</label>
       <div class="filter-options-container">
         <span><input type="checkbox" value="A" (change)="onCheckboxChange($event)"
             [checked]="isCheckboxChecked('levels','A')">Beginner</span>
@@ -27,7 +27,7 @@
     </div>
 
     <section class="filter-field" formControlname="from" selected="sc.from" (change)="onFromChange($event)">
-      <label>Story:</label>
+      <label>Story</label>
       <div class="filter-options-container">
         <span><input type="radio" value="own" name="from" [checked]="isCheckboxChecked('from','own')" />Own</span>
         <span><input type="radio" value="favorite" name="from"
@@ -37,7 +37,7 @@
     </section>
 
     <section class="filter-field" (change)="onOpenChange($event)">
-      <label>Archived:</label>
+      <label>Archived</label>
       <div class="filter-options-container">
         <span><input type="radio" value="no" name="open" [checked]="isCheckboxChecked('open','no')" />Yes</span>
         <span><input type="radio" value="yes" name="open" [checked]="isCheckboxChecked('open','yes')" />No</span>
@@ -46,8 +46,4 @@
     </section>
 
   </form>
-  <div>
-    <button type="button" class="cancel-btn" (click)="onClear()">Clear</button>
-    <button type="button" (click)="onApply()">Apply</button>
-  </div>
 </div>

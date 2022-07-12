@@ -4,7 +4,7 @@ input{
 }
 
 label{ 
-  margin-right:5%
+  text-align: center;
 }
 
 .filter-container{
@@ -22,8 +22,11 @@ label{
     display:flex;
     flex-direction: column ; 
     justify-content: flex-start;
-    
-    padding:2%;
+    margin:2%;
+    padding:3%;
+    border-radius: 4%;
+    border: 2px inset;
+    background-color: var(--main);
 }
 
 .selected-levels{

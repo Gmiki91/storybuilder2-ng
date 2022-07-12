@@ -30,7 +30,7 @@ export class StoryService {
     storyList = new BehaviorSubject<Story[]>([])
     story = new Subject<Story>()
     searchCriteria: SearchCriteria = defaultSearchCriteria;
-    sortBy: Sort = 'ratingAvg';
+    sortBy: Sort = 'updatedAt';
     sortDirection: 1 | -1 = -1;
     storyName: string = '';
 

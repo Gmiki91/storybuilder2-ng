@@ -1,12 +1,11 @@
 <div class="home-container">
     <div class="group-container">
-      
         <div class="stories-container">
             <h1>
                 <mat-icon>content_copy</mat-icon>Stories
             </h1>
             <div *ngIf="(storyList$|async) as storyList" class="stories-container-container">
-                <div class="criteria" *ngIf="loggedIn">
+                <div class="card criteria" *ngIf="loggedIn">
                     <div>
                         <input class="searchbar" (keyup.enter)="search(input.value)" #input placeholder="Search title">
                         <p *ngIf="error">Title must be at least 3 characters long</p>

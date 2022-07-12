@@ -37,7 +37,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1%;
+    padding: 3%;
     border-radius: 10px;
     background-color: var(--secondary);
     box-shadow: 0 3px 12px 0 rgba(0, 0, 0, .08);
@@ -50,10 +50,9 @@ h1 {
 
 .searchbar {
     border: transparent;
-    padding: 5px;
     text-align: center;
     border-bottom: 1px solid;
-    margin-bottom: 1rem;
+    margin: 1rem;
     font-size: 1rem;
     background-color: var(--secondary);
 }
