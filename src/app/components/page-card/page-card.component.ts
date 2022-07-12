@@ -34,7 +34,7 @@ export class PageCardComponent implements OnInit {
   @Input() archived!: boolean
   @Input() toConfirm!: boolean;
   @Input() ownContent!: boolean;
-  @Output() pageAccepted: EventEmitter<{ pageId: string, authorId: string }> = new EventEmitter;
+  @Output() pageAccepted: EventEmitter<{ pageId: string, authorId: string, ratings:Rate[] }> = new EventEmitter;
   @Output() pageDeclined: EventEmitter<string> = new EventEmitter;
   @Output() pageRated: EventEmitter<number> = new EventEmitter;
   rating: number = 0;
@@ -62,8 +62,7 @@ export class PageCardComponent implements OnInit {
   }
 
   accept(): void {
-    firstValueFrom(this.storyService.addPage(this.page._id, this.storyId, this.page.ratings, this.page.authorId))
-      .then(() => this.pageAccepted.emit({ pageId: this.page._id, authorId: this.page.authorId }))
+    this.pageAccepted.emit({ pageId: this.page._id, authorId: this.page.authorId, ratings:this.page.ratings })
   }
 
   decline(): void {

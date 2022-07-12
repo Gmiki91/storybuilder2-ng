@@ -7,7 +7,7 @@ import { NewPageComponent } from '../forms/new-page/new-page.component';
 import { NewWordsComponent } from '../forms/new-words/new-words.component';
 import { RateLevelComponent } from '../forms/rate-level/rate-level.component';
 import { Note } from '../shared/models/note';
-import { Page } from '../shared/models/page';
+import { Page, Rate } from '../shared/models/page';
 import { Story } from '../shared/models/story';
 import { User } from '../shared/models/user';
 import { AuthenticationService } from '../shared/services/authentication.service';
@@ -16,7 +16,7 @@ import { PageService } from '../shared/services/page.service';
 import { StoryService } from '../shared/services/story.service';
 
 type PageType = 'Confirmed' | 'Pending';
-type emitObject = { pageId: string, authorId: string }
+type emitObject = { pageId: string, authorId: string, ratings:Rate[] }
 const PAG_SIZE = 10;
 @Component({
   selector: 'app-story',
@@ -116,8 +116,8 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   async pageAccepted(result: emitObject) {
-    const response = confirm('All other pending pages will be rejected. Are you sure?')
-    if (response) {
+    if (confirm('All other pending pages will be rejected. Are you sure?')) {
+      await firstValueFrom(this.storyService.addPage(result.pageId, this.story._id, result.ratings, result.authorId))
       this.submitNewWords();
       this.hideToggle = true;
       if (result.authorId !== this.user._id) this._sendAcceptNote(result.authorId);
@@ -254,5 +254,4 @@ export class StoryComponent implements OnInit, OnDestroy {
 
     this.noteService.addNotes(authorId, note);
   }
-
 }
