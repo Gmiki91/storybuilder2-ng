@@ -116,7 +116,8 @@ export class StoryComponent implements OnInit, OnDestroy {
   }
 
   async pageAccepted(result: emitObject) {
-    if (confirm('All other pending pages will be rejected. Are you sure?')) {
+    const response = confirm('All other pending pages will be rejected. Are you sure?')
+    if (response) {
       this.submitNewWords();
       this.hideToggle = true;
       if (result.authorId !== this.user._id) this._sendAcceptNote(result.authorId);
