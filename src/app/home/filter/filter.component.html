@@ -3,9 +3,9 @@
 
     <section class="filter-field">
       <label>Language</label>
-      <i class="selected-levels" (click)="remove(selectedLanguage)"
+      <i class="selected-languages" (click)="remove(selectedLanguage)"
         *ngFor="let selectedLanguage of selectedLanguages">{{selectedLanguage.text}}&nbsp;&nbsp;</i>
-      <input type="text" placeholder="Pick one" matInput [formControl]="languageControl" [matAutocomplete]="auto">
+      <input style="margin-top:0.5rem" type="text" placeholder="Pick one" matInput [formControl]="languageControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)='selectOption($event.option.value)'>
         <mat-option *ngFor="let language of filteredLanguages| async" [value]="language">
           <img class="icon" src="../assets/flags/{{language.text}}.png" />
